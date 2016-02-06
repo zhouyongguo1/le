@@ -1,0 +1,28 @@
+.filter {
+    margin-bottom: 10px;
+
+}
+
+.filter > ul {
+    padding-left: 0px;
+    list-style: none outside none;
+    margin-bottom: 0px;
+}
+
+.filter ul > li {
+    display: inline-block;
+    padding: 5px;
+    line-height: 1.4;
+    border: 1px solid #FFF;
+    margin-bottom: 3px;
+}
+
+.filter ul > li a {
+    color: #aaa;
+}
+
+.filter ul > li.active a {
+    background-color: #f1f9f7;
+    border-color: #e0f1e9;
+    color: #1d9d74;
+}

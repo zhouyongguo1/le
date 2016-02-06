@@ -1,0 +1,55 @@
+.pieces {
+    padding: 8px 10px;
+}
+
+.pieces ul {
+    padding-left: 0px;
+    list-style: none outside none;
+}
+
+.pieces ul > li {
+    display: inline-block;
+    width: 24%;
+    padding: 10px;
+    line-height: 1.4;
+    background-color: #F9F9F9;
+    border: 1px solid #FFF;
+    margin-bottom: 3px;
+}
+
+.pieces ul li > div > img {
+    border-radius: 50%;
+    width: 40px;
+    float: left;
+}
+
+.pieces ul li .name {
+    display: block;
+    width: 100px;
+    padding: 5px 0px 0px 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.pieces ul li .mail {
+    isplay: block;
+    width: 100px;
+    padding: 0px 0px 0px 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.pieces ul > li a {
+    color: #333;
+}
+
+.pieces ul > li.active {
+    background-color: #f1f9f7;
+    border-color: #e0f1e9;
+    color: #1d9d74;
+}
+.pieces ul > li.active >a{
+    color: #1d9d74;
+}

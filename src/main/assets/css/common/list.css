@@ -1,0 +1,35 @@
+
+.work-list {
+    margin-top: 0px;
+}
+
+.table > thead:first-child > tr:first-child > th {
+    border-bottom: 1px solid #ddd;
+    font-weight: 300;
+    color: #aaa;
+}
+
+.work-list > tbody > tr > td {
+    vertical-align: middle;
+    padding: 4px;
+    border-top: 1px dashed #ddd;
+}
+
+.work-list a {
+    color: #333;
+}
+
+.info-box ul {
+    padding-left: 0;
+    margin-left: -5px;
+    list-style: none;
+    margin-bottom: 2px;
+}
+
+.info-box ul li {
+    display: inline-block;
+    padding-right: 5px;
+    padding-left: 5px;
+    font-size: 12px;
+    color: #aaa;
+}

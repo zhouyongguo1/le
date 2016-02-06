@@ -1,0 +1,11 @@
+textarea{
+    border: 1px solid #ccc;
+}
+.form-control{
+    border-radius: 0px;
+    box-shadow:none;
+}
+.btn {
+    border-radius: 0px;
+}
+

@@ -1,0 +1,143 @@
+body {
+    font-size: 14px;
+    line-height: 25px;
+    font-family: 'Helvetica Neue', Helvetica, 'Microsoft Yahei', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', sans-serif;
+    color: #444;
+    background-color: #6f5499;
+}
+.btn {
+    border-radius: 0;
+}
+.form-control {
+    border-radius: 0px;
+    box-shadow: none;
+}
+
+header.navbar {
+    margin-bottom: 10px;
+    border-bottom: 0;
+}
+
+.themes {
+    padding: 5px 5px 2px 15px;
+}
+
+.themes > a {
+    padding: 4px 12px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.nav .dropdown > a, .nav .dropdown > a:focus, .nav .dropdown > a:hover {
+    background-color: transparent;
+    border-color: #337ab7;
+}
+
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+    background-color: transparent;
+    border-color: #337ab7;
+}
+
+.navbar-brand, .navbar-nav > li > a, .navbar-brand:hover {
+    background-color: transparent;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+
+.teams ul > li a {
+    color: #333;
+
+}
+
+.teams ul {
+    padding-left: 0px;
+    list-style: none outside none;
+}
+
+.teams ul > li {
+    display: inline-block;
+    padding: 20px 20px;
+    line-height: 1.4;
+    background-color: #F9F9F9;
+    border: 1px solid #FFF;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    min-width: 23%;
+}
+
+.teams ul > li.add {
+    min-width: 0%;
+    line-height: 3;
+    padding: 8px 20px;
+}
+
+.teams ul > li > .work {
+    display: none;
+}
+
+.teams ul > li:hover > .work {
+    display: block;
+}
+
+.teams ul > li.active {
+    background-color: #f1f9f7;
+    border-color: #e0f1e9;
+    color: #1d9d74;
+}
+
+.teams ul > li.active > a {
+    color: #1d9d74;
+}
+
+footer {
+    padding: 20px;
+    text-align: center;
+    color: #efefef;
+
+}
+
+.modal-dialog {
+    width: 600px;
+    margin: 200px auto;
+}
+
+.mod {
+    padding: 15px 15px 10px 15px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    min-height: 400px;
+}
+
+.mod-header {
+    position: relative;
+}
+
+.mod-header h4 {
+    font-size: 17px;
+    border-bottom: 1px solid #eee;
+    padding: 10px 10px;
+    margin: 0px 0 5px;
+}
+
+.mod-header > .tools {
+    position: absolute;
+    right: 20px;
+    z-index: 2;
+    top: 10px;
+    line-height: 20px;
+}
+
+.mod-body {
+    padding: 10px;
+}
+.parsley-errors-list {
+    color: #B94A48;
+    padding: 3px 3px;
+    list-style-type: none;
+    font-size: 0.9em;
+}
+
+.parsley-errors-list li {
+    list-style: none;
+}

@@ -1,0 +1,84 @@
+<#macro layout title="乐趣办公" header="" footer="">
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>${title}</title>
+    <link href="/assets/css/vendor.css" rel="stylesheet">
+    <link href="/assets/css/common.css" rel="stylesheet">
+    <#noescape>
+    ${header}
+    </#noescape>
+</head>
+<body>
+
+<header class="navbar navbar-static-top" role="banner">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">
+                Lequ
+            </a>
+        </div>
+        <nav class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="/">首页</a>
+                </li>
+                <li>
+                    <a href="/projects">项目</a>
+                </li>
+                <li>
+                    <a href="/works">工作审批</a>
+                </li>
+                <li>
+                    <a href="/roles">团队</a>
+                </li>
+
+                <li>
+                    <a href="/events">动态事件</a>
+                </li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="text-danger msg"><i class="fa fa-envelope fa-fw"></i>4消息</a>
+                </li>
+                <li class="dropdown">
+
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <i class="fa fa-user fa-fw"></i>zhouyongguo <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="themes">
+                                <a href="#" style="background-color: #2e6da4"></a>
+                                <a href="#" style="background-color: #1d9d74"></a>
+                                <a href="#" style="background-color: #843534"></a>
+                                <a href="#" style="background-color: #dddddd"></a>
+                            </div>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#"><i class="fa fa-cog fa-fw"></i>个人设置</a></li>
+                        <li><a href="#"><i class="fa fa-sign-out fa-fw"></i>退出</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </nav>
+    </div>
+</header>
+<div class="container">
+    <#nested/>
+</div>
+    <#noescape>
+    <footer role="contentinfo">
+        乐趣软件，快乐的工作生活
+    </footer>
+
+    <script src="assets/js/vendor.js"></script>
+    ${footer}
+    </#noescape>
+</body>
+</html>
+</#macro>

@@ -1,0 +1,30 @@
+
+/*mod begin*/
+.mod {
+    padding: 15px 15px 10px 15px;
+    margin-bottom: 20px;
+    background-color: #fff;
+}
+
+.mod-header {
+    position: relative;
+}
+
+.mod-header h4 {
+    font-size: 17px;
+    border-bottom: 1px solid #eee;
+    padding: 10px 10px;
+    margin: 0px 0 5px;
+}
+
+.mod-header > .tools {
+    position: absolute;
+    right: 20px;
+    z-index: 2;
+    top: 10px;
+    line-height: 20px;
+}
+
+.mod-body {
+    padding: 10px;
+}

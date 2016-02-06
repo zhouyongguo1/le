@@ -1,0 +1,78 @@
+.task {
+}
+
+.tasks-header {
+    position: relative;
+    padding: 0px 10px;
+
+}
+
+.tasks-header h4 {
+    font-size: 18px;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0px 10px 0px;
+    margin: 20px 0 10px;
+}
+
+.tasks-header > .tools {
+    position: absolute;
+    right: 20px;
+    z-index: 2;
+    top: 15px;
+    line-height: 20px;
+}
+
+.task-type {
+    padding: 10px 20px;
+}
+
+.task-type-header {
+    position: relative;
+    padding: 0px 10px;
+}
+
+.task-type-header h4 {
+    font-size: 15px;
+    border-bottom: 0px solid #eee;
+    padding: 0px 0px 10px 0px;
+    margin: 0px;
+}
+
+.task-type  ul {
+    padding-left: 10px;
+    list-style: none;
+}
+.task-type  ul li {
+    padding: 3px 17px;
+    border-top: 1px dashed #ddd;
+}
+.task-type  ul li a{
+    color: #333;
+}
+
+
+.tasks .priority {
+    color: red;
+}
+.tasks .info {
+    color: #5BC0DE;
+}
+.tasks .default {
+    color: #cccccc;
+
+}
+.task-add{
+    padding:3px 20px;
+}
+.tasks-draft .state {
+    color: #F0AD4E;
+    font-size: 17px;
+}
+.tasks-run .state {
+    color: #2E6DA4;
+    font-size: 17px;
+}
+.tasks-over .state {
+    color:#5CB85C;
+    font-size: 17px;
+}
