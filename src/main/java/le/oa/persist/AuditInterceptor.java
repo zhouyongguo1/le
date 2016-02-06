@@ -3,14 +3,13 @@ package le.oa.persist;
 import com.google.inject.Inject;
 import le.oa.core.CurrentTeamProvider;
 import le.oa.core.CurrentUserProvider;
+import le.oa.core.models.User;
 import le.oa.core.models.base.DateModel;
 import le.oa.core.models.base.Iteam;
-import le.oa.core.models.User;
 import org.hibernate.EmptyInterceptor;
 import org.hibernate.type.Type;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 public class AuditInterceptor extends EmptyInterceptor {
 
@@ -18,7 +17,7 @@ public class AuditInterceptor extends EmptyInterceptor {
     private CurrentUserProvider currentUserProvider;
     @Inject
     private CurrentTeamProvider currentTeamProvider;
-    
+
     @Override
     public boolean onFlushDirty(Object entity, Serializable id, Object[] currentState,
                                 Object[] previousState, String[] propertyNames, Type[] types) {
@@ -46,10 +45,10 @@ public class AuditInterceptor extends EmptyInterceptor {
     }
 
     private void setTeam(Object[] state, String[] propertyNames) {
-        if (!currentUserProvider.isPresent()) {
+        if (!currentTeamProvider.isPresent()) {
             return;
         }
-        int teamId = currentTeamProvider.get().getId();
+        int teamId = currentTeamProvider.get();
         for (int i = 0; i < propertyNames.length; i++) {
             String property = propertyNames[i];
             switch (property) {
@@ -79,14 +78,8 @@ public class AuditInterceptor extends EmptyInterceptor {
                 case "createdBy":
                     state[i] = currentUser;
                     break;
-                case "createdAt":
-                    state[i] = LocalDateTime.now();
-                    break;
                 case "updatedBy":
                     state[i] = currentUser;
-                    break;
-                case "updatedAt":
-                    state[i] = LocalDateTime.now();
                     break;
                 default:
                     break;
@@ -105,9 +98,6 @@ public class AuditInterceptor extends EmptyInterceptor {
             switch (property) {
                 case "updatedBy":
                     currentState[i] = currentUser;
-                    break;
-                case "updatedAt":
-                    currentState[i] =LocalDateTime.now();
                     break;
                 default:
                     break;

@@ -37,7 +37,7 @@ public class TeamFilter implements Filter {
         try {
             ((Session) entityManager.getDelegate())
                     .enableFilter("team")
-                    .setParameter("teamId", currentTeamProvider.get().getId());
+                    .setParameter("teamId", currentTeamProvider.get());
         } catch (Exception e) {
             LOGGER.warn("can not enable filter.", e);
         }

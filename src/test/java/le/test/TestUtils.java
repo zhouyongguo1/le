@@ -1,7 +1,9 @@
 package le.test;
 
+import le.oa.core.CurrentTeamProvider;
 import le.oa.core.CurrentUserProvider;
 import le.oa.core.models.User;
+import le.web.ContextProvider;
 import ninja.utils.FakeContext;
 import org.hibernate.Session;
 
@@ -43,9 +45,11 @@ public final class TestUtils {
     public static void setCurrentUser(User user) {
         FakeContext context = new FakeContext();
         context.setAttribute(CurrentUserProvider.CURRENT_USER, user);
+        context.setAttribute(CurrentTeamProvider.CURRENT_TEAM, 1);
+        ContextProvider.set(context);
     }
 
-    public static void setCurrentTeam(EntityManager em, int teamId) {
+    public static void setCurrentTeamId(EntityManager em, int teamId) {
         ((Session) em.getDelegate()).enableFilter("team")
                 .setParameter("teamId", teamId);
     }

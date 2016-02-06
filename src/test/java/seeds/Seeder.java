@@ -7,14 +7,17 @@ import le.builder.TeamUserBuilder;
 import le.builder.UserBuilder;
 import le.oa.core.CurrentTeamProvider;
 import le.oa.core.CurrentUserProvider;
+import le.oa.core.models.Team;
 import le.oa.core.models.User;
 import le.test.TestUtils;
+import le.test.Transaction;
 import ninja.servlet.NinjaBootstrap;
 import ninja.utils.NinjaMode;
 import ninja.utils.NinjaPropertiesImpl;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import java.io.IOException;
 
 public class Seeder {
     @Inject
@@ -46,13 +49,9 @@ public class Seeder {
         TestUtils.clearDb(em);
     }
 
-    @com.google.inject.Inject
-    private CurrentUserProvider currentUserProvider;
-    @com.google.inject.Inject
-    private CurrentTeamProvider currentTeamProvider;
-    
+
     @Transactional
-    private void seed() {
+    public void seed() {
         User user = coreDataSeeder.withBuilder(UserBuilder.class).create();
         TestUtils.setCurrentUser(user);
         coreDataSeeder.withBuilder(TeamBuilder.class).create();
@@ -62,5 +61,15 @@ public class Seeder {
         projectDataSeeder.seed();
         workDataSeeder.seed();
     }
+
+    public void seeduser(){
+
+        try (Transaction txn = new Transaction(em.getTransaction())) {
+             coreDataSeeder.withBuilder(UserBuilder.class).create();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
 
 }
