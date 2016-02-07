@@ -31,4 +31,12 @@ public class UserRepository extends BaseRepository<User> {
         return this.first(list);
 
     }
+
+    public Optional<User> findUserById(Integer id) {
+        List<User> list = createQuery("from User a where a.id=:id")
+                .setParameter("id", id)
+                .getResultList();
+        return this.first(list);
+
+    }
 }

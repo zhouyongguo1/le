@@ -1,16 +1,12 @@
 package le.oa.core;
 
-import com.google.common.base.Strings;
 import com.google.inject.Inject;
-import le.oa.core.UserFilter;
 import le.oa.core.models.User;
-import ninja.Context;
+import le.web.ContextProvider;
 import ninja.FilterWith;
 import ninja.Result;
 import ninja.Results;
 import ninja.exceptions.BadRequestException;
-import ninja.validation.ConstraintViolation;
-import ninja.validation.FieldViolation;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
@@ -24,11 +20,10 @@ public abstract class BaseController {
     protected static final String APPLICATION_ZIP = "application/zip";
 
     @Inject
-    private Context context;
+    protected ContextProvider contextProvider;
 
     @Inject
-    private User currentUser;
-
+    protected CurrentUserProvider currentUserProvider;
 
     /**
      * @param templateName template name
@@ -43,11 +38,6 @@ public abstract class BaseController {
         return String.format("%s/%s/%s.ftl.html", parentPackageOfController.replace('.', '/'), className, templateName);
     }
 
-
-    protected FieldViolation createFieldError(String field, String message) {
-        return new FieldViolation(field, ConstraintViolation.create(message));
-    }
-
     protected <T> T checkEntity(Optional<T> optional) {
         if (!optional.isPresent()) {
             throw new BadRequestException("所查询的记录无效");
@@ -56,14 +46,6 @@ public abstract class BaseController {
     }
 
     protected Result redirect(String url) {
-        String nextUrl = context.getParameter("nextUrl");
-        if (!Strings.isNullOrEmpty(nextUrl)) {
-            return Results.redirect(nextUrl);
-        }
-        return Results.redirect(context.getContextPath() + url);
-    }
-
-    protected Result redirectAbsolute(String url) {
         return Results.redirect(url);
     }
 
@@ -76,8 +58,8 @@ public abstract class BaseController {
         return String.format(
                 "%s://%s%s",
                 httpServletRequest.getScheme(),
-                context.getHostname(),
-                context.getContextPath()
+                contextProvider.get().getHostname(),
+                contextProvider.get().getContextPath()
         );
     }
 }

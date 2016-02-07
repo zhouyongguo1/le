@@ -6,7 +6,6 @@ import le.oa.core.CurrentUserProvider;
 import le.oa.core.models.TeamUser;
 import le.oa.core.models.User;
 import le.oa.core.repositories.TeamUserRepository;
-import le.oa.core.repositories.UserRepository;
 import le.oa.core.services.AuthService;
 import le.oa.home.controllers.form.LoginForm;
 import le.web.annotation.Controller;
@@ -28,20 +27,16 @@ public class LoginController {
 
     private TeamUserRepository teamUserRepository;
     private AuthService authenticate;
-    private UserRepository userRepository;
 
     @Inject
-    public LoginController(TeamUserRepository teamUserRepository, AuthService authenticate, UserRepository userRepository) {
+    public LoginController(TeamUserRepository teamUserRepository, AuthService authenticate) {
         this.teamUserRepository = teamUserRepository;
         this.authenticate = authenticate;
-        this.userRepository = userRepository;
     }
 
     @Get
     @Route("/login")
     public Result index(@Param("url") String url) {
-        User user=new User();
-        userRepository.save(user);
         return Results.html().template(named("login"))
                 .render("url", url);
     }
@@ -56,10 +51,16 @@ public class LoginController {
                     .render("form", form);
         } else {
             context.getSession().put(CurrentUserProvider.USER_ID, userOptional.get().getId().toString());
-            Cookie cookie = context.getCookie(CurrentTeamProvider.TEAM_ID);
+
             String teamId = null;
-            if (cookie != null) {
-                teamId = cookie.getValue();
+            if (context.hasCookie(CurrentTeamProvider.TEAM_ID)) {
+                Cookie cookie = context.getCookie(CurrentTeamProvider.TEAM_ID);
+                Optional<TeamUser> optional = teamUserRepository.findByUserIdAndTeamId(
+                        Integer.valueOf(cookie.getValue()),
+                        userOptional.get().getId());
+                if (optional.isPresent()) {
+                    teamId = cookie.getValue();
+                }
             } else {
                 List<TeamUser> list = teamUserRepository.findByUserId(userOptional.get().getId());
                 if (list.size() == 1) {
@@ -70,6 +71,8 @@ public class LoginController {
             if (Strings.isNullOrEmpty(teamId)) {
                 return Results.redirect("/teams");
             } else {
+                Cookie teamCookie = Cookie.builder(CurrentTeamProvider.TEAM_ID, teamId).build();
+                context.getCookies().add(teamCookie);
                 context.getSession().put(CurrentTeamProvider.TEAM_ID, teamId);
                 return Results.redirect("/");
             }

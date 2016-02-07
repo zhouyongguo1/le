@@ -10,6 +10,7 @@ import org.hibernate.EmptyInterceptor;
 import org.hibernate.type.Type;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 public class AuditInterceptor extends EmptyInterceptor {
 
@@ -48,7 +49,7 @@ public class AuditInterceptor extends EmptyInterceptor {
         if (!currentTeamProvider.isPresent()) {
             return;
         }
-        int teamId = currentTeamProvider.get();
+        int teamId = currentTeamProvider.get().getId();
         for (int i = 0; i < propertyNames.length; i++) {
             String property = propertyNames[i];
             switch (property) {

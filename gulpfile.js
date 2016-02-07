@@ -8,7 +8,7 @@ var uglify = require('gulp-uglify')
 var sourcemaps = require('gulp-sourcemaps');
 
 var src_dir = 'src/main/assets/';
-var build_dir = 'build/resources/main/assets/';
+var build_dir = 'build/classes/main/assets/';
 function src(rel_path) {
     return src_dir + rel_path;
 }

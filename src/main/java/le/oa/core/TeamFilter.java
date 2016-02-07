@@ -15,31 +15,28 @@ public class TeamFilter implements Filter {
     private static final Logger LOGGER = LoggerFactory.getLogger(TeamFilter.class);
 
     private EntityManager entityManager;
-    private CurrentTeamProvider currentTeamProvider;
 
     @Inject
-    public TeamFilter(EntityManager entityManager, CurrentTeamProvider currentTeamProvider) {
+    public TeamFilter(EntityManager entityManager) {
         this.entityManager = entityManager;
-        this.currentTeamProvider = currentTeamProvider;
     }
-
 
     @Override
     public Result filter(FilterChain filterChain, Context context) {
-        enableFilter();
+        enableFilter(context);
         return filterChain.next(context);
     }
 
-    private void enableFilter() {
-        if (!currentTeamProvider.isPresent()) {
-            return;
-        }
-        try {
-            ((Session) entityManager.getDelegate())
-                    .enableFilter("team")
-                    .setParameter("teamId", currentTeamProvider.get());
-        } catch (Exception e) {
-            LOGGER.warn("can not enable filter.", e);
+    private void enableFilter(Context context) {
+        String teamId = context.getSession().get(CurrentTeamProvider.TEAM_ID);
+        if (teamId != null) {
+            try {
+                ((Session) entityManager.getDelegate())
+                        .enableFilter("team")
+                        .setParameter("teamId", Integer.valueOf(teamId));
+            } catch (Exception e) {
+                LOGGER.warn("can not enable filter.", e);
+            }
         }
     }
 }

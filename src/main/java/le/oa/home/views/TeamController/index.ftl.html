@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>乐趣办公</title>
+    <link href="/assets/css/vendor.css" rel="stylesheet">
+    <link href="/assets/css/oa/teams.css" rel="stylesheet">
+</head>
+<body>
+
+<header class="navbar navbar-static-top" role="banner">
+    <div class="container">
+
+        <nav class="collapse navbar-collapse">
+
+            <ul class="nav navbar-nav navbar-right">
+
+                <li class="dropdown">
+
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <i class="fa fa-user fa-fw"></i>${(currentUserProvider.get().name)!} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="themes">
+                                <a href="#" style="background-color: #2e6da4"></a>
+                                <a href="#" style="background-color: #1d9d74"></a>
+                                <a href="#" style="background-color: #843534"></a>
+                                <a href="#" style="background-color: #dddddd"></a>
+                            </div>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#"><i class="fa fa-cog fa-fw"></i>个人设置</a></li>
+                        <li><a href="#"><i class="fa fa-sign-out fa-fw"></i>退出</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </nav>
+    </div>
+</header>
+<div class="container">
+    <div class="mod">
+        <div class="mod-header">
+            <h4>团队管理</h4>
+        </div>
+        <div class="main-body">
+            <div class="teams">
+                <ul>
+                <#list list as team>
+                    <li>
+                        <a class="" href="/teams/${team.id}">${ team.name }</a>
+                        <!--<span class="pull-right work">-->
+                        <!--<a>修改</a>-->
+                        <!--<a>删除</a>-->
+                        <!--</span>-->
+                    </li>
+                </#list>
+                    <li class="add" data-toggle="modal" data-target="#myModal">
+                        <a class="" href="#">
+                            <i class="icon-plus"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">新建团队</h4>
+                </div>
+                <form action="/teams" method="POST" data-parsley-validate="">
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control col-sm-4" name="name"
+                                       placeholder="团队名称" required="" maxlength="50">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-success">创建团队</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer role="contentinfo">
+    乐趣软件，快乐的工作生活
+</footer>
+<script src="/assets/js/vendor.js"></script>
+<script src="/assets/js/common.js"></script>
+<script>
+    $(function () {
+        $('form').parsley();
+    });
+</script>
+<#if flash.success??>
+<script type="text/javascript">
+    jQuery.message.success("${flash.success}");
+</script>
+<#elseif flash.error??>
+<script type="text/javascript">
+    jQuery.message.error("${flash.error}");
+</script>
+</#if>
+</body>
+</html>

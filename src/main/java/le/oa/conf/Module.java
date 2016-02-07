@@ -11,5 +11,6 @@ public class Module extends AbstractModule {
     @Override
     protected void configure() {
         bind(AuditInitializer.class);
+        bind(FreemarkerConfigurer.class);
     }
 }

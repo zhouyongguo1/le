@@ -24,7 +24,6 @@ public class User extends DateModel {
     private String email;
     private String wechat;//微信
     private String phone;
-    private String photo;
 
     public Integer getId() {
         return id;
@@ -40,6 +39,14 @@ public class User extends DateModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     public String getPass() {
@@ -74,19 +81,5 @@ public class User extends DateModel {
         this.phone = phone;
     }
 
-    public String getPhoto() {
-        return photo;
-    }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
-    }
 }

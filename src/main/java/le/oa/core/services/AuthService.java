@@ -20,7 +20,7 @@ public class AuthService {
         Optional<User> optional = userRepository.findUserByName(userName);
         if (optional.isPresent()) {
             String pass1 = SecurityEncode.encoderByMd5(pass);
-            if (pass.equals(pass1)) {
+            if (pass1.equals(optional.get().getPass())) {
                 return optional;
             } else {
                 return Optional.empty();
