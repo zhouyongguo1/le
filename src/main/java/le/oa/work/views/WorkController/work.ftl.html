@@ -1,0 +1,137 @@
+<#import "/lequ/oa/core/views/layout.ftl.html" as l>
+<#assign header>
+
+</#assign>
+<#assign footer>
+
+</#assign>
+<@l.layout header=header footer=footer>
+  <div class="main">
+    <div class="main-header">
+      <h4>请假单</h4>
+    </div>
+    <div class="main-body">
+
+
+      <div class="work-form">
+
+        <form class="form-horizontal form-label-left">
+
+          <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2">First Name <span class="required">*</span>
+            </label>
+            <div class="col-sm-6">
+              <input type="text" id="first-name2" required="required" class="form-control col-md-7 col-xs-12">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="last-name">Last Name <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6">
+              <input type="text" id="last-name2" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="middle-name" class="control-label col-sm-2">Middle Name / Initial</label>
+            <div class="col-sm-6">
+              <input id="middle-name2" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2">Gender</label>
+            <div class="col-md-6 col-sm-6">
+              <div id="gender2" class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                  <input type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
+                </label>
+                <label class="btn btn-primary active" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                  <input type="radio" name="gender" value="female" checked=""> Female
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Date Of Birth <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6">
+              <input id="birthday2" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+            </div>
+          </div>
+
+        </form>
+        <div class="row">
+        <div class="col-md-offset-1">
+          <ul class="list-unstyled timeline">
+            <li>
+              <div class="block">
+                <div class="tags">
+                  <div class="date">2015-12-10 11：10 </div>
+                  <img src="imgs/2.jpg">
+                  <span>
+                    李华
+                  </span>
+                </div>
+                <div class="block_content">
+                  <h2 class="title">
+
+                  </h2>
+                  <div class="byline">
+                    <span>13 hours ago</span> by <a>Jane Smith</a>
+                  </div>
+                  <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="block">
+                <div class="tags">
+                  <div class="date">2015-12-10 11：10 </div>
+                  <img src="imgs/1.jpg">
+                  <span>
+                    刘杰
+                  </span>
+                </div>
+                <div class="block_content">
+                  <h2 class="title">
+
+                  </h2>
+                  <div class="byline">
+                    <span>13 hours ago</span> by <a>Jane Smith</a>
+                  </div>
+                  <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="block">
+                <div class="tags">
+                  <div class="date">2015-12-10 11：10 </div>
+                  <img src="imgs/3.jpg">
+                  <span>
+                    周星辰
+                  </span>
+                </div>
+                <div class="block_content">
+                  <textarea style="width: 500px" rows="4">
+
+                  </textarea>
+                </div>
+              </div>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-offset-2  col-sm-6">
+          <a href="def.html" class="btn btn-success">同意工作请求</a>
+          <a href="def.html" class="btn">取消</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</@l.layout>

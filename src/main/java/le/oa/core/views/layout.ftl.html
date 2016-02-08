@@ -16,7 +16,7 @@
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand" href="/">
-                Lequ
+            ${(currentTeamProvider.get().name)!}
             </a>
         </div>
         <nav class="collapse navbar-collapse">
@@ -25,17 +25,17 @@
                     <a href="/">首页</a>
                 </li>
                 <li>
-                    <a href="/projects">项目</a>
+                    <a href="/project">项目</a>
                 </li>
                 <li>
-                    <a href="/works">工作审批</a>
+                    <a href="/work">工作审批</a>
                 </li>
                 <li>
-                    <a href="/roles">团队</a>
+                    <a href="/role">团队</a>
                 </li>
 
                 <li>
-                    <a href="/events">动态事件</a>
+                    <a href="/event">动态事件</a>
                 </li>
 
             </ul>
@@ -47,7 +47,7 @@
 
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">
-                        <i class="icon-user fa-fw"></i>zhouyongguo <span class="caret"></span>
+                        <i class="icon-user fa-fw"></i>${(currentUserProvider.get().name)!}  <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li>
@@ -59,8 +59,11 @@
                             </div>
                         </li>
                         <li role="separator" class="divider"></li>
+                        <li><a href="/teams">切换团队</a></li>
+
+                        <li role="separator" class="divider"></li>
                         <li><a href="#"><i class="icon-cog fa-fw"></i>个人设置</a></li>
-                        <li><a href="#"><i class="icon-sign-out fa-fw"></i>退出</a></li>
+                        <li><a href="#"><i class="icon-sign-out"></i>退出</a></li>
                     </ul>
                 </li>
 

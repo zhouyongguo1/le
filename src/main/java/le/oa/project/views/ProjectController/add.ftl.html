@@ -1,0 +1,130 @@
+<#import "/lequ/oa/core/views/layout.ftl.html" as l>
+<#assign header>
+
+</#assign>
+<#assign footer>
+
+</#assign>
+<@l.layout header=header footer=footer>
+  <div class="main">
+    <div class="main-header">
+      <h4>新建项目</h4>
+    </div>
+    <div class="main-body">
+      <form>
+
+        <div class="form-group row">
+          <div class="col-sm-7">
+            <input type="text" class="form-control col-sm-4" placeholder="项目名称">
+          </div>
+        </div>
+
+
+
+        <ul class="nav nav-tabs">
+          <li role="presentation" class="active"><a href="#"><i class="fa fa-user fa-fw"></i> 项目成员</a></li>
+          <li role="presentation"><a href="#"><i class="fa fa-envelope-o fa-fw"></i>邮件邀请</a></li>
+        </ul>
+        <p class="help-block">管理员可以邀请和移除项目成员，只有被邀请的团队成员才能访问该项目的信息。点击这里查看如何设置成员权限。.</p>
+        <div class="nav-tabs-body">
+          <h5>项目成员（<a href="#">添加</a> ）</h5>
+
+          <div class="users">
+            <ul>
+              <li>
+                <div>
+                  <img src="imgs/1.jpg">
+                  <span class="name">李丽华</span>
+                  <span class="mail">lili@qq.com</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <img src="imgs/2.jpg">
+                  <span class="name">李丽华</span>
+                  <span class="mail">lili@qq.com</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <img src="imgs/4.jpg">
+                  <span class="name">李丽华</span>
+                  <span class="mail">lili@qq.com</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <img src="imgs/3.jpg">
+                  <span class="name">李丽华</span>
+                  <span class="mail">lili@qq.com</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <img src="imgs/6.jpg">
+                  <span class="name">李丽华</span>
+                  <span class="mail">lili@qq.com</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <img src="imgs/1.jpg">
+                  <span class="name">李丽华</span>
+                  <span class="mail">lili@qq.com</span>
+                </div>
+              </li>
+
+            </ul>
+
+          </div>
+          <h5>项目访问者（<a href="#">添加</a> ）</h5>
+          <div class="users">
+            <ul>
+              <li>
+                <div>
+                  <img src="imgs/1.jpg">
+                  <span class="name">李丽华</span>
+                  <span class="mail">lili@qq.com</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <img src="imgs/2.jpg">
+                  <span class="name">李丽华</span>
+                  <span class="mail">lili@qq.com</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <img src="imgs/3.jpg">
+                  <span class="name">李丽华</span>
+                  <span class="mail">lili@qq.com</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <img src="imgs/4.jpg">
+                  <span class="name">李丽华</span>
+                  <span class="mail">lili@qq.com</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <img src="imgs/6.jpg">
+                  <span class="name">李丽华</span>
+                  <span class="mail">lili@qq.com</span>
+                </div>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+        <div class="controls">
+          <a href="projects.ftl.html" class="btn btn-success">
+            <i class="fa fa-floppy-o fa-fw"></i>确定</a>
+          <a href="index.html" class="btn">取消</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</@l.layout>

@@ -1,0 +1,160 @@
+<#import "/lequ/oa/core/views/layout.ftl.html" as l>
+<#assign header>
+
+</#assign>
+<#assign footer>
+
+</#assign>
+<@l.layout header=header footer=footer>
+  <div class="main">
+    <div class="main-header">
+      <h4>发起工作审批</h4>
+    </div>
+    <div class="main-body">
+      <div class="pieces">
+        <ul>
+          <li class="active">
+            <a class="" href="#">
+              <i class="fa fa-apple"></i>
+              请假
+            </a>
+          </li>
+          <li>
+            <a class="" href="#">
+              <i class="fa fa-soundcloud"></i>
+              采购固定资产申请
+            </a>
+          </li>
+          <li>
+            <a class="" href="#">
+              <i class="fa fa-share-alt "></i>
+              申请出差
+            </a>
+          </li>
+          <li>
+            <a class="" href="#">
+              <i class="fa fa-flag"></i>
+              合同审批
+            </a>
+          </li>
+          <li>
+            <a class="" href="#">
+              <i class="fa fa-mixcloud"></i>
+              电话费报销
+            </a>
+          </li>
+          <li>
+            <a class="" href="#">
+              <i class="fa fa-simplybuilt "></i>
+              外协做审批
+            </a>
+          </li>
+          <li>
+            <a class="" href="#">
+              <i class="fa fa-flag"></i>
+              通用工作申请
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="work-form">
+        <h4>请假单</h4>
+
+        <div class="work-wizard">
+          <ul class="wizard_steps anchor">
+            <li>
+              <a href="#step-1" class="selected" isdone="1" rel="1">
+                <span class="step_no"> <img src="imgs/4.jpg"></span>
+                <span class="step_descr">李华</span>
+              </a>
+            </li>
+            <li>
+              <a href="#step-2" class="disabled" isdone="0" rel="2">
+                <span class="step_no">
+                   <img src="imgs/1.jpg">
+                </span>
+                <span class="step_descr">王杰</span>
+              </a>
+            </li>
+            <li>
+              <a href="#step-3" class="disabled" isdone="0" rel="3">
+                <span class="step_no">
+                   <img src="imgs/2.jpg">
+                </span>
+                <span class="step_descr">张凯 </span>
+              </a>
+            </li> <li>
+            <a href="#step-3"  isdone="0" rel="3">
+              <span class="step_no">
+                 <img src="imgs/3.jpg">
+              </span>
+              <span class="step_descr">张凯 </span>
+            </a>
+          </li>
+            <li>
+              <a href="#step-4" class="add" isdone="0" rel="4">
+                <span class="step_no"><i class="fa fa-plus"></i></span>
+                <span class="step_descr"></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <form class="form-horizontal form-label-left">
+
+          <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2">First Name <span class="required">*</span>
+            </label>
+            <div class="col-sm-6">
+              <input type="text" id="first-name2" required="required" class="form-control col-md-7 col-xs-12">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="last-name">Last Name <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6">
+              <input type="text" id="last-name2" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="middle-name" class="control-label col-sm-2">Middle Name / Initial</label>
+            <div class="col-sm-6">
+              <input id="middle-name2" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2">Gender</label>
+            <div class="col-md-6 col-sm-6">
+              <div id="gender2" class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                  <input type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
+                </label>
+                <label class="btn btn-primary active" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                  <input type="radio" name="gender" value="female" checked=""> Female
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Date Of Birth <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6">
+              <input id="birthday2" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+            </div>
+          </div>
+          <div class="form-group">
+          <div class="col-md-offset-2  col-sm-6">
+            <a href="def.html" class="btn btn-success">发送工作审批</a>
+            <a href="def.html" class="btn">取消</a>
+          </div>
+          </div>
+        </form>
+
+      </div>
+
+
+
+    </div>
+  </div>
+</@l.layout>

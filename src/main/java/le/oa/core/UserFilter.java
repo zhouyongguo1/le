@@ -29,8 +29,6 @@ public class UserFilter implements Filter {
         Optional<User> userOptional = getUser(context);
         if (userOptional.isPresent()) {
             context.setAttribute(CurrentUserProvider.CURRENT_USER, userOptional.get());
-            String teamId = context.getSession().get(CurrentTeamProvider.TEAM_ID);
-            context.setAttribute(CurrentTeamProvider.CURRENT_TEAM, teamId);
             Result result = chain.next(context);
             return result;
         } else {
