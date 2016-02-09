@@ -20,9 +20,9 @@ public class Project extends BaseModel {
     private String name;
     @Enumerated(EnumType.STRING)
     private ProjectStatus status = ProjectStatus.START;
-    private String icon;
-    private Boolean isArchived;
-    private Boolean isDel;
+    private String icon = "";
+    private Boolean isArchived = false;
+    private Boolean isDel = false;
 
     public Integer getId() {
         return id;

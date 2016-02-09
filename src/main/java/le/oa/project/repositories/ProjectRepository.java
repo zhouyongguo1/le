@@ -19,9 +19,8 @@ public class ProjectRepository extends BaseRepository<Project> {
 
 
     public List<Project> findByUserId(Integer userId) {
-        this.disableTeamFilter();
         List<Project> list = createQuery("from Project a where a.id in" +
-                " (select b.teamId from TeamUser b where b.user.id=:userId)")
+                " (select b.projectId from ProjectUser b where b.user.id=:userId)")
                 .setParameter("userId", userId)
                 .getResultList();
         return list;
@@ -35,11 +34,13 @@ public class ProjectRepository extends BaseRepository<Project> {
 
     }
 
-    public List<ProjectDto> findProjectDtoByUserId(Integer userId) {
-        String sql = "SELECT a.id,a.name,(SELECT count(1) FROM pro_user b WHERE a.id=b.project_id) AS member_count " +
-                "FROM pro_project a LEFT JOIN pro_user c ON a.id=c.project_id WHERE c.user_id=:userId";
+    public List<ProjectDto> findProjectDtoByUserId(Integer userId, int teamId) {
+        String sql = "SELECT a.id,a.name,a.team_id,(SELECT count(1) FROM pro_user b WHERE a.id=b.project_id) AS member_count " +
+                "FROM pro_project a LEFT JOIN pro_user c ON a.id=c.project_id " +
+                "WHERE c.user_id=:userId and a.team_id=:teamId";
         List<ProjectDto> list = this.emProvider.get().createNativeQuery(sql, ProjectDto.class)
                 .setParameter("userId", userId)
+                .setParameter("teamId", teamId)
                 .getResultList();
         return list;
     }

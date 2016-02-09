@@ -2,6 +2,7 @@ package le.oa.project.models;
 
 import le.oa.core.models.Status;
 import le.oa.core.models.User;
+import le.oa.core.models.base.TeamModel;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,7 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "pro_user")
-public class ProjectUser {
+public class ProjectUser extends TeamModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -28,7 +29,7 @@ public class ProjectUser {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private boolean isOwner;
+    private boolean isOwner = false;
     @Enumerated(EnumType.STRING)
     private Status status = Status.ACTIVE;
 

@@ -2,6 +2,7 @@ package le.test;
 
 import le.oa.core.CurrentTeamProvider;
 import le.oa.core.CurrentUserProvider;
+import le.oa.core.models.Team;
 import le.oa.core.models.User;
 import le.web.ContextProvider;
 import ninja.utils.FakeContext;
@@ -44,8 +45,10 @@ public final class TestUtils {
 
     public static void setCurrentUser(User user) {
         FakeContext context = new FakeContext();
+        Team team=new Team();
+        team.setId(1);
         context.setAttribute(CurrentUserProvider.CURRENT_USER, user);
-        context.setAttribute(CurrentTeamProvider.CURRENT_TEAM, 1);
+        context.setAttribute(CurrentTeamProvider.CURRENT_TEAM, team);
         ContextProvider.set(context);
     }
 
