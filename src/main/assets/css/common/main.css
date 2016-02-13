@@ -6,6 +6,7 @@ body {
     background-color: #6f5499;
 }
 
+
 .dropdown-menu > li > a {
     display: block;
     padding: 5px 20px;
@@ -16,6 +17,7 @@ body {
     font-size: 13px;
     white-space: nowrap;
 }
+
 header {
     margin-bottom: 0;
     background-color: #fff;
@@ -38,6 +40,7 @@ header {
     padding: 10px 10px;
     margin: 0px;
 }
+
 .main-header .breadcrumb {
     padding: 10px;
     background-color: #ffffff;
@@ -45,6 +48,7 @@ header {
     border-bottom: 1px solid #eee;
     margin-bottom: 0px;
 }
+
 .main-header > .tools {
     position: absolute;
     right: 10px;
@@ -52,6 +56,7 @@ header {
     top: 15px;
     line-height: 20px;
 }
+
 .main-body {
     padding: 10px;
 }
@@ -64,7 +69,17 @@ header {
     color: #aab6aa;
 }
 
+.label-action{
+    background-color: #f1f9f7;
+    color: #1d9d74;
+}
+.label-inaction {
+    background-color: #eee;
+    color: darkgrey;
+}
+
 ul.social li {
     border: 0;
 }
+
 /* *********  /timeline  **************************** */

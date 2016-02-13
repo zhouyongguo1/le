@@ -1,339 +1,347 @@
 <#import "/le/oa/core/views/layout.ftl.html" as l>
+<#import "/le/oa/project/views/lib.ftl.html" as lib>
 <#assign header>
+<style>
+    .input-group-addon {
+        border: 1px solid #ccc;
+        border-left: 0px solid #ccc;
+        border-radius: 0px;
+    }
 
+    select {
+        border-radius: 0px;
+        -webkit-appearance: none;
+        -webkit-border-radius: 0px;
+
+    }
+
+    .form {
+        border: 0px solid #ccc;
+        background-color: #FAFAFA;
+        padding: 10px;
+    }
+
+    label {
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 5px;
+        font-weight: 300;
+    }
+
+    .required {
+        color: red;
+
+    }
+
+    .form-header {
+
+    }
+
+    .form-header h4 {
+        font-size: 17px;
+        border-bottom: 1px solid #eee;
+        padding: 10px 10px;
+        margin: 0px;
+    }
+
+    .form-body {
+        padding: 10px;
+    }
+
+    ul.parsley-errors-list {
+        color: #B94A48;
+        padding: 3px 3px;
+        list-style-type: none;
+        font-size: 0.9em;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    ul.parsley-errors-list > li {
+        list-style: none;
+        padding: 0px;
+        border: none;
+    }
+
+
+</style>
 </#assign>
 <#assign footer>
+<script>
+    ;
+    (function ($) {
+        $.selectDate = (function () {
+            var init = function ($date, callback) {
+                $date.datetimepicker({
+                    format: "yyyy-mm-dd",
+                    autoclose: true,
+                    fontAwesome: true,
+                    minView: 2,
+                    language: 'zh-CN'
+                }).on('changeDate', function (ev) {
+                    if (typeof callback === "function") {
+                        callback();
+                    }
+                });
+                $date.siblings(".date-select").on('click', function () {
+                    $date.datetimepicker('show');
+                });
+                $date.siblings(".date-clear").on('click', function () {
+                    $date.val("");
+                });
+            };
+            return {
+                init: init
+            }
+        })();
+    })(jQuery);
 
+    var task = (function () {
+
+        /*变量声明*/
+        var addStatus = function () {
+                }
+                ;
+        var init = function () {
+
+            $("#saveBtn").click(function () {
+                $("#task-form").isValid();
+
+            });
+
+            $('.btn').on('click', btnClick);
+            $('a.add').on('click', addClick);
+        };
+        return {
+            init: init
+        };
+
+    })();
+
+    function addtask(task) {
+        var $li = $(".task-item li").clone();
+        var $points = $li.find(".task-points");
+        var $pointInfo = $(".task-item .info");
+        var $pointDefault = $(".task-item .default");
+        var pri = "";
+        for (var i = 0; i < task.pri; i++) {
+            pri += "!";
+        }
+        $li.find(".task-pri").text(pri);
+        $li.find(".task-name").text(task.name);
+
+        for (var i = 0; i < task.points; i++) {
+            $points.append($pointInfo.clone());
+            $points.append(" ");
+        }
+        for (var i = task.points; i < 5; i++) {
+            $points.append($pointDefault.clone());
+            $points.append(" ");
+        }
+        var inaction = false;
+        if (task.owner != "" && task.owner != null) {
+            $li.append($(".task-item .task-owner").clone().text(task.owner));
+            inaction = true;
+        }
+        if (task.planEndDate != "" && task.planEndDate != null) {
+            $li.append($(".task-item .task-plan").clone().text(task.planEndDate));
+            inaction = true;
+        }
+        if (inaction == false) {
+            $li.append($(".task-item .label-inaction").clone());
+        }
+        $(".tasks-draft").append($li);
+        $("#tasks-draft-count").text($(".tasks-draft li").length + "" + "个");
+    }
+    $(function () {
+        $.selectDate.init($('#planEndDate'));
+        $("#saveBtn").click(function () {
+            if ($('form').parsley().validate()) {
+                var taskForm = {
+                    name: $('#taskName').val(),
+                    ownerId: $('#ownerId').val(),
+                    owner: $('#ownerId').find("option:selected").text(),
+                    planEndDate: $("#planEndDate").val()
+                };
+                $.post("/project/${project.id}/task", taskForm, function (data) {
+                    addtask(data.task);
+                });
+            }
+
+        });
+        $("#cancelBtn").click(function () {
+            $("#task-add").show();
+            $("#task-form").hide();
+        });
+        $("#task-add").click(function () {
+            $(this).hide();
+            $("#task-form").show();
+
+        });
+        $('body').on("click", '.tasks-body .state', function () {
+            var $task = $(this).closest('li');
+            var $li = $task.clone();
+            var status = $(this).data("status");
+            $(this).removeClass('fa-square-o').addClass('fa-check-square');
+            var url = "/project/${project.id}/task/" + $(this).data('id') + "/update-status";
+            var data = {"status": $(this).data('status')};
+            $('body').oneTime('1s', function () {
+                $.post(url, data, function () {
+                    $task.remove();
+                    if (status == 'NONE') {
+                        $.msg.success("任务进行中……");
+                        $li.find(".state").data("status","START");
+                        $(".tasks-run").append($li);
+                    }
+                    else if (status == 'START') {
+                        $.msg.success("任务已经完成");
+                        $li.find(".state").data("status","FINISH")
+                        $(".tasks-over").append($li);
+                    }
+                    else {
+                        $.msg.success("任务已经归档");
+                    }
+                });
+            });
+        });
+
+
+    });
+
+</script>
 </#assign>
 <@l.layout header=header footer=footer>
-  <div class="main">
-    <div class="main-header">
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-home fa-fw"></i>首页</a></li>
-        <li><a href="#">项目管理</a></li>
-        <li class="active">宏远建筑项目</li>
-      </ol>
-
-      <div class="tools">
-        <ul>
-          <li>
-            <a href="newproject.html" class="text-success">进度:23%</a>
-          </li>
-          <li>
-            <a href="index.html">
-              <i class="fa fa-cog fa-fw"></i>设置
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <ul class="nav nav-tabs">
-      <li class="active">
-        <a href="#" >
-          任务
-        </a>
-
-      </li>
-      <li>
-        <a href="#" >
-          讨论
-        </a>
-
-      </li>
-      <li>
-        <a href="#" >
-          文档
-        </a>
-
-      </li>
-      <li>
-        <a href="#" >
-          事件
-        </a>
-
-      </li>
-      <li>
-        <a href="#" >
-          成员
-        </a>
-
-      </li><li>
-      <a href="#" >
-        统计分析
-      </a>
-
-    </li>
-    </ul>
+<div class="main">
+    <@lib.projectHeader project=project/>
 
     <div class="tasks">
-      <div class="tasks-header">
-        <!--<i class="fa fa-plus-square-o fa-fw"></i>-->
 
-        <h4> <a href="#"><i class="fa fa-minus-square-o fa-fw"></i></a>任务</h4>
+        <div class="tasks-body">
+            <div class="task-type">
+                <div class="task-type-header">
+                    <h4>
+                        <a href="#"><i class="fa fa-minus-square-o fa-fw"></i></a>
+                        未开始任务（<span id="tasks-draft-count">${noneTasks?size}个</span>）
+                    </h4>
 
+                </div>
+                <div>
+                    <ul class="tasks-draft">
+                        <#list noneTasks as task>
+                            <li>
+                                <i class="fa fa-square-o fa-fw state" data-id="${task.id}"
+                                   data-status="${task.status}"></i>
+                                <span class="priority">
+                                    <#list 0..task.pri as t>
+                                        <#if (t>0)>!</#if>
+                                    </#list>
+                                </span>
+                                <a href="/project/${project.id}/task/${task.id}">${task.name}</a>
 
-      </div>
-      <div class="tasks-body">
-        <div class="task-type">
-          <div class="task-type-header">
-            <h4> <a href="#"><i class="fa fa-minus-square-o fa-fw"></i></a>未开始任务（27个）</h4>
+                                <#list 0..4 as t>
+                                    <#if t<task.points>
+                                        <i class="fa fa-tint info"></i>
+                                    <#else>
+                                        <i class="fa fa-tint default"></i>
+                                    </#if>
+                                </#list>
+                                &nbsp; &nbsp;
+                                <span class="label label-action">${(task.owner.name)!}</span><span class="label 
+                                label-action">${task.planEndDate!}</span>
+                            </li>
+                        </#list>
+                    </ul>
+                    <a href="#" id="task-add" class="task-add">添加新任务</a>
+                </div>
+                <#include "task-form.ftl.html">
+            </div>
+            <div class="task-type" id="tasks-start-list">
+                <div class="task-type-header">
+                    <h4><a href="#"><i class="fa fa-minus-square-o fa-fw"></i></a>进行中……（${startTasks?size}个）</h4>
+                </div>
+                <div>
+                    <ul class="tasks-run">
+                        <#list startTasks as task>
+                            <li>
+                                <i class="fa fa-square-o fa-fw state" data-id="${task.id}" 
+                                   data-status="${task.status}"></i>
+                                <span class="priority">
+                                <#list 0..task.pri as t>
+                                    <#if (t>0)>!</#if>
+                                </#list>
+                                </span>
+                                <a href="/project/${project.id}/task/${task.id}">${task.name}</a>
 
-          </div>
-          <div>
-            <ul class="tasks-draft">
-              <li>
-                <i class="fa fa-square-o fa-fw state"></i>
-                <span class="priority">!!</span>
-                <a href="pro.html">因此需要将此1包含在你所使用</a>
-                <i class="fa fa-tint info"></i>
-                <i class="fa fa-tint info"></i>
-                <i class="fa fa-tint default"></i>
-                <i class="fa fa-tint default"></i>
-                <i class="fa fa-tint default"></i>
-                &nbsp; &nbsp;
-                <span class="label label-primary">张三</span>
-                <span class="label label-success">2015-12-10</span>
-              </li>
-              <li>
-                <i class="fa fa-square-o fa-fw state"></i>
-                <span class="priority">!!</span>
-                <a href="pro.html">2件包含在你所使用</a>
-                <i class="fa fa-tint info"></i>
-                <i class="fa fa-tint info"></i>
-                <i class="fa fa-tint default"></i>
-                <i class="fa fa-tint default"></i>
-                <i class="fa fa-tint default"></i>
-                &nbsp; &nbsp;
-                <span class="label label-primary">张三</span>
-                <span class="label label-success">2015-12-10</span>
-              </li> <li>
-              <i class="fa fa-square-o fa-fw state"></i>
-              <span class="priority">!!</span>
-              <a href="pro.html">因此需要将此插件包含在你所使用包含在你所使用包含在你所使用</a>
-              <i class="fa fa-tint info"></i>
-              <i class="fa fa-tint info"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              &nbsp; &nbsp;
-              <span class="label label-primary">张三</span>
-              <span class="label label-success">2015-12-10</span>
-            </li> <li>
-              <i class="fa fa-square-o fa-fw state"></i>
-              <span class="priority">!!</span>
-              <a href="pro.html">因此需要将此插件包含在你所使用因此需要将此插件包含在你所使用因此需要将此插件包含在你所使用</a>
-              <i class="fa fa-tint info"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              &nbsp; &nbsp;
-              <span class="label label-primary">张三</span>
-              <span class="label label-success">2015-12-10</span>
-            </li> <li>
-              <i class="fa fa-square-o fa-fw state"></i>
-              <span class="priority">!!</span>
-              <a href="pro.html">因此需要将此插件包含在你所使用</a>
-              <i class="fa fa-tint info"></i>
-              <i class="fa fa-tint info"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              &nbsp; &nbsp;
-              <span class="label label-primary">张三</span>
-              <span class="label label-success">2015-12-10</span>
-            </li> <li>
-              <i class="fa fa-square-o fa-fw state"></i>
-              <span class="priority">!!</span>
-              <a href="pro.html">因此因此需要将此插件包含在你所使用需要将此插件包含在你所使用</a>
-              <i class="fa fa-tint info"></i>
-              <i class="fa fa-tint info"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              &nbsp; &nbsp;
-              <span class="label label-primary">张三</span>
-              <span class="label label-success">2015-12-10</span>
-            </li>
-            </ul>
-            <div class="task-add"><a class="#">添加新任务</a></div>
-          </div>
+                                <#list 0..4 as t>
+                                    <#if t<task.points>
+                                        <i class="fa fa-tint info"></i>
+                                    <#else>
+                                        <i class="fa fa-tint default"></i>
+                                    </#if>
+                                </#list>
+                                &nbsp; &nbsp;
+                                <span class="label label-action">${(task.owner.name)!}</span><span class="label
+                                label-action">${task.planEndDate!}</span>
+                            </li>
+                        </#list>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="task-type" id="tasks-finish-list">
+                <div class="task-type-header">
+                    <h4><a href="#"><i class="fa fa-minus-square-o fa-fw"></i></a>已完成（${finishTasks?size}个）</h4>
+
+                </div>
+                <div>
+                    <ul class="tasks-over">
+                        <#list finishTasks as task>
+                            <li>
+                                <i class="fa fa-square-o fa-fw state" data-id="${task.id}"
+                                   data-status="${task.status}"></i>
+                                <span class="priority">
+                                <#list 0..task.pri as t>
+                                    <#if (t>0)>!</#if>
+                                </#list>
+                                </span>
+                                <a href="/project/${project.id}/task/${task.id}">${task.name}</a>
+
+                                <#list 0..4 as t>
+                                    <#if t<task.points>
+                                        <i class="fa fa-tint info"></i>
+                                    <#else>
+                                        <i class="fa fa-tint default"></i>
+                                    </#if>
+                                </#list>
+                                &nbsp; &nbsp;
+                                <span class="label label-action">${(task.owner.name)!}</span><span class="label
+                                label-action">${task.planEndDate!}</span>
+                            </li>
+                        </#list>
+
+                    </ul>
+
+                    <div class="task-add"><a class="#"> 已归档任务清单</a>
+                        &nbsp;&nbsp;&nbsp;<a class="#"> 任务日志清单</a></div>
+                </div>
+            </div>
         </div>
-        <div class="task-type">
-          <div class="task-type-header">
-            <h4> <a href="#"><i class="fa fa-minus-square-o fa-fw"></i></a>未开始任务（27个）</h4>
-
-          </div>
-          <div>
-            <ul class="tasks-run">
-              <li>
-                <i class="fa fa-square-o fa-fw state"></i>
-                <span class="priority">!!</span>
-                <a href="pro.html">因此需要将此1包含在你所使用</a>
-                <i class="fa fa-tint info"></i>
-                <i class="fa fa-tint info"></i>
-                <i class="fa fa-tint default"></i>
-                <i class="fa fa-tint default"></i>
-                <i class="fa fa-tint default"></i>
-                &nbsp; &nbsp;
-                <span class="label label-primary">张三</span>
-                <span class="label label-success">2015-12-10</span>
-              </li>
-              <li>
-                <i class="fa fa-square-o fa-fw state"></i>
-                <span class="priority">!!</span>
-                <a href="pro.html">2件包含在你所使用</a>
-                <i class="fa fa-tint info"></i>
-                <i class="fa fa-tint info"></i>
-                <i class="fa fa-tint default"></i>
-                <i class="fa fa-tint default"></i>
-                <i class="fa fa-tint default"></i>
-                &nbsp; &nbsp;
-                <span class="label label-primary">张三</span>
-                <span class="label label-success">2015-12-10</span>
-              </li> <li>
-              <i class="fa fa-square-o fa-fw state"></i>
-              <span class="priority">!!</span>
-              <a href="pro.html">因此需要将此插件包含在你所使用包含在你所使用包含在你所使用</a>
-              <i class="fa fa-tint info"></i>
-              <i class="fa fa-tint info"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              &nbsp; &nbsp;
-              <span class="label label-primary">张三</span>
-              <span class="label label-success">2015-12-10</span>
-            </li> <li>
-              <i class="fa fa-square-o fa-fw state"></i>
-              <span class="priority">!!</span>
-              <a href="pro.html">因此需要将此插件包含在含在你所使用</a>
-              <i class="fa fa-tint info"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              &nbsp; &nbsp;
-              <span class="label label-primary">张三</span>
-              <span class="label label-success">2015-12-10</span>
-            </li> <li>
-              <i class="fa fa-square-o fa-fw state"></i>
-              <span class="priority">!!</span>
-              <a href="pro.html">因此需要将此插件包含在你所使用</a>
-              <i class="fa fa-tint info"></i>
-              <i class="fa fa-tint info"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              &nbsp; &nbsp;
-              <span class="label label-primary">张三</span>
-              <span class="label label-success">2015-12-10</span>
-            </li> <li>
-              <i class="fa fa-square-o fa-fw state"></i>
-              <span class="priority">!!</span>
-              <a href="pro.html">因此因此需要将此插件包含在你所使用需要将此插件包含在你所使用</a>
-              <i class="fa fa-tint info"></i>
-              <i class="fa fa-tint info"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              &nbsp; &nbsp;
-              <span class="label label-primary">张三</span>
-              <span class="label label-success">2015-12-10</span>
-            </li>
-            </ul>
-          </div>
-        </div>
-        <div class="task-type">
-          <div class="task-type-header">
-            <h4> <a href="#"><i class="fa fa-minus-square-o fa-fw"></i></a>未开始任务（27个）</h4>
-
-          </div>
-          <div>
-            <ul class="tasks-over">
-              <li>
-                <i class="fa fa-square-o fa-fw state"></i>
-                <span class="priority">!!</span>
-                <a href="pro.html">因此需要将此1包含在你所使用</a>
-                <i class="fa fa-tint info"></i>
-                <i class="fa fa-tint info"></i>
-                <i class="fa fa-tint default"></i>
-                <i class="fa fa-tint default"></i>
-                <i class="fa fa-tint default"></i>
-                &nbsp; &nbsp;
-                <span class="label label-primary">张三</span>
-                <span class="label label-success">2015-12-10</span>
-              </li>
-              <li>
-                <i class="fa fa-square-o fa-fw state"></i>
-                <span class="priority">!!</span>
-                <a href="pro.html">2件包含在你所使用</a>
-                <i class="fa fa-tint info"></i>
-                <i class="fa fa-tint info"></i>
-                <i class="fa fa-tint default"></i>
-                <i class="fa fa-tint default"></i>
-                <i class="fa fa-tint default"></i>
-                &nbsp; &nbsp;
-                <span class="label label-primary">张三</span>
-                <span class="label label-success">2015-12-10</span>
-              </li> <li>
-              <i class="fa fa-square-o fa-fw state"></i>
-              <span class="priority">!!</span>
-              <a href="pro.html">因此需要将此插件包含在你所使用包含在你所使用包含在你所使用</a>
-              <i class="fa fa-tint info"></i>
-              <i class="fa fa-tint info"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              &nbsp; &nbsp;
-              <span class="label label-primary">张三</span>
-              <span class="label label-success">2015-12-10</span>
-            </li> <li>
-              <i class="fa fa-square-o fa-fw state"></i>
-              <span class="priority">!!</span>
-              <a href="pro.html">因此需要将此插件包含在你所使用因此需在你所使用</a>
-              <i class="fa fa-tint info"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              &nbsp; &nbsp;
-              <span class="label label-primary">张三</span>
-              <span class="label label-success">2015-12-10</span>
-            </li> <li>
-              <i class="fa fa-square-o fa-fw state"></i>
-              <span class="priority">!!</span>
-              <a href="pro.html">因此需要将此插件包含在你所使用</a>
-              <i class="fa fa-tint info"></i>
-              <i class="fa fa-tint info"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              &nbsp; &nbsp;
-              <span class="label label-primary">张三</span>
-              <span class="label label-success">2015-12-10</span>
-            </li> <li>
-              <i class="fa fa-square-o fa-fw state"></i>
-              <span class="priority">!!</span>
-              <a href="pro.html">因此因此需要将此插件包含在你所使用需要将此插件包含在你所使用</a>
-              <i class="fa fa-tint info"></i>
-              <i class="fa fa-tint info"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              <i class="fa fa-tint default"></i>
-              &nbsp; &nbsp;
-              <span class="label label-primary">张三</span>
-              <span class="label label-success">2015-12-10</span>
-            </li>
-            </ul>
-
-            <div class="task-add"><a class="#"> 已归档任务清单</a>
-              &nbsp;&nbsp;&nbsp;<a class="#"> 任务日志清单</a></div>
-          </div>
-        </div>
-
-
-      </div>
     </div>
 
-  </div>
+</div>
+<div class="hide task-item">
+    <li>
+        <i class="fa fa-square-o fa-fw state"></i>
+        <span class="priority task-pri"></span>
+        <a href="/project/${project.id}/task/" class="task-name"></a>
+        <span class="task-points"></span>
+        &nbsp; &nbsp;
+
+    </li>
+    <span class="label label-action task-owner"></span>
+    <span class="label label-action task-plan"></span>
+    <span class="label label-inaction">未指派</span>
+    <i class="fa fa-tint info"></i>
+    <i class="fa fa-tint default"></i>
+</div>
 </@l.layout>

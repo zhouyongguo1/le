@@ -25,7 +25,7 @@ public class ProjectUser extends TeamModel {
     @Enumerated(EnumType.STRING)
     private ProjectRole role = ProjectRole.MEMBER;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 

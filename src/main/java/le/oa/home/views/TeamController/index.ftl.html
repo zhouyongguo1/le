@@ -59,7 +59,7 @@
                 </#list>
                     <li class="add" data-toggle="modal" data-target="#myModal">
                         <a class="" href="#">
-                            <i class="icon-plus"></i>
+                            <i class="fa fa-plus"></i>
                         </a>
                     </li>
                 </ul>
@@ -109,11 +109,15 @@
 </script>
 <#if flash.success??>
 <script type="text/javascript">
-    jQuery.message.success("${flash.success}");
+    $(function () {
+        $.msg.success("${flash.success}");
+    });
 </script>
 <#elseif flash.error??>
 <script type="text/javascript">
-    jQuery.message.error("${flash.error}");
+    $(function () {
+        $.msg.error("${flash.error}");
+    });
 </script>
 </#if>
 </body>

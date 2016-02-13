@@ -1,29 +1,9 @@
 .task {
 }
 
-.tasks-header {
-    position: relative;
-    padding: 0px 10px;
-
-}
-
-.tasks-header h4 {
-    font-size: 18px;
-    border-bottom: 1px solid #eee;
-    padding: 10px 0px 10px 0px;
-    margin: 20px 0 10px;
-}
-
-.tasks-header > .tools {
-    position: absolute;
-    right: 20px;
-    z-index: 2;
-    top: 15px;
-    line-height: 20px;
-}
 
 .task-type {
-    padding: 10px 20px;
+    padding: 10px;
 }
 
 .task-type-header {
@@ -33,9 +13,9 @@
 
 .task-type-header h4 {
     font-size: 15px;
-    border-bottom: 0px solid #eee;
-    padding: 0px 0px 10px 0px;
-    margin: 0px;
+    border-bottom: 1px solid #eee;
+    padding: 4px 0 10px;
+    margin: 2px;
 }
 
 .task-type  ul {
@@ -44,7 +24,7 @@
 }
 .task-type  ul li {
     padding: 3px 17px;
-    border-top: 1px dashed #ddd;
+    border-bottom: 1px dashed #ddd;
 }
 .task-type  ul li a{
     color: #333;

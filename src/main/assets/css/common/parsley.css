@@ -3,8 +3,11 @@
     padding: 3px 3px;
     list-style-type: none;
     font-size: 0.9em;
+    margin: 0px;
 }
 
 .parsley-errors-list li {
     list-style: none;
+    
 }
+

@@ -27,7 +27,7 @@ public class ProjectRepository extends BaseRepository<Project> {
     }
 
     public Optional<Project> findById(Integer id) {
-        List<Project> list = createQuery("from Team a where a.id=:id")
+        List<Project> list = createQuery("from Project a where a.id=:id")
                 .setParameter("id", id)
                 .getResultList();
         return this.first(list);

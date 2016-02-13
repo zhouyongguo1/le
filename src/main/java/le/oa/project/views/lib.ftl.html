@@ -1,0 +1,60 @@
+<#macro projectHeader project selected="task">
+<div class="main-header">
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li><a href="#">项目管理</a></li>
+        <li class="active">${project.name}</li>
+    </ol>
+
+    <div class="tools">
+        <ul>
+            <li>
+                <a href="newproject.html" class="text-success">进度:23%</a>
+            </li>
+            <li>
+                <a href="index.html">
+                    <i class="fa fa-cog fa-fw"></i>设置
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<ul class="nav nav-tabs">
+    <li ${(selected=="task")?string("class=active", "")}>
+        <a href="#">
+            <i class="fa fa-tasks fa-fw"></i>任务
+        </a>
+
+    </li>
+    <li ${(selected=="comment")?string("class='active'", "")}>
+        <a href="#">
+            <i class="fa fa-commenting-o fa-fw"></i>讨论
+        </a>
+
+    </li>
+    <li ${(selected=="doc")?string("class='active'", "")}>
+        <a href="#">
+            <i class="fa  fa-file-text-o  fa-fw"></i>文档
+        </a>
+
+    </li>
+    <li ${(selected=="even")?string("class='active'", "")}>
+        <a href="#">
+            <i class="fa fa-lightbulb-o fa-fw"></i>事件
+        </a>
+
+    </li>
+    <li ${(selected=="user")?string("class='active'", "")}>
+        <a href="#">
+            <i class="fa fa-user fa-fw"></i>成员
+        </a>
+
+    </li>
+    <li ${(selected=="stat")?string("class='active'", "")}>
+        <a href="#">
+            <i class="fa fa-bar-chart fa-fw"></i>统计分析
+        </a>
+
+    </li>
+</ul>
+</#macro>

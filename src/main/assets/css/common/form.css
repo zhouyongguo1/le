@@ -1,11 +1,39 @@
-textarea{
+textarea {
     border: 1px solid #ccc;
 }
-.form-control{
+
+.form-control {
     border-radius: 0px;
-    box-shadow:none;
+    box-shadow: none;
 }
+
 .btn {
     border-radius: 0px;
 }
 
+.input-group[class*=col-] {
+    float: none;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.input-group-addon {
+    border: 1px solid #ccc;
+    border-radius: 0px;
+}
+
+.form {
+    border: 1px solid #ccc;
+}
+
+.form-header {
+
+}
+
+.form-header h4 {
+
+}
+
+.form-body {
+
+}
