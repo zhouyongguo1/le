@@ -1,0 +1,40 @@
+/*项目讨论*/
+.comment ul {
+    padding: 0;
+    list-style: none outside none;
+
+}
+
+.comment ul li {
+    border-bottom: 1px dashed #ddd;
+    padding: 20px 0;
+}
+
+
+.comment ul li .message_date {
+    float: left;
+    text-align: left;
+    margin-left: 20px;
+    padding: 0px 7px 0px 0px;
+}
+
+.comment ul li .message_wrapper {
+    margin-left: 105px;
+}
+
+.comment ul li .message_wrapper h4.heading {
+    font-size: 15px;
+    font-weight: 300;
+    margin: 0;
+    cursor: pointer;
+    margin-bottom: 10px;
+    line-height: 100%;
+
+}
+
+.comment ul li .message_wrapper blockquote {
+    font-size: 13px;
+    padding: 0px 10px;
+    margin: 0;
+    border-left: 5px solid #eee;
+}
