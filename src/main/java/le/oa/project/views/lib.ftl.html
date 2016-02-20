@@ -21,37 +21,37 @@
 </div>
 <ul class="nav nav-tabs">
     <li ${(selected=="task")?string("class=active", "")}>
-        <a href="#">
+        <a href="/project/${project.id}/tasks">
             <i class="fa fa-tasks fa-fw"></i>任务
         </a>
 
     </li>
-    <li ${(selected=="comment")?string("class='active'", "")}>
-        <a href="#">
+    <li ${(selected=="subject")?string("class=active", "")}>
+        <a href="/project/${project.id}/subjects">
             <i class="fa fa-commenting-o fa-fw"></i>讨论
         </a>
 
     </li>
-    <li ${(selected=="doc")?string("class='active'", "")}>
-        <a href="#">
+    <li ${(selected=="doc")?string("class=active", "")}>
+        <a href="/project/${project.id}/docs">
             <i class="fa  fa-file-text-o  fa-fw"></i>文档
         </a>
 
     </li>
-    <li ${(selected=="even")?string("class='active'", "")}>
-        <a href="#">
+    <li ${(selected=="even")?string("class=active", "")}>
+        <a href="/project/${project.id}/events">
             <i class="fa fa-lightbulb-o fa-fw"></i>事件
         </a>
 
     </li>
-    <li ${(selected=="user")?string("class='active'", "")}>
-        <a href="#">
+    <li ${(selected=="user")?string("class=active", "")}>
+        <a href="/project/${project.id}/users">
             <i class="fa fa-user fa-fw"></i>成员
         </a>
 
     </li>
-    <li ${(selected=="stat")?string("class='active'", "")}>
-        <a href="#">
+    <li ${(selected=="stat")?string("class=active", "")}>
+        <a href="/project/${project.id}/chart">
             <i class="fa fa-bar-chart fa-fw"></i>统计分析
         </a>
 

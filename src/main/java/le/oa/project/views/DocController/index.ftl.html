@@ -1,10 +1,127 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-  <meta charset="UTF-8">
-  <title></title>
-</head>
-<body>
+<#import "/le/oa/core/views/layout.ftl.html" as l>
+<#import "/le/oa/project/views/lib.ftl.html" as lib>
+<#assign header>
+<style>
+    .btn-toolbar{
+        margin-top: 10px;
+        padding: 0px 15px 0px 0px;
+    }
+    
+</style>
+</#assign>
+<#assign footer>
+</#assign>
+<@l.layout header=header footer=footer>
+<div class="main">
+    <@lib.projectHeader project=project selected="doc"/>
+    
+    <div class="btn-toolbar" role="toolbar">
+        <a class=" pull-right ">
+            <i class="fa fa-file-o  fa-fw"></i>新建项目文档</a>
 
-</body>
-</html>
+    </div>
+    <table class="table table-hover list">
+        <thead>
+        <tr>
+            <th class="col-xs-5">名称</th>
+            <th class="col-xs-2">创建人</th>
+            <th class="col-xs-2">修改人</th>
+            <th class="col-xs-3">修改日期</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <a href="#">宏远建筑项目作业计划书</a>
+            </td>
+
+            <td>
+                admin
+            </td>
+            <td>
+                李四
+            </td>
+            <td>
+                2015-10-1 10:17
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="#">宏远建筑项目作业计划书</a>
+            </td>
+
+            <td>
+                admin
+            </td>
+            <td>
+                李四
+            </td>
+            <td>
+                2015-10-1 10:17
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="#">宏远建筑项目作业计划书</a>
+            </td>
+
+            <td>
+                admin
+            </td>
+            <td>
+                李四
+            </td>
+            <td>
+                2015-10-1 10:17
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="#">宏远建筑项目作业计划书</a>
+            </td>
+
+            <td>
+                admin
+            </td>
+            <td>
+                李四
+            </td>
+            <td>
+                2015-10-1 10:17
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="#">宏远建筑项目作业计划书</a>
+            </td>
+
+            <td>
+                admin
+            </td>
+            <td>
+                李四
+            </td>
+            <td>
+                2015-10-1 10:17
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="#">宏远建筑项目作业计划书</a>
+            </td>
+
+            <td>
+                admin
+            </td>
+            <td>
+                李四
+            </td>
+            <td>
+                2015-10-1 10:17
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</@l.layout>

@@ -1,46 +1,31 @@
-<div class="form" style="display: none" id="task-form">
+<div class="form">
 
     <div class="form-body">
-        <form class="form-horizontal"  id="task-form">
+        <form class="form-horizontal" id="task-form">
             <div class="form-group">
-                <label class="control-label col-sm-2">
-                    任务名称<span class="required">*</span>
+                <label class="control-label col-sm-1">
+                    话题<span class="required">*</span>
                 </label>
 
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="taskName" placeholder="新任务的名称"  required=""
+                    <input type="text" class="form-control" id="taskName" placeholder="新话题" required=""
                            maxlength="50">
                 </div>
             </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2">
-                    负责人
-                </label>
 
-                <div class="col-sm-3" >
-                    <select class="form-control" id="ownerId">
-                        <option></option>
-                        <#list projectUsers as item>
-                            <option value="${(item.user.id)!}">${(item.user.name)!}</option>
-                        </#list>
-                    </select>
-                </div>
-            </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2">
-                    任务结束日期
+                <label class="control-label col-sm-1">
+                    内容
                 </label>
 
-                <div class="input-group col-md-3">
-                    <input id="planEndDate" class="form-control" size="16" type="text" value="" readonly>
-                    <a class="input-group-addon date-clear" href="#"><i class="fa fa-times"></i></a>
-                    <a class="input-group-addon date-select" href="#"><i class="fa fa-calendar"></i></a>
+                <div class="input-group col-md-6">
+                    <textarea rows="5" class="form-control"></textarea>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-offset-2  col-sm-6">
-                    <button class="btn btn-success" id="saveBtn" type="button">添加任务</button>
+                <div class="col-md-offset-1  col-sm-6">
+                    <button class="btn btn-success" id="saveBtn" type="button">建立新话题</button>
                     <a href="#" class="btn" id="cancelBtn">取消</a>
                 </div>
             </div>

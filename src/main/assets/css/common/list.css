@@ -1,22 +1,23 @@
-
-.work-list {
-    margin-top: 0px;
-}
-
 .table > thead:first-child > tr:first-child > th {
     border-bottom: 1px solid #ddd;
     font-weight: 300;
     color: #aaa;
 }
 
-.work-list > tbody > tr > td {
-    vertical-align: middle;
-    padding: 4px;
-    border-top: 1px dashed #ddd;
+.list {
+    margin-top: 0px;
 }
 
-.work-list a {
-    color: #333;
+
+.list > tbody > tr > td {  
+    vertical-align: middle;
+    padding: 7px;
+    border-top: 1px dashed #ddd;
+    line-height: 30px;
+}
+
+.list a {
+
 }
 
 .info-box ul {
