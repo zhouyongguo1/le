@@ -2,6 +2,7 @@ package le.oa.conf;
 
 import com.google.inject.AbstractModule;
 import le.oa.persist.AuditInitializer;
+import le.oa.persist.JpaInitializer;
 
 public class Module extends AbstractModule {
 
@@ -12,5 +13,6 @@ public class Module extends AbstractModule {
     protected void configure() {
         bind(AuditInitializer.class);
         bind(FreemarkerConfigurer.class);
+        bind(JpaInitializer.class);
     }
 }

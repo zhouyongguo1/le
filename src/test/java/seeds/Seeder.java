@@ -58,6 +58,7 @@ public class Seeder {
         coreDataSeeder.withBuilder(TeamUserBuilder.class).user(user).create();
 
         coreDataSeeder.seed();
+        projectDataSeeder.setUser(user);
         projectDataSeeder.seed();
         workDataSeeder.seed();
     }
