@@ -21,7 +21,6 @@ public class Template extends TeamModel {
     private Integer id;
     private Integer userId;
     private Integer formId;
-    @JsonIgnore
     @Column(name = "data")
     @Type(type = "le.jpa.JsonType", parameters = {
             @Parameter(name = "class", value = "le.oa.work.models.FlowData")

@@ -45,7 +45,7 @@ public class Workflow extends BaseModel {
     private Flow flow;
 
     @Enumerated(EnumType.STRING)
-    private WorkflowStatus status = WorkflowStatus.START;
+    private WorkflowStatus status = WorkflowStatus.DOING;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "workflow", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<WorkflowItem> workflowItems = new ArrayList<>();
