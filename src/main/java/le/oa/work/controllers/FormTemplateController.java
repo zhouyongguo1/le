@@ -3,7 +3,7 @@ package le.oa.work.controllers;
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 import le.oa.core.BaseTeamController;
-import le.oa.work.models.TeamTemplate;
+import le.oa.work.models.FormTeamTemplate;
 import le.oa.work.repositories.TeamTemplateRepository;
 import le.web.annotation.Controller;
 import le.web.annotation.Route;
@@ -31,7 +31,7 @@ public class FormTemplateController extends BaseTeamController {
     @Route("/work/template")
     @Transactional
     public Result index() {
-        List<TeamTemplate> list = templateRepository.findAll();
+        List<FormTeamTemplate> list = templateRepository.findAll();
         return Results.html()
                 .render("list", list);
     }
@@ -45,7 +45,7 @@ public class FormTemplateController extends BaseTeamController {
     @Get
     @Route("/work/template/{id}/edit")
     public Result edit(@PathParam("id") Integer id) {
-        TeamTemplate template = this.checkEntity(templateRepository.findById(id));
+        FormTeamTemplate template = this.checkEntity(templateRepository.findById(id));
         return Results.html()
                 .render("template", template);
     }
@@ -56,9 +56,7 @@ public class FormTemplateController extends BaseTeamController {
     public Result create(@Param("templateid") Integer templateId,
                          @Param("name") String name, @Param("json") String json,
                          FlashScope flashScope) {
-        TeamTemplate template = new TeamTemplate();
-        
-        template.setTemplateId(templateId);
+        FormTeamTemplate template = new FormTeamTemplate();
         template.setName(name);
         template.setFields(json);
         templateRepository.save(template);

@@ -2,6 +2,7 @@ package le.oa.work.models;
 
 import le.oa.core.models.User;
 import le.oa.core.models.base.BaseModel;
+import le.oa.core.models.base.TeamModel;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "fm_user_template")
-public class UserFormTemplate extends BaseModel {
+public class FormUserTemplate extends TeamModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -25,7 +26,7 @@ public class UserFormTemplate extends BaseModel {
 
     @ManyToOne
     @JoinColumn(name = "team_template_id")
-    private TeamTemplate teamTemplate;
+    private FormTeamTemplate formTeamTemplate;
 
     public Integer getId() {
         return id;
@@ -43,11 +44,11 @@ public class UserFormTemplate extends BaseModel {
         this.user = user;
     }
 
-    public TeamTemplate getTeamTemplate() {
-        return teamTemplate;
+    public FormTeamTemplate getFormTeamTemplate() {
+        return formTeamTemplate;
     }
 
-    public void setTeamTemplate(TeamTemplate teamTemplate) {
-        this.teamTemplate = teamTemplate;
+    public void setFormTeamTemplate(FormTeamTemplate formTeamTemplate) {
+        this.formTeamTemplate = formTeamTemplate;
     }
 }

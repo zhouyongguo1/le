@@ -1,6 +1,6 @@
 package le.oa.work.models;
 
-public enum WorkflowStatus {
+public enum WorkInstanceStatus {
     DOING,
     FINISH,
     STOP

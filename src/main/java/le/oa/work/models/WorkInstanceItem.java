@@ -15,22 +15,22 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "wf_workflow_item")
-public class WorkflowItem extends BaseModel {
+@Table(name = "wf_Instance_item")
+public class WorkInstanceItem extends BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String taskId;
     @ManyToOne
-    @JoinColumn(name = "workflow_id")
-    private Workflow workflow;
+    @JoinColumn(name = "instance_id")
+    private WorkInstance workflowInstance;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
     @Enumerated(EnumType.STRING)
-    private FlowStatus status = FlowStatus.START;
+    private WorkInstanceItemStatus status = WorkInstanceItemStatus.START;
     private String content;
 
     public Integer getId() {
@@ -49,12 +49,12 @@ public class WorkflowItem extends BaseModel {
         this.taskId = taskId;
     }
 
-    public Workflow getWorkflow() {
-        return workflow;
+    public WorkInstance getWorkflowInstance() {
+        return workflowInstance;
     }
 
-    public void setWorkflow(Workflow workflow) {
-        this.workflow = workflow;
+    public void setWorkflowInstance(WorkInstance workflowInstance) {
+        this.workflowInstance = workflowInstance;
     }
 
     public User getUser() {
@@ -65,11 +65,11 @@ public class WorkflowItem extends BaseModel {
         this.user = user;
     }
 
-    public FlowStatus getStatus() {
+    public WorkInstanceItemStatus getStatus() {
         return status;
     }
 
-    public void setStatus(FlowStatus status) {
+    public void setStatus(WorkInstanceItemStatus status) {
         this.status = status;
     }
 

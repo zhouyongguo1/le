@@ -1,6 +1,6 @@
 package le.oa.work.models;
 
-public class FlowTask {
+public class WorkFlowTask {
     private String taskId;
     private Integer userId;
     private String userName;

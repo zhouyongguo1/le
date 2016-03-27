@@ -2,22 +2,22 @@ package le.oa.work.repositories;
 
 import com.google.inject.Inject;
 import le.oa.core.repositories.BaseRepository;
-import le.oa.work.models.WorkflowItem;
+import le.oa.work.models.WorkInstance;
 
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
-public class WorkflowItemRepository extends BaseRepository<WorkflowItem> {
+public class WorkInstanceRepository extends BaseRepository<WorkInstance> {
 
     @Inject
-    public WorkflowItemRepository(Provider<EntityManager> emProvider) {
+    public WorkInstanceRepository(Provider<EntityManager> emProvider) {
         super(emProvider);
     }
 
-    public Optional<WorkflowItem> findById(Integer id) {
-        List<WorkflowItem> templates = emProvider.get().createQuery("from WorkflowItem a " +
+    public Optional<WorkInstance> findById(Integer id) {
+        List<WorkInstance> templates = emProvider.get().createQuery("from WorkInstance a " +
                 "where a.id=:id")
                 .setParameter("id", id)
                 .getResultList();

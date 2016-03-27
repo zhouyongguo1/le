@@ -1,9 +1,8 @@
-package le.oa.work.models;
+package le.oa.work.models.Exception;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import le.oa.work.models.Exception.FieldException;
 import le.oa.work.models.Field.CheckboxField;
 import le.oa.work.models.Field.DateField;
 import le.oa.work.models.Field.FormField;

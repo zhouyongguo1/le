@@ -1,6 +1,6 @@
 package le.oa.work.models;
 
-public enum FlowStatus {
+public enum WorkInstanceItemStatus {
     START,
     FLOW,
     STOP,
