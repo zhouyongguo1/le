@@ -1,0 +1,98 @@
+
+.custom-form {
+
+}
+
+.field-pane {
+    border-right: 1px solid #ddd;
+
+}
+
+.form-pane {
+
+}
+
+.custom-fields {
+    padding: 8px 10px;
+    min-height: 500px;
+}
+
+.custom-fields ul {
+    padding-left: 0px;
+    list-style: none outside none;
+}
+
+.custom-fields ul > li {
+    display: inline-block;
+    width: 49%;
+    padding: 5px;
+    line-height: 1.4;
+
+    margin-bottom: 3px;
+}
+
+.custom-fields ul > li > .btn {
+    display: block;
+    width: 100%;
+}
+.field-config{
+    padding: 8px 20px;
+    min-height: 500px;
+}
+.custom-title {
+    padding: 10px;
+
+}
+
+.custom-title input {
+    width: 400px;
+}
+
+.form-pane form {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    min-height: 300px;
+    border: 1px dashed #ddd;
+}
+
+.form-pane form > .field-item {
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 2px;
+    padding: 10px;
+    position: relative;
+
+}
+
+.form-pane form > .field-item.active {
+    background-color: #f5f5f5;
+    border: 1px dashed #269abc;
+}
+
+.form-pane form > .field-item > .btn-del {
+
+    color: red;
+    display: none;
+}
+
+.form-pane form > .field-item:hover {
+    background-color: #f5f5f5
+}
+
+.form-pane form > .field-item:hover > .btn-del {
+    border: 1px solid #ddd;
+    padding: 1px 5px;
+    background-color: #ffffff;
+    position: absolute;
+    right: 16px;
+    z-index: 20;
+    bottom: -10px;
+    display: inline;
+    border-radius: 6px;
+}
+
+.form-pane form > .field-item:hover > .btn-del:hover {
+    background-color: red;
+    color: #ffffff;
+}

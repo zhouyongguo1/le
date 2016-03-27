@@ -1,11 +1,11 @@
 package le.oa.work.models;
 
+import le.oa.core.models.Status;
 import le.oa.core.models.base.BaseModel;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,13 +19,10 @@ public class TeamTemplate extends BaseModel {
     private Integer id;
     private Integer templateId;
     private String name;
-    private String html;
+    private String fields;
 
-    @Column(name = "fields")
-    @Type(type = "le.jpa.JsonType", parameters = {
-            @Parameter(name = "class", value = "le.oa.work.models.FormFields")
-    })
-    private FormFields fields;
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.ACTIVE;
 
     public Integer getId() {
         return id;
@@ -51,19 +48,19 @@ public class TeamTemplate extends BaseModel {
         this.name = name;
     }
 
-    public String getHtml() {
-        return html;
-    }
-
-    public void setHtml(String html) {
-        this.html = html;
-    }
-
-    public FormFields getFields() {
+    public String getFields() {
         return fields;
     }
 
-    public void setFields(FormFields fields) {
+    public void setFields(String fields) {
         this.fields = fields;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

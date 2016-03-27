@@ -1,14 +1,28 @@
 package le.oa.work.controllers;
 
 
+import com.google.inject.Inject;
+import le.oa.core.BaseTeamController;
+import le.oa.work.models.TeamTemplate;
+import le.oa.work.repositories.TeamTemplateRepository;
 import le.web.annotation.Controller;
 import le.web.annotation.Route;
 import le.web.annotation.http.Get;
 import ninja.Result;
 import ninja.Results;
 
+import java.util.List;
+
 @Controller
-public class WorkController {
+public class WorkController extends BaseTeamController {
+    
+    private TeamTemplateRepository templateRepository;
+    @Inject
+    public WorkController(TeamTemplateRepository templateRepository) {
+        this.templateRepository = templateRepository;
+
+    }
+
     @Get
     @Route("/works")
     public Result index() {
@@ -24,6 +38,9 @@ public class WorkController {
     @Get
     @Route("/work/new")
     public Result add() {
+        List<TeamTemplate> list = templateRepository.findAll();
+        return Results.html()
+                .render("list", list);
         return Results.html();
     }
 

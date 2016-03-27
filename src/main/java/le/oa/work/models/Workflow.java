@@ -40,7 +40,7 @@ public class Workflow extends BaseModel {
     @JsonIgnore
     @Column(name = "flow_data")
     @Type(type = "le.jpa.JsonType", parameters = {
-            @Parameter(name = "class", value = "le.oa.work.models.FlowData")
+            @Parameter(name = "class", value = "le.oa.work.models.Flow")
     })
     private Flow flow;
 

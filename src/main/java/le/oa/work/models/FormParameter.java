@@ -1,6 +1,7 @@
 package le.oa.work.models;
 
 import le.oa.core.models.base.BaseModel;
+import le.oa.work.models.Field.FieldType;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -29,7 +30,7 @@ public class FormParameter extends BaseModel {
     private String name;
 
     @Enumerated(EnumType.STRING)
-    private FieldType fieldType = FieldType.STRING;
+    private FieldType fieldType = FieldType.TEXT;
 
     private String StringValue;
     private Integer intValue;

@@ -1,0 +1,320 @@
+<div class="hidden" id="field-config-templates">
+    <div class="field-item-config" data-field-type="TEXT">
+        <div class="form-group">
+            <label>标题</label>
+            <input type="text" class="form-control field-name" placeholder="未命名">
+        </div>
+        <div class="form-group">
+            <label>默认值</label>
+            <input type="text" class="form-control field-defaultValue">
+        </div>
+
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" class="field-required"> 必填项
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" class="field-number"> 数字
+            </label>
+        </div>
+
+        <script type="text/form-field">
+            {
+                "type": "TEXT",
+                "id": "",
+                "name": "未命名",
+                "defaultValue": "",
+                "required": true,
+                "isNumber": false
+            }
+
+        
+        
+        </script>
+
+    </div>
+    <div class="field-item-config" data-field-type="TEXTAREA">
+        <div class="form-group">
+            <label>标题</label>
+            <input type="text" class="form-control field-name" placeholder="未命名">
+        </div>
+        <div class="form-group">
+            <label>默认值</label>
+            <input type="text" class="form-control field-defaultValue">
+        </div>
+
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" class="field-required"> 必填项
+            </label>
+        </div>
+        <script type="text/form-field">
+            {
+                "type": "TEXTAREA",
+                "id": "",
+                "name": "未命名",
+                "defaultValue": "",
+                "required": true
+            }
+        
+        </script>
+    </div>
+    <div class="field-item-config" data-field-type="RADIO">
+        <div class="form-group">
+            <label>标题</label>
+            <input type="text" class="form-control field-name" placeholder="未命名">
+        </div>
+        <div class="form-group">
+            <div class="radio">
+                <label class="checkbox-inline">
+                    <input type="radio" class="field-orientation" name="field-orientation" value="widthways">横排
+                </label>
+                <label class="checkbox-inline">
+                    <input type="radio" class="field-orientation" name="field-orientation" value="lengthways">竖排
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group field-options">
+            <label>选项</label>
+        </div>
+
+        <script type="text/form-field">
+            {
+                "type": "RADIO",
+                "id": "",
+                "orientation":"lengthways",
+                "name": "未命名",
+                "defaultValue": "选项1",
+                "options":["选项1","选项2","选项3"]
+            }
+        </script>
+    </div>
+    <div class="field-item-config" data-field-type="CHECKBOX">
+        <div class="form-group">
+            <label>标题</label>
+            <input type="text" class="form-control field-name" placeholder="未命名">
+        </div>
+        <div class="form-group">
+            <div class="checkbox">
+                <label class="checkbox-inline">
+                    <input type="radio" class="field-orientation" name="field-orientation" value="widthways">横排
+                </label>
+                <label class="checkbox-inline">
+                    <input type="radio" class="field-orientation" name="field-orientation" value="lengthways">竖排
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group field-options">
+            <label>选项</label>
+        </div>
+
+        <script type="text/form-field">
+            {
+                "type": "CHECKBOX",
+                "id": "",
+                "orientation":"lengthways",
+                "name": "未命名",
+                "defaultValue": "选项1",
+                "options":["选项1","选项2","选项3"]
+            }
+
+
+        
+        
+        </script>
+    </div>
+    <div class="field-item-config" data-field-type="SELECT">
+        <div class="form-group">
+            <label>标题</label>
+            <input type="text" class="form-control field-name" placeholder="未命名">
+        </div>
+        <div class="form-group field-options">
+            <label>选项</label>
+        </div>
+        <script type="text/form-field">
+            {
+                "type": "SELECT",
+                "id": "",
+                "name": "未命名",
+                "defaultValue": "选项1",
+                "options":["选项1","选项2","选项3"]
+            }
+
+
+        
+        
+        </script>
+    </div>
+    <div class="field-item-config" data-field-type="RATING">
+        <div class="form-group">
+            <label>标题</label>
+            <input type="text" class="form-control field-name">
+        </div>
+        <div class="form-group">
+            <label>最高分</label>
+            <select class="form-control field-defaultValue">
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+        <script type="text/form-field">
+            {
+                "type": "RATING",
+                "id": "",
+                "name": "评分",
+                "defaultValue": "5"
+            }
+
+
+        
+        
+        </script>
+    </div>
+    <div class="field-item-config" data-field-type="DATE">
+        <div class="form-group">
+            <label>标题</label>
+            <input type="text" class="form-control field-name" placeholder="未命名">
+        </div>
+        <div>
+            <label>默认值</label>
+
+            <div class="input-group ">
+                <input class="form-control select-date field-defaultValue" size="16" type="text" value="" readonly>
+                <a class="input-group-addon date-clear" href="#"><i class="fa fa-times"></i></a>
+                <a class="input-group-addon date-select" href="#"><i class="fa fa-calendar"></i></a>
+            </div>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" class="field-required"> 必填项
+            </label>
+        </div>
+        <script type="text/form-field">
+            {
+                "type": "DATE",
+                "id": "",
+                "name": "未命名",
+                "defaultValue": "",
+                "required": true
+            }
+        
+        
+        </script>
+    </div>
+    <div class="field-item-config" data-field-type="LINE">
+        <div class="form-group">
+            <label>标题</label>
+            <input type="text" class="form-control field-name">
+        </div>
+        <script type="text/form-field">
+            {
+                "type": "LINE",
+                "id": "",
+                "name": "标题"
+            }
+
+        
+        
+        </script>
+    </div>
+    <div class="field-item-config" data-field-type="TIME">
+        <div class="form-group">
+            <label>标题</label>
+            <input type="text" class="form-control field-name" placeholder="未命名">
+        </div>
+        <div class="form-group">
+            <label>默认值</label>
+
+            <div>
+                <select class="form-control-line w50 default-hour" name="hour">
+                <option value="">时</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="4">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+            </select>
+                <select class="form-control-line w50 default-minute" name="minute">
+                    <option value="">分</option>
+                    <option value="5">05</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="25">25</option>
+                    <option value="30">30</option>
+                    <option value="35">35</option>
+                    <option value="40">40</option>
+                    <option value="45">45</option>
+                    <option value="50">50</option>
+                    <option value="55">55</option>
+                </select>
+            </div>
+
+        </div>
+        <script type="text/form-field">
+            {
+                "type": "TIME",
+                "id": "",
+                "name": "未命名",
+                "defaultValue": ""
+            }
+        
+        
+        </script>
+
+    </div>
+    <div class="radio field-option-item radio-option-template">
+        <label>
+            <input type="radio" name="field-defaultValue" class="field-defaultValue" value="">
+            <input type="text" class="form-control field-option" value="选项">
+            <button class="btn btn-default field-option-add" data-template="radio-option-template">
+                <i class="fa fa-plus"></i>
+            </button>
+            <button class="btn btn-default field-option-del"><i class="fa fa-trash-o"></i></button>
+        </label>
+    </div>
+    <div class="checkbox field-option-item checkbox-option-template">
+        <label>
+            <input type="checkbox" name="field-defaultValue" class="field-defaultValue" value="">
+            <input type="text" class="form-control field-option" value="选项">
+            <button class="btn btn-default field-option-add" data-template="checkbox-option-template">
+                <i class="fa fa-plus"></i>
+            </button>
+            <button class="btn btn-default field-option-del"><i class="fa fa-trash-o"></i></button>
+        </label>
+    </div>
+    <div class="radio field-option-item select-option-template">
+        <label>
+            <input type="radio" name="field-defaultValue" class="field-defaultValue" value="">
+            <input type="text" class="form-control field-option" value="选项">
+            <button class="btn btn-default field-option-add" data-template="radio-option-template">
+                <i class="fa fa-plus"></i>
+            </button>
+            <button class="btn btn-default field-option-del"><i class="fa fa-trash-o"></i></button>
+        </label>
+    </div>
+</div>

@@ -81,5 +81,11 @@ header {
 ul.social li {
     border: 0;
 }
-
+.page-header{
+    margin: 0;
+    padding-bottom: 5px;
+}
+.page-header h4{
+    margin:5px;
+}
 /* *********  /timeline  **************************** */

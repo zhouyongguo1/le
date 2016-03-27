@@ -1,0 +1,159 @@
+<#import "/le/oa/core/views/layout.ftl.html" as l>
+<#assign header>
+<link href="/assets/css/oa/custom-form.css" rel="stylesheet">
+<style>
+    .field-config {
+    }
+
+    .field-config .form-control {
+        height: 32px;
+    }
+
+    .field-config .field-option-item .form-control {
+        display: inline;
+        width: auto;
+        height: 30px;
+    }
+
+    .field-config .field-option-item .btn {
+        border: 1px solid #ddd;
+        padding: 1px 5px;
+        border-radius: 6px;
+    }
+</style>
+</#assign>
+<#assign footer>
+<script src="/assets/js/oa/form-common.js"></script>
+<script src="/assets/js/oa/form-template.js"></script>
+<script>
+    $(function () {
+        $.form.init();
+    });
+</script>
+</#assign>
+<@l.layout header=header footer=footer>
+<div class="main">
+    <div class="main-header">
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-home fa-fw"></i>首页</a></li>
+            <li><a href="/work/template">表单管理</a></li>
+            <li class="active">宏远建筑项目</li>
+        </ol>
+    </div>
+
+    <div class="row custom-form">
+        <div class="col-sm-4 field-pane">
+            <div class="tabs">
+                <ul>
+
+                    <li class="active" id="fieldTab">
+                        <a href="#">
+                            添加表单字段
+                        </a>
+
+                    </li>
+                    <li id="fieldConfigTab">
+                        <a href="#">
+                            表单字段属性
+                        </a>
+
+                    </li>
+
+                </ul>
+            </div>
+            <div id="fieldDiv" class="custom-fields">
+                <ul>
+                    <li>
+                        <a class="btn btn-default" href="#" data-field-type="TEXT">
+                            <i class="fa fa-bold"></i>
+                            单行文本
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn btn-default" href="#" data-field-type="TEXTAREA">
+                            <i class="fa fa-indent"></i>
+                            多行文本
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a class="btn btn-default" href="#" data-field-type="RADIO">
+                            <i class="fa fa-dot-circle-o"></i>
+                            单项选择
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn btn-default" href="#" data-field-type="CHECKBOX">
+                            <i class="fa fa-check-square"></i>
+                            多项选择
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn btn-default" href="#" data-field-type="SELECT">
+                            <i class="fa fa-credit-card"></i>
+                            下拉框
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn btn-default" href="#" data-field-type="RATING">
+                            <i class="fa fa-star-half-o"></i>
+                            评分
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn btn-default" href="#" data-field-type="DATE">
+                            <i class="fa fa-calendar"></i>
+                            日期
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn btn-default" href="#" data-field-type="TIME">
+                            <i class="fa fa-clock-o"></i>
+                            时间
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn btn-default" href="#" data-field-type="LINE">
+                            <i class="fa fa-minus"></i>
+                            分割线
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+            <div id="fieldConfigDiv" class="field-config">
+                <div id="fileNoneMsg" class="hidden">
+                    没有选定的字段
+                    <br/>
+                    请选择一个字段
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-8 ">
+
+            <div class="custom-title">
+                <form id="saveForm" action="/work/template" method="post"  data-parsley-validate="">
+                    <input type="text" name="name" required="required" placeholder="表单名称" class="form-control">
+                    <input type="hidden" name="templateId">
+                    <input type="hidden" name="json">
+                </form>
+            </div>
+            <div class="form-pane">
+                <form class="form-horizontal" id="form">
+
+                </form>
+            </div>
+
+            <div class="col-sm-6">
+                <a class="btn btn-success" href="#" id="saveBtn">保存表单</a>
+                <a class="btn" href="/work/template">取消</a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+    <#include "_fields.ftl.html">
+    <#include "_fields-seting.ftl.html">
+
+</@l.layout>

@@ -1,0 +1,61 @@
+<#import "/le/oa/core/views/layout.ftl.html" as l>
+<#assign header>
+
+</#assign>
+<#assign footer>
+
+</#assign>
+<@l.layout header=header footer=footer>
+<div class="main">
+    <div class="main-header">
+        <ol class="breadcrumb">
+            <li><a href="index.html"><i class="fa fa-home fa-fw"></i>首页</a></li>
+            <li class="active">表单管理</li>
+        </ol>
+        <div class="tools">
+            <ul>
+                <li>
+                    <a href="/work/template/new">
+                        <i class="fa fa-file-o fa-fw"></i>新建表单
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-body">
+        <div class="form-group row">
+            <div class="col-lg-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="表单名称...">
+      <span class="input-group-btn">
+        <button class="btn btn-primary" type="button">查询</button>
+      </span>
+                </div>
+            </div>
+        </div>
+        <table class="table table-hover  work-list">
+            <thead>
+            <th class="col-xs-7">表单名称</th>
+            <th class="col-xs-2">创建人</th>
+            <th>创建时间</th>
+            </thead>
+            <tbody>
+                <#list list as item>
+                <tr>
+                    <td>
+                        <a href="#">${item.name!}</a>
+                    </td>
+                    <td>
+                    ${item.createdBy.name!}
+                    </td>
+                    <td>
+                    ${(item.createdAt)!}
+
+                    </td>
+                </tr>
+                </#list>
+            </tbody>
+        </table>
+    </div>
+</div>
+</@l.layout>

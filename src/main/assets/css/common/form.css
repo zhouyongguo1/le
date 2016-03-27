@@ -1,11 +1,40 @@
+.w50{
+    width: 50px;
+}
+.w60{
+    width: 60px;
+}
+.w90{
+    width: 90px;
+}
 textarea {
     border: 1px solid #ccc;
 }
-
-.form-control {
-    border-radius: 0px;
-    box-shadow: none;
+select, select.form-control, select.form-control-line {
+    border: 0;
+    outline: #ccc solid 1px;
 }
+.form-control {
+    border-radius: 0;
+    box-shadow: none;
+    
+}
+.form-control-line {
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
 
 .btn {
     border-radius: 0px;
@@ -36,4 +65,8 @@ textarea {
 
 .form-body {
 
+}
+
+.required {
+    color: red;
 }

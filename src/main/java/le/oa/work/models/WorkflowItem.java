@@ -3,6 +3,7 @@ package le.oa.work.models;
 import le.oa.core.models.User;
 import le.oa.core.models.base.BaseModel;
 
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
@@ -11,7 +12,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "wf_workflow_item")
 public class WorkflowItem extends BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

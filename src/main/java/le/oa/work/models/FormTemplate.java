@@ -18,7 +18,6 @@ public class FormTemplate extends DateModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
-    private String html;
 
     @Column(name = "fields")
     @Type(type = "le.jpa.JsonType", parameters = {

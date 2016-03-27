@@ -1,6 +1,5 @@
 package le.oa.work.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import le.oa.core.models.base.TeamModel;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
@@ -23,7 +22,7 @@ public class Template extends TeamModel {
     private Integer formId;
     @Column(name = "data")
     @Type(type = "le.jpa.JsonType", parameters = {
-            @Parameter(name = "class", value = "le.oa.work.models.FlowData")
+            @Parameter(name = "class", value = "le.oa.work.models.Flow")
     })
     private Flow flow;
 

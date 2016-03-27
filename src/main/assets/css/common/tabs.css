@@ -28,3 +28,37 @@
 .nav-tabs-body{
     padding: 5px 10px;
 }
+
+
+.tabs {
+    margin: 10px;
+
+}
+
+.tabs > ul {
+    padding-left: 0px;
+    list-style: none outside none;
+    margin-bottom: 0px;
+    border-bottom: 1px solid #ddd;
+}
+
+.tabs ul > li {
+    display: inline-block;
+    margin-bottom: -1px;
+}
+
+.tabs ul > li a {
+    position: relative;
+    display: block;
+    padding: 7px 15px;
+    border-radius: 0;
+}
+
+.tabs ul > li.active a {
+    color: #555;
+    cursor: default;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+
+}
