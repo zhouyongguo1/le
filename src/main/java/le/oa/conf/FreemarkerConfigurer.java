@@ -26,6 +26,7 @@ public class FreemarkerConfigurer {
 
     @Inject
     public FreemarkerConfigurer(TemplateEngineFreemarker templateEngine,
+                                ExtendedObjectWrapper objectWrapper,
                                 ContextProvider contextProvider,
                                 CurrentTeamProvider currentTeamProvider,
                                 CurrentUserProvider currentUserProvider) {
@@ -36,6 +37,8 @@ public class FreemarkerConfigurer {
             Field field = templateEngine.getClass().getDeclaredField("cfg");
             field.setAccessible(true);
             cfg = (Configuration) field.get(templateEngine);
+            cfg.setObjectWrapper(objectWrapper);
+            objectWrapper.setExposeFields(true);
         } catch (IllegalAccessException | NoSuchFieldException e) {
             throw new RuntimeException(e);
         }

@@ -1,0 +1,207 @@
+<#import "/le/oa/core/views/layout.ftl.html" as l>
+<#assign header>
+
+</#assign>
+<#assign footer>
+<script>
+    $(function () {
+        var workflow = (function () {
+            var showWorkTemplate = function () {
+                $("#workTemplates").load("/work/flow-templater/user", function () {
+                });
+            };
+            var init = function (groupId) {
+                $("body").on("click", "#workTemplates .add", function () {
+                    var opts = {
+                        src: "/work/flow-templater/dialog",
+                        title: "申请模板",
+                        ok: function (data) {
+                            showWorkTemplate();
+                        }
+                    };
+                    $.dialog.show(opts);
+                });
+                $("body").on("click", "#workTemplate .add", function () {
+                    var opts = {
+                        src: "/users/selUserDialog",
+                        title: "团队成员",
+                        ok: function (datas) {
+
+                        }
+                    };
+                    $.dialog.show(opts);
+                });
+
+
+//                url = '/election/groups/' + groupId + '/preferences';
+//                $courseList.find(".wg-select").click(function () {
+//                    $.post(url + "?courseId=" + $(this).data('course-id'), function (data) {
+//                        if (data.work) {
+//                            jQuery.message.success("选课成功");
+//                            showStudentPreference();
+//                        }
+//                        else {
+//                            jQuery.message.error(data.messages);
+//                        }
+//                    });
+//                });
+//                $("body").on("click", "#studentPreferenceList .wg-del", function () {
+//                    $.post(url + "/" + $(this).data("id"), {"_method": "delete"}, function (data) {
+//                        jQuery.message.success("移除选课志愿成功");
+//                        showStudentPreference();
+//                    });
+//                });
+//                $("body").on("click", "#studentPreferenceList .wg-down", function () {
+//                    $.post(url + "/" + $(this).data("id") + "/down", {"_method": "put"}, function (data) {
+//                        if (data.work) {
+//                            jQuery.message.success("移动选课志愿成功");
+//                            showStudentPreference();
+//                        }
+//
+//                    });
+//                });
+//                $("body").on("click", "#studentPreferenceList .wg-up", function () {
+//                    $.post(url + "/" + $(this).data("id") + "/up", {"_method": "put"}, function (data) {
+//                        if (data.work) {
+//                            jQuery.message.success("移动选课志愿成功");
+//                            showStudentPreference();
+//                        }
+//                    });
+//                });
+            };
+            return {
+                init: init,
+                showWorkTemplate: showWorkTemplate
+            };
+        })();
+        $.workflow = workflow;
+    });
+
+    $(function () {
+        $.workflow.init();
+        $.workflow.showWorkTemplate();
+    });
+</script>
+
+</#assign>
+<@l.layout header=header footer=footer>
+<div class="main">
+    <div class="main-header">
+        <h4>发起工作审批</h4>
+    </div>
+    <div class="main-body">
+        <div class="pieces" id="workTemplates">
+
+        </div>
+
+        <div class="work-form">
+            <h4>请假单</h4>
+
+            <div class="work-wizard" id="workTemplate">
+                <ul class="wizard_steps anchor">
+                    <li>
+                        <a href="#step-1" class="selected" isdone="1" rel="1">
+                            <span class="step_no"> <img src="imgs/4.jpg"></span>
+                            <span class="step_descr">李华</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#step-2" class="disabled" isdone="0" rel="2">
+                <span class="step_no">
+                   <img src="imgs/1.jpg">
+                </span>
+                            <span class="step_descr">王杰</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#step-3" class="disabled" isdone="0" rel="3">
+                <span class="step_no">
+                   <img src="imgs/2.jpg">
+                </span>
+                            <span class="step_descr">张凯 </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#step-3" isdone="0" rel="3">
+              <span class="step_no">
+                 <img src="imgs/3.jpg">
+              </span>
+                            <span class="step_descr">张凯 </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#step-4" class="add" isdone="0" rel="4">
+                            <span class="step_no"><i class="fa fa-plus"></i></span>
+                            <span class="step_descr"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <form class="form-horizontal form-label-left">
+
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2">First Name <span class="required">*</span>
+                    </label>
+
+                    <div class="col-sm-6">
+                        <input type="text" id="first-name2" required="required" class="form-control col-md-7 col-xs-12">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="last-name">Last Name <span class="required">*</span>
+                    </label>
+
+                    <div class="col-md-6 col-sm-6">
+                        <input type="text" id="last-name2" name="last-name" required="required"
+                               class="form-control col-md-7 col-xs-12">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="middle-name" class="control-label col-sm-2">Middle Name / Initial</label>
+
+                    <div class="col-sm-6">
+                        <input id="middle-name2" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2">Gender</label>
+
+                    <div class="col-md-6 col-sm-6">
+                        <div id="gender2" class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default" data-toggle-class="btn-primary"
+                                   data-toggle-passive-class="btn-default">
+                                <input type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
+                            </label>
+                            <label class="btn btn-primary active" data-toggle-class="btn-primary"
+                                   data-toggle-passive-class="btn-default">
+                                <input type="radio" name="gender" value="female" checked=""> Female
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Date Of Birth <span class="required">*</span>
+                    </label>
+
+                    <div class="col-md-6 col-sm-6">
+                        <input id="birthday2" class="date-picker form-control col-md-7 col-xs-12" required="required"
+                               type="text">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2  col-sm-6">
+                        <a href="def.html" class="btn btn-success">发送工作审批</a>
+                        <a href="def.html" class="btn">取消</a>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+
+    </div>
+</div>
+
+    <#include "/le/oa/core/views/dialog.ftl.html">
+</@l.layout>

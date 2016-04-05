@@ -1,0 +1,47 @@
+<#import "/le/oa/core/views/layout-dialog.ftl.html" as l>
+<#assign header>
+
+</#assign>
+<#assign footer>
+<script>
+    $(function () {
+
+        $(".pieces li a").click(function () {
+            var $li = $(this).closest("li");
+            if ($li.hasClass("active")) {
+                $.post("/work/flow-templater/" + $(this).data("teamtemplateid"), {"_method": "delete"}, function () {
+                    $li.removeClass("active");
+                });
+            }
+            else {
+                $.post("/work/flow-templater/new?templateid=" + $(this).data("teamtemplateid"), function (data) {
+                    $li.addClass("active");
+                });
+            }
+        });
+    });
+
+</script>
+
+</#assign>
+<@l.layout header=header footer=footer>
+<div class="pieces">
+    <ul>
+        <#list datas as item>
+            <#if (item.workTemplateId)?has_content>
+                <li class="active">
+                    <a href="#" data-teamtemplateid="${(item.formTeamTemplateId)!}">
+                    ${(item.formTeamTemplateName)!}
+                    </a>
+                </li>
+            <#else>
+                <li>
+                    <a href="#" data-teamtemplateid="${(item.formTeamTemplateId)!}">
+                    ${(item.formTeamTemplateName)!}
+                    </a>
+                </li>
+            </#if>
+        </#list>
+    </ul>
+</div>
+</@l.layout>

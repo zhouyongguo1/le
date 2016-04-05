@@ -47,6 +47,6 @@ public class Ninja extends NinjaDefault {
     public Result onException(Context context, Exception exception) {
         LOGGER.info(exception.getMessage());
         Message message = new Message("404");
-        return Results.forbidden().template("le/oa/core/views/404.ftl.html").render("message", message);
+        return Results.forbidden().template("le/oa/core/views/500.ftl.html").render("message", message);
     }
 }

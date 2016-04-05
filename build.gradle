@@ -1,7 +1,19 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.akhikhl.gretty:gretty:1.1.4'
+    }
+}
+
+
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'war'
-apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
+apply plugin: org.akhikhl.gretty.GrettyPlugin
+
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'

@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 import le.oa.core.BaseTeamController;
 import le.oa.work.models.FormTeamTemplate;
-import le.oa.work.repositories.TeamTemplateRepository;
+import le.oa.work.repositories.FormTeamTemplateRepository;
 import le.web.annotation.Controller;
 import le.web.annotation.Route;
 import le.web.annotation.http.Get;
@@ -19,10 +19,10 @@ import java.util.List;
 
 @Controller
 public class FormTemplateController extends BaseTeamController {
-    private TeamTemplateRepository templateRepository;
+    private FormTeamTemplateRepository templateRepository;
 
     @Inject
-    public FormTemplateController(TeamTemplateRepository templateRepository) {
+    public FormTemplateController(FormTeamTemplateRepository templateRepository) {
         this.templateRepository = templateRepository;
 
     }

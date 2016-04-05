@@ -53,3 +53,9 @@
 .pieces ul > li.active >a{
     color: #1d9d74;
 }
+.pieces ul>li.add {
+    min-width: 0;
+    line-height: 3;
+    padding: 8px 20px;
+    width:  auto;
+}

@@ -10,12 +10,18 @@
 
 .users ul > li {
     display: inline-block;
-    width: 24%;
+    width: 240px;
     padding: 10px;
     line-height: 1.4;
     background-color: #F9F9F9;
     border: 1px solid #FFF;
     margin-bottom: 3px;
+    cursor: pointer;
+}
+.users ul > li.active {
+    background-color: #f1f9f7;
+    border-color: #e0f1e9;
+    color: #1d9d74;
 }
 
 .users ul li > div > img {

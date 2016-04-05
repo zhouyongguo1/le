@@ -1,0 +1,31 @@
+<#macro layout title="" header="" footer="">
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>${title}</title>
+    <link href="/assets/css/vendor.css" rel="stylesheet">
+    <link href="/assets/css/common.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FFFFFF;
+        }
+    </style>
+    <#noescape>
+    ${header}
+    </#noescape>
+</head>
+<body>
+
+<div class="container-fluid">
+    <#nested/>
+</div>
+<script src="/assets/js/vendor.js"></script>
+<script src="/assets/js/common.js"></script>
+    <#noescape>
+    ${footer}
+    </#noescape>
+
+</body>
+</html>
+</#macro>

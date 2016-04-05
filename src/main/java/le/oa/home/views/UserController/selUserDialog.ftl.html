@@ -1,0 +1,66 @@
+<#import "/le/oa/core/views/layout-dialog.ftl.html" as l>
+<#assign header>
+
+</#assign>
+<#assign footer>
+<script>
+    $(function () {
+        $(".users li").click(function () {
+            if ($(this).hasClass("active")) {
+                $(this).removeClass("active");
+            }
+            else {
+                $(this).addClass("active");
+            }
+        });
+    });
+    function dialogExec() {
+        var datas = [];
+        $(".users li.active").each(function () {
+            datas.push({
+                id: $(this).data("id"),
+                name: $(this).data("name"),
+                account: $(this).data("account")
+            });
+        });
+        return datas;
+    }
+</script>
+
+</#assign>
+<@l.layout header=header footer=footer>
+<div class="nav-tabs-body">
+    <div class="users">
+        <ul>
+            <#list users as user>
+                <li data-id="${user.id}" data-name="${(user.name)!}" data-account="${(user.account)!}">
+                    <div>
+                        <img src="/assets/images/${(user.account)!}.jpg">
+                        <span class="name">${(user.name)!}</span>
+                        <span class="mail">${(user.email)!}</span>
+                    </div>
+                </li>
+            </#list>
+        </ul>
+    </div>
+    <#list roles as role>
+        <#if (role.users)?has_content>
+            <h5>${role.name}</h5>
+
+            <div class="users">
+                <ul>
+                    <#list role.users as user>
+                        <li data-id="${user.id}" data-name="${user.name}" data-account="${user.account}">
+                            <div>
+                                <img src="/assets/images/${(user.account)!}.jpg">
+                                <span class="name">${(user.name)!}</span>
+                                <span class="mail">${(user.email)!}</span>
+                            </div>
+                        </li>
+                    </#list>
+                </ul>
+            </div>
+        </#if>'
+    </#list>
+</div>
+</@l.layout>

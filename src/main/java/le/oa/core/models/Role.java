@@ -1,6 +1,6 @@
 package le.oa.core.models;
 
-import le.oa.core.models.base.BaseModel;
+import le.oa.core.models.base.TeamModel;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,8 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="core_role")
-public class Role extends BaseModel {
+@Table(name = "core_role")
+public class Role extends TeamModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;

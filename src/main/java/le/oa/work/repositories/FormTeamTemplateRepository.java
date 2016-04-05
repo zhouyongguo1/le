@@ -9,10 +9,10 @@ import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
-public class TeamTemplateRepository extends BaseRepository<FormTeamTemplate> {
+public class FormTeamTemplateRepository extends BaseRepository<FormTeamTemplate> {
 
     @Inject
-    public TeamTemplateRepository(Provider<EntityManager> emProvider) {
+    public FormTeamTemplateRepository(Provider<EntityManager> emProvider) {
         super(emProvider);
     }
 
@@ -23,4 +23,6 @@ public class TeamTemplateRepository extends BaseRepository<FormTeamTemplate> {
                 .getResultList();
         return this.first(templates);
     }
+    
+    
 }
