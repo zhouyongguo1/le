@@ -25,7 +25,6 @@ public final class TestUtils {
                 "core_user",
                 "core_user_config",
                 "core_role",
-                "core_user_team",
                 "core_event",
                 "core_invite",
                 "pro_project",

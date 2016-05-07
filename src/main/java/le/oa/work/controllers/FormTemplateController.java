@@ -26,7 +26,17 @@ public class FormTemplateController extends BaseTeamController {
         this.templateRepository = templateRepository;
 
     }
-
+    
+    @Get
+    @Route("/form/template/{id}")
+    public Result getTemplate(@PathParam("id") Integer id) {
+        FormTeamTemplate template = this.checkEntity(templateRepository.findById(id));
+        return Results.json().render(template)
+                .render("id", template.getId())
+                .render("name", template.getName())
+                .render("fields", template.getFields());
+    }
+    
     @Get
     @Route("/work/template")
     @Transactional
@@ -35,6 +45,9 @@ public class FormTemplateController extends BaseTeamController {
         return Results.html()
                 .render("list", list);
     }
+
+   
+
 
     @Get
     @Route("/work/template/new")
@@ -63,4 +76,6 @@ public class FormTemplateController extends BaseTeamController {
         flashScope.success("表单保存成功");
         return this.redirect("/");
     }
+
+
 }

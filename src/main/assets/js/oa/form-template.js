@@ -1,5 +1,5 @@
 $(function () {
-    var form = (function () {
+    var formTemplate = (function () {
         var $form = $("#form");
         var $fieldDiv = $("#fieldDiv");
         var $fieldConfigDiv = $("#fieldConfigDiv");
@@ -7,17 +7,6 @@ $(function () {
 
         var $fieldTemplate = $("#field-templates");
         var $fieldConfigTemplate = $("#field-config-templates");
-        var FIELD_TYPES = {
-            'TEXT': $.textField,
-            'TEXTAREA': $.textAreaField,
-            'SELECT': $.selectField,
-            'RADIO': $.radioField,
-            'CHECKBOX': $.checkboxField,
-            'DATE': $.dateField,
-            'TIME': $.timeField,
-            'LINE': $.lineField,
-            'RATING': $.ratingField
-        };
 
         var showFieldTab = function () {
             $("#fieldTab").addClass("active").siblings().removeClass("active");
@@ -41,7 +30,7 @@ $(function () {
 
         var configUiChang = function () {
             var $field = $form.find('.field-item.active');
-            var objField = FIELD_TYPES[$field.attr('data-field-type')];
+            var objField = $.form.fieldTypes[$field.attr('data-field-type')];
             var data = objField.toJson($fieldConfigDiv.find(".field-item-config"));
             objField.initField($field, data);
         };
@@ -56,7 +45,7 @@ $(function () {
                 $field.append($fieldDel);
                 $fieldDel.tooltip();
 
-                var obj = FIELD_TYPES[fieldType];
+                var obj = $.form.fieldTypes[fieldType];
                 var data = $.parseJSON($fieldConfigTemplate.find("div[data-field-type='" + fieldType + "'] script").text());
                 data.id = 'f' + Date.parse(new Date());
                 obj.initField($field, data);
@@ -78,7 +67,7 @@ $(function () {
                 var $fieldConfig = $fieldConfigTemplate.find("div[data-field-type='" + data.type + "']").clone();
                 $fieldConfigDiv.append($fieldConfig);
 
-                var obj = FIELD_TYPES[data.type];
+                var obj =$.form.fieldTypes[data.type];
                 obj.initFieldConfig($fieldConfig, data);
                 showFieldConfigTab();
             });
@@ -122,5 +111,5 @@ $(function () {
             init: init
         };
     })();
-    $.form = form;
+    $.formTemplate = formTemplate;
 });

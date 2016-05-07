@@ -3,15 +3,13 @@ package seeds;
 import com.google.inject.Injector;
 import com.google.inject.persist.Transactional;
 import le.builder.TeamBuilder;
-import le.builder.TeamUserBuilder;
 import le.builder.UserBuilder;
-import le.oa.core.CurrentTeamProvider;
-import le.oa.core.CurrentUserProvider;
+import le.oa.core.models.Permission;
 import le.oa.core.models.Team;
 import le.oa.core.models.User;
 import le.test.TestUtils;
 import le.test.Transaction;
-import ninja.servlet.NinjaBootstrap;
+import ninja.servlet.NinjaServletBootstrap;
 import ninja.utils.NinjaMode;
 import ninja.utils.NinjaPropertiesImpl;
 
@@ -31,7 +29,7 @@ public class Seeder {
 
     public static void main(String[] args) {
         NinjaPropertiesImpl ninjaProperties = new NinjaPropertiesImpl(NinjaMode.prod);
-        NinjaBootstrap ninjaBootstrap = new NinjaBootstrap(ninjaProperties);
+        NinjaServletBootstrap ninjaBootstrap = new NinjaServletBootstrap(ninjaProperties);
         ninjaBootstrap.boot();
         Injector injector = ninjaBootstrap.getInjector();
         try {
@@ -52,25 +50,24 @@ public class Seeder {
 
     @Transactional
     public void seed() {
-        User user = coreDataSeeder.withBuilder(UserBuilder.class).create();
+        Team team = coreDataSeeder.withBuilder(TeamBuilder.class).create();
+        User user = coreDataSeeder.withBuilder(UserBuilder.class)
+                .permission(Permission.ADMIN).teamId(team.getId()).create();
         TestUtils.setCurrentUser(user);
-        coreDataSeeder.withBuilder(TeamBuilder.class).create();
-        coreDataSeeder.withBuilder(TeamUserBuilder.class).user(user).create();
-
         coreDataSeeder.seed();
         projectDataSeeder.setUser(user);
         projectDataSeeder.seed();
         workDataSeeder.seed();
     }
 
-    public void seeduser(){
+    public void seeduser() {
 
         try (Transaction txn = new Transaction(em.getTransaction())) {
-             coreDataSeeder.withBuilder(UserBuilder.class).create();
+            coreDataSeeder.withBuilder(UserBuilder.class).create();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-    
+
 
 }

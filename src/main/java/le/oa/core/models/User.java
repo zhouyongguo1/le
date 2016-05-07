@@ -1,29 +1,42 @@
 package le.oa.core.models;
 
 
-import le.oa.core.models.base.DateModel;
+import le.oa.core.models.base.BaseModel;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "core_user")
-public class User extends DateModel {
+public class User extends BaseModel {
+    public static final String DEFAULT_PASS = "1234";
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column(name = "name")
     private String name;
-    private String account;
     private String pass;
     private String email;
-    private String wechat;//微信
-    private String phone;
+    private String photo;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
+    private Role role;
+    @Enumerated(EnumType.STRING)
+    private Permission permission = Permission.NONE;
+    private boolean isOwner;
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.ACTIVE;
 
     public Integer getId() {
         return id;
@@ -41,13 +54,6 @@ public class User extends DateModel {
         this.name = name;
     }
 
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
-    }
 
     public String getPass() {
         return pass;
@@ -65,21 +71,44 @@ public class User extends DateModel {
         this.email = email;
     }
 
-    public String getWechat() {
-        return wechat;
+
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setWechat(String wechat) {
-        this.wechat = wechat;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
-    public String getPhone() {
-        return phone;
+    public Role getRole() {
+        return role;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
+    public Permission getPermission() {
+        return permission;
+    }
 
+    public void setPermission(Permission permission) {
+        this.permission = permission;
+    }
+
+    public void setOwner(boolean isOwner) {
+        this.isOwner = isOwner;
+    }
+
+    public boolean isOwner() {
+        return isOwner;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 }

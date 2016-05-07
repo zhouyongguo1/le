@@ -2,6 +2,7 @@ package le.oa.core.repositories;
 
 import com.google.inject.Inject;
 import le.oa.core.models.Role;
+import le.oa.core.models.Status;
 
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
@@ -17,7 +18,11 @@ public class RoleRepository extends BaseRepository<Role> {
 
     public List<Role> findRoles() {
 
-        return this.findAll();
+        List<Role> list = emProvider.get()
+                .createQuery("from Role where status=:status", Role.class)
+                .setParameter("status", Status.ACTIVE)
+                .getResultList();
+        return list;
     }
 
     public Optional<Role> findById(Integer id) {
@@ -26,4 +31,6 @@ public class RoleRepository extends BaseRepository<Role> {
                 .getResultList();
         return this.first(list);
     }
+
+
 }

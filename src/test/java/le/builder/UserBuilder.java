@@ -1,6 +1,7 @@
 package le.builder;
 
 import com.google.inject.Inject;
+import le.oa.core.models.Permission;
 import le.oa.core.models.User;
 import le.oa.core.repositories.UserRepository;
 import le.test.Builder;
@@ -13,17 +14,23 @@ public class UserBuilder implements Builder<User> {
     private UserRepository userRepository;
 
     private String name = "admin";
-    private String account = "admin";
     private String pass = "1";
     private String email = "admin@xx.com";
+    private String photo = "photo1.jpg";
+    private boolean isOwner = true;
+    private Permission permission = Permission.NONE;
+    private Integer teamId;
 
     @Override
     public User build() {
         User user = new User();
         user.setName(name);
         user.setPass(SecurityEncode.encoderByMd5(pass));
-        user.setAccount(account);
         user.setEmail(email);
+        user.setPhoto(photo);
+        user.setOwner(isOwner);
+        user.setPermission(permission);
+        user.setTeamId(teamId);
         return user;
     }
 
@@ -44,13 +51,23 @@ public class UserBuilder implements Builder<User> {
         return this;
     }
 
-    public UserBuilder account(String account) {
-        this.account = account;
+    public UserBuilder email(String email) {
+        this.email = email;
         return this;
     }
 
-    public UserBuilder email(String email) {
-        this.email = email;
+    public UserBuilder isOwner(Boolean isOwner) {
+        this.isOwner = isOwner;
+        return this;
+    }
+
+    public UserBuilder permission(Permission permission) {
+        this.permission = permission;
+        return this;
+    }
+
+    public UserBuilder teamId(Integer teamId) {
+        this.teamId = teamId;
         return this;
     }
 

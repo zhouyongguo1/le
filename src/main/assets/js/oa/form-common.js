@@ -323,8 +323,8 @@ $(function () {
     })();
     $.timeField = (function () {
         var toJson = function ($fieldconfig) {
-            var time=$fieldconfig.find('.default-hour').val();
-            time+=":"+$fieldconfig.find('.default-minute').val();
+            var time = $fieldconfig.find('.default-hour').val();
+            time += ":" + $fieldconfig.find('.default-minute').val();
             return {
                 type: 'TIME',
                 id: $fieldconfig.attr('data-field-id'),
@@ -334,7 +334,7 @@ $(function () {
         };
         var initField = function ($field, data) {
             $field.find('.field-name').text(data.name);
-            var time=data.defaultValue.split(":");
+            var time = data.defaultValue.split(":");
             $field.find('.default-hour').val(time[0]);
             $field.find('.default-minute').val(time[1]);
             $field.data('field', data);
@@ -342,7 +342,7 @@ $(function () {
         var initFieldConfig = function ($fieldconfig, data) {
             $fieldconfig.attr('data-field-id', data.id);
             $fieldconfig.find('.field-name').val(data.name);
-            var time=data.defaultValue.split(":");
+            var time = data.defaultValue.split(":");
             $fieldconfig.find('.default-hour').val(time[0]);
             $fieldconfig.find('.default-minute').val(time[1]);
         };
@@ -375,4 +375,32 @@ $(function () {
         }
     })();
 
+
+    $.form = (function () {
+        var $fieldTemplate = $("#field-templates");
+        var $form = $("#form");
+        var FIELD_TYPES = {
+            'TEXT': $.textField,
+            'TEXTAREA': $.textAreaField,
+            'SELECT': $.selectField,
+            'RADIO': $.radioField,
+            'CHECKBOX': $.checkboxField,
+            'DATE': $.dateField,
+            'TIME': $.timeField,
+            'LINE': $.lineField,
+            'RATING': $.ratingField
+        };
+        var createField = function (data) {
+            var $field = $fieldTemplate.find("div[data-field-type='" + data.type + "']").clone();
+            var obj = $.form.fieldTypes[data.type];
+            obj.initField($field, data);
+            $form.append($field);
+        };
+        
+        return {
+            fieldTypes: FIELD_TYPES,
+            createField: createField
+        };
+
+    })();
 });

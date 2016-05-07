@@ -7,6 +7,8 @@ import ninja.FilterWith;
 import ninja.Result;
 import ninja.Results;
 import ninja.exceptions.BadRequestException;
+import ninja.validation.ConstraintViolation;
+import ninja.validation.FieldViolation;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
@@ -49,6 +51,12 @@ public abstract class BaseController {
         return Results.redirect(url);
     }
 
+
+    protected FieldViolation createFieldError(String field, String message) {
+        return new FieldViolation(field,
+                ConstraintViolation.createWithDefault(message,message));
+    }
+    
     protected String fileTypeOf(String fileName) {
         int idx = fileName.lastIndexOf(".");
         return fileName.substring(idx + 1, fileName.length());
