@@ -3,107 +3,11 @@
 </#assign>
 <#assign footer>
 <script src="/assets/js/oa/form-common.js"></script>
+    <#include "js.html">
 <script>
-    $(function () {
-        var workflow = (function () {
-            var showWorkTemplate = function () {
-                $("#workTemplates").load("/work/flow-templater/user");
-            };
-            
-            var showForm=function(templateId){
-                $.getJSON("/form/template/"+templateId, function(json){
-                    $("#fromTemplateName").val(json.name);
-                    $("#fromTemplateId").val(json.id);
-                    var fields = $.parseJSON(json.fields);
-                    $.each(fields, function(i, data){
-                        $.form.createField(data);
-                    });
-                });
-            };
-            
-            
-            var initWorkflow = function () {
-            };
-            var init = function (groupId) {
-                $("body").on("click", "#workTemplates .add", function () {
-                    var opts = {
-                        src: "/work/flow-templater/dialog",
-                        title: "申请模板",
-                        ok: function (data) {
-                            showWorkTemplate();
-                        }
-                    };
-                    $.dialog.show(opts);
-                });
-                $("body").on("click", "#workTemplate .add", function () {
-                    var opts = {
-                        src: "/users/selUserDialog",
-                        title: "团队成员",
-                        ok: function (datas) {
-
-                        }
-                    };
-                    $.dialog.show(opts);
-                });
-
-                $("body").on("click", "#workTemplates li", function () {
 
 
-                });
-
-
-//                url = '/election/groups/' + groupId + '/preferences';
-//                $courseList.find(".wg-select").click(function () {
-//                    $.post(url + "?courseId=" + $(this).data('course-id'), function (data) {
-//                        if (data.work) {
-//                            jQuery.message.success("选课成功");
-//                            showStudentPreference();
-//                        }
-//                        else {
-//                            jQuery.message.error(data.messages);
-//                        }
-//                    });
-//                });
-//                $("body").on("click", "#studentPreferenceList .wg-del", function () {
-//                    $.post(url + "/" + $(this).data("id"), {"_method": "delete"}, function (data) {
-//                        jQuery.message.success("移除选课志愿成功");
-//                        showStudentPreference();
-//                    });
-//                });
-//                $("body").on("click", "#studentPreferenceList .wg-down", function () {
-//                    $.post(url + "/" + $(this).data("id") + "/down", {"_method": "put"}, function (data) {
-//                        if (data.work) {
-//                            jQuery.message.success("移动选课志愿成功");
-//                            showStudentPreference();
-//                        }
-//
-//                    });
-//                });
-//                $("body").on("click", "#studentPreferenceList .wg-up", function () {
-//                    $.post(url + "/" + $(this).data("id") + "/up", {"_method": "put"}, function (data) {
-//                        if (data.work) {
-//                            jQuery.message.success("移动选课志愿成功");
-//                            showStudentPreference();
-//                        }
-//                    });
-//                });
-            };
-            return {
-                init: init,
-                showForm:showForm,
-                showWorkTemplate: showWorkTemplate
-            };
-        })();
-        $.workflow = workflow;
-    });
-
-    $(function () {
-        $.workflow.init();
-        $.workflow.showWorkTemplate();
-        $.workflow.showForm(2);
-    });
 </script>
-
 </#assign>
 <@l.layout header=header footer=footer>
 <div class="main">
@@ -111,58 +15,41 @@
         <h4>发起工作审批</h4>
     </div>
     <div class="main-body">
-        <div class="pieces" id="workTemplates"></div>
+        <div class="pieces" id="templates"></div>
         <div class="work-form">
-            <h4 id="fromTemplateName">请假单</h4>
+            <input type="hidden" id="fromTemplateId" name="fromTemplateId">
+            <h4 id="fromTemplateName"></h4>
             <input id="fromTemplateId" type="hidden" value="">
             <div class="work-wizard" id="workTemplates">
-                <ul class="wizard_steps anchor">
-                    <li>
-                        <a href="#step-1" class="selected" isdone="1" rel="1">
-                            <span class="step_no"> <img src="imgs/4.jpg"></span>
-                            <span class="step_descr">李华</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#step-2" class="disabled" isdone="0" rel="2">
-                <span class="step_no">
-                   <img src="imgs/1.jpg">
-                </span>
-                            <span class="step_descr">王杰</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#step-3" class="disabled" isdone="0" rel="3">
-                <span class="step_no">
-                   <img src="imgs/2.jpg">
-                </span>
-                            <span class="step_descr">张凯 </span>
-                        </a>
-                    </li> <li>
-                    <a href="#step-3" isdone="0" rel="3">
-              <span class="step_no">
-                 <img src="imgs/3.jpg">
-              </span>
-                        <span class="step_descr">张凯 </span>
-                    </a>
-                </li>
-                    <li>
-                        <a href="#step-4" class="add" isdone="0" rel="4">
-                            <span class="step_no"><i class="fa fa-plus"></i></span>
-                            <span class="step_descr"></span>
-                        </a>
-                    </li>
+                <ul class="wizard_steps">
                 </ul>
             </div>
             <form class="form-horizontal" id="form">
+            </form>
+        </div>
+    </div>
+</div>
+<div style="display: none" id="htmlTemplate">
+    <li class="task">
+        <a href="#">
+            <span class="step_no">
+                <img src="/assets/img/">
+            </span>
+            <span class="step_descr"></span>
+        </a>
+    </li>
 
+    <li class="taskAdd">
+        <a href="#" class="add">
+            <span class="step_no"><i class="fa fa-plus"></i></span>
+            <span class="step_descr"></span>
+        </a>
+    </li>
 
-            <div class="form-group">
-                <div class="col-md-offset-2  col-sm-6">
-                    <a href="def.html" class="btn btn-success">发送工作审批</a>
-                    <a href="def.html" class="btn">取消</a>
-                </div>
-            </div> </form>
+    <div class="form-group formSave">
+        <div class="col-md-offset-2  col-sm-6">
+            <button id="sendWorkflow">发送工作审批</button>
+            <a href="def.html" class="btn">取消</a>
         </div>
     </div>
 </div>

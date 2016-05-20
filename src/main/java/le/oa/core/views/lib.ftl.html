@@ -1,0 +1,9 @@
+<#macro error for="">
+    <@validationError field=for>
+        <#if message??>
+        <ul class="parsley-errors-list filled">
+            <li class="parsley-required">${message}</li>
+        </ul>
+        </#if>
+    </@validationError>
+</#macro>

@@ -20,47 +20,46 @@
             datas.push({
                 id: $(this).data("id"),
                 name: $(this).data("name"),
-                account: $(this).data("account")
+                photo: $(this).data("photo")
             });
         });
         return datas;
     }
 </script>
-
 </#assign>
 <@l.layout header=header footer=footer>
 <div class="nav-tabs-body">
     <div class="users">
         <ul>
             <#list users as user>
-                <li data-id="${user.id}" data-name="${(user.name)!}" data-account="${(user.account)!}">
-                    <div>
-                        <img src="/assets/images/${(user.account)!}.jpg">
-                        <span class="name">${(user.name)!}</span>
-                        <span class="mail">${(user.email)!}</span>
-                    </div>
-                </li>
+                <#if !(user.role??)>
+                    <li data-id="${user.id}" data-name="${(user.name)!}"  data-photo="${user.photo!}">
+                        <div>
+                            <img src="/assets/img/${user.photo!}">
+                            <span class="name">${(user.name)!}</span>
+                            <span class="mail">${(user.email)!}</span>
+                        </div>
+                    </li> </#if>
             </#list>
         </ul>
     </div>
     <#list roles as role>
-        <#if (role.users)?has_content>
-            <h5>${role.name}</h5>
-
-            <div class="users">
-                <ul>
-                    <#list role.users as user>
-                        <li data-id="${user.id}" data-name="${user.name}" data-account="${user.account}">
+        <h5>${role.name}</h5>
+        <div class="users">
+            <ul>
+                <#list users as user>
+                    <#if (role.id)==(user.role.id)!0>
+                        <li data-id="${user.id}" data-name="${user.name}" data-photo="${user.photo!}">
                             <div>
-                                <img src="/assets/images/${(user.account)!}.jpg">
-                                <span class="name">${(user.name)!}</span>
-                                <span class="mail">${(user.email)!}</span>
+                                <img src="/assets/img/${user.photo!}">
+                                <span class="name">${user.name!}</span>
+                                <span class="mail">${user.email!}</span>
                             </div>
                         </li>
-                    </#list>
-                </ul>
-            </div>
-        </#if>'
+                    </#if>
+                </#list>
+            </ul>
+        </div>
     </#list>
 </div>
 </@l.layout>

@@ -4,9 +4,7 @@ public class WorkFlowTask {
     private String taskId;
     private Integer userId;
     private String userName;
-    private String sourceRef;
-    private String targetRef;
-    private boolean isEdit = true;
+    private String photo;
 
     public String getTaskId() {
         return taskId;
@@ -32,27 +30,11 @@ public class WorkFlowTask {
         this.userName = userName;
     }
 
-    public String getSourceRef() {
-        return sourceRef;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setSourceRef(String sourceRef) {
-        this.sourceRef = sourceRef;
-    }
-
-    public String getTargetRef() {
-        return targetRef;
-    }
-
-    public void setTargetRef(String targetRef) {
-        this.targetRef = targetRef;
-    }
-
-    public boolean isEdit() {
-        return isEdit;
-    }
-
-    public void setEdit(boolean isEdit) {
-        this.isEdit = isEdit;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

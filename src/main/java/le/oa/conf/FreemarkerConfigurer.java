@@ -7,6 +7,7 @@ import freemarker.template.TemplateModelException;
 import le.oa.core.CurrentTeamProvider;
 import le.oa.core.CurrentUserProvider;
 import le.web.ContextProvider;
+import le.web.freemarker.ValidationErrorDirective;
 import ninja.lifecycle.Start;
 import ninja.template.TemplateEngineFreemarker;
 
@@ -23,16 +24,19 @@ public class FreemarkerConfigurer {
     private ContextProvider contextProvider;
     private CurrentTeamProvider currentTeamProvider;
     private CurrentUserProvider currentUserProvider;
+    private final ValidationErrorDirective validationErrorDirective;
 
     @Inject
     public FreemarkerConfigurer(TemplateEngineFreemarker templateEngine,
                                 ExtendedObjectWrapper objectWrapper,
                                 ContextProvider contextProvider,
                                 CurrentTeamProvider currentTeamProvider,
-                                CurrentUserProvider currentUserProvider) {
+                                CurrentUserProvider currentUserProvider,
+                                ValidationErrorDirective validationErrorDirective) {
         this.contextProvider = contextProvider;
         this.currentTeamProvider = currentTeamProvider;
         this.currentUserProvider = currentUserProvider;
+        this.validationErrorDirective = validationErrorDirective;
         try {
             Field field = templateEngine.getClass().getDeclaredField("cfg");
             field.setAccessible(true);
@@ -50,6 +54,7 @@ public class FreemarkerConfigurer {
         map.put("contextProvider", contextProvider);
         map.put("currentUserProvider", currentUserProvider);
         map.put("currentTeamProvider", currentTeamProvider);
+        map.put("validationError", validationErrorDirective);
         try {
             cfg.setAllSharedVariables(new SimpleHash(map));
         } catch (TemplateModelException e) {

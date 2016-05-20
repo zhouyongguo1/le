@@ -18,6 +18,10 @@
     margin-bottom: 3px;
     cursor: pointer;
 }
+.users ul > li:hover {
+    background-color: #f1f9f7;
+    border-color: #e0f1e9;
+}
 .users ul > li.active {
     background-color: #f1f9f7;
     border-color: #e0f1e9;

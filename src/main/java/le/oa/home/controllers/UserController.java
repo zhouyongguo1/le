@@ -1,7 +1,9 @@
 package le.oa.home.controllers;
 
 import com.google.inject.Inject;
+import com.google.inject.persist.Transactional;
 import le.oa.core.BaseTeamController;
+import le.oa.core.ResponseJson;
 import le.oa.core.models.Role;
 import le.oa.core.models.Status;
 import le.oa.core.models.User;
@@ -16,7 +18,9 @@ import le.web.annotation.http.Get;
 import le.web.annotation.http.Post;
 import ninja.Result;
 import ninja.Results;
+import ninja.params.Param;
 import ninja.params.PathParam;
+import ninja.session.FlashScope;
 import ninja.validation.Validation;
 
 import java.util.ArrayList;
@@ -40,51 +44,70 @@ public class UserController extends BaseTeamController {
     @Get
     @Route("/users")
     public Result index() {
+        List<Role> roles = roleRepository.findRoles();
+        List<User> users = userRepository.findUsers();
+        return Results.html()
+                .render("users", users)
+                .render("roles", roles);
 
-        return Results.html();
+    }
 
+    @Get
+    @Route("/users/group")
+    public Result group() {
+        List<Role> roles = roleRepository.findRoles();
+        List<User> users = userRepository.findUsers();
+        return Results.html()
+                .render("users", users)
+                .render("roles", roles);
+    }
+
+
+    @Post
+    @Transactional
+    @Route("/users/group")
+    public Result groupSave(@Param("groupName") String groupName) {
+        Role role = new Role();
+        role.setName(groupName);
+        roleRepository.save(role);
+        return Results.json().render(new ResponseJson(true,"分组保存成功"));
     }
 
     @Get
     @Route("/users/selUserDialog")
     public Result selUserDialog() {
-        List<Role> roles = roleRepository.findAll();
-        List<User> users = new ArrayList<>();
-        List<User> userList = userRepository.findUsers();
-        List<RoleView> views = roles.stream().map(m -> RoleView.valueOf(m)).collect(Collectors.toList());
-        for (RoleView roleView : views) {
-            for (User user : userList) {
-                if (user.getRole() == null) {
-                    users.add(user);
-                } else if (roleView.getId().equals(user.getRole().getId())) {
-                    roleView.getUsers().add(user);
-                }
-            }
-        }
+        List<Role> roles = roleRepository.findRoles();
+        List<User> users = userRepository.findUsers();
         return Results.html()
-                .render("roles", views)
+                .render("roles", roles)
                 .render("users", users);
 
     }
 
     @Get
     @Route("/users/new")
-    public Result add() {
+    public Result add(@Param("roleId") Integer roleId) {
         List<Role> roles = roleRepository.findRoles();
         return Results.html()
+                .render("roleId", roleId)
                 .render("roles", roles);
 
     }
 
     @Post
-    @Route("/users/new")
-    public Result save(UserForm userForm, Validation validation) {
+    @Transactional
+    @Route("/users/save")
+    public Result save(UserForm userForm, Validation validation, FlashScope flashScope) {
         Optional<User> userOptional = userRepository.findUserByName(userForm.getEmail());
         if (userOptional.isPresent()) {
-            validation.addBeanViolation(createFieldError("email", "email已经存在"));
-            return Results.html()
+            validation.addBeanViolation(createFieldError("email", "电子邮箱地址已经存在"));
+            List<Role> roles = roleRepository.findRoles();
+            flashScope.error("电子邮箱地址已经存在");
+            return Results.html().template(named("add"))
                     .render(VALIDATION_KEY, validation)
-                    .render("userForm", userForm);
+                    .render("user", userForm)
+                    .render("roles", roles)
+                    .render("roleId", userForm.getRoleId());
         } else {
             Role role = null;
             if (userForm.getRoleId() != null) {
@@ -95,6 +118,7 @@ public class UserController extends BaseTeamController {
             }
             User user = userForm.toUser(role);
             userRepository.save(user);
+            flashScope.success("添加成功");
             return this.redirect("/users");
         }
     }

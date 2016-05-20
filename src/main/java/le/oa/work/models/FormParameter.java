@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
 
 
 @Entity
@@ -33,11 +32,6 @@ public class FormParameter extends BaseModel {
     private FieldType fieldType = FieldType.TEXT;
 
     private String StringValue;
-    private Integer intValue;
-    private LocalDateTime dateValue;
-    private String textValue;
-    private Double doubleValue;
-    private Boolean boolValue = false;
 
     public Integer getId() {
         return id;
@@ -87,43 +81,5 @@ public class FormParameter extends BaseModel {
         StringValue = stringValue;
     }
 
-    public Integer getIntValue() {
-        return intValue;
-    }
 
-    public void setIntValue(Integer intValue) {
-        this.intValue = intValue;
-    }
-
-    public LocalDateTime getDateValue() {
-        return dateValue;
-    }
-
-    public void setDateValue(LocalDateTime dateValue) {
-        this.dateValue = dateValue;
-    }
-
-    public String getTextValue() {
-        return textValue;
-    }
-
-    public void setTextValue(String textValue) {
-        this.textValue = textValue;
-    }
-
-    public Double getDoubleValue() {
-        return doubleValue;
-    }
-
-    public void setDoubleValue(Double doubleValue) {
-        this.doubleValue = doubleValue;
-    }
-
-    public Boolean getBoolValue() {
-        return boolValue;
-    }
-
-    public void setBoolValue(Boolean boolValue) {
-        this.boolValue = boolValue;
-    }
 }

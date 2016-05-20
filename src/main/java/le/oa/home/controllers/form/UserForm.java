@@ -10,7 +10,7 @@ public class UserForm {
     private String email;
     private String photo;
     private Integer roleId;
-    private Permission permission = Permission.NONE;
+    private Permission permission;
 
     public String getName() {
         return name;

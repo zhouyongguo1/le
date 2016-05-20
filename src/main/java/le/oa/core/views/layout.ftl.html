@@ -58,8 +58,6 @@
                                 <a href="#" style="background-color: #dddddd"></a>
                             </div>
                         </li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="/teams">切换团队</a></li>
 
                         <li role="separator" class="divider"></li>
                         <li><a href="#"><i class="icon-cog fa-fw"></i>个人设置</a></li>
@@ -83,6 +81,19 @@
     <script src="/assets/js/common.js"></script>
     ${footer}
     </#noescape>
+    <#if flash.success??>
+    <script type="text/javascript">
+        $(function () {
+            $.msg.success("${flash.success}");
+        });
+    </script>
+    <#elseif flash.error??>
+    <script type="text/javascript">
+        $(function () {
+            $.msg.error("${flash.error}");
+        });
+    </script>
+    </#if>
 </body>
 </html>
 </#macro>

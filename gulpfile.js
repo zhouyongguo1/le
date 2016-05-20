@@ -47,8 +47,8 @@ gulp.task('oa-css', function () {
 
 gulp.task('css', ['vendor-css', 'common-css', 'oa-css', 'themes-css']);
 gulp.task('images', function () {
-    return gulp.src(src('images/**'))
-        .pipe(gulp.dest(build('images')))
+    return gulp.src(src('img/**'))
+        .pipe(gulp.dest(build('img')))
 });
 gulp.task('fonts', function () {
     return gulp.src(src('fonts/**'))

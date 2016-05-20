@@ -3,115 +3,72 @@
 
 </#assign>
 <#assign footer>
+<script>
+    $(function () {
+        $("#saveBtn").click(function () {
+            if ($('form').parsley().validate()) {
+                $.post("/users/group", {"groupName": $("#groupName").val()}, function (data) {
+                    $("#users").load("/users/group");
+                    $.msg.success(data.messages);
+                });
+            }
+        });
+        $("#cancelBtn").click(function () {
+            $("#group-add").show();
+            $("#group-form").hide();
+        });
+        $("#group-add").click(function () {
+            $(this).hide();
+            $("#group-form").show();
+        });
 
+    });
+
+</script>
 </#assign>
 <@l.layout header=header footer=footer>
-  <div class="main">
+<div class="main">
     <div class="main-header">
 
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="icon-home fa-fw"></i>首页</a></li>
-        <li class="active">团队成员</li>
-      </ol>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="icon-home fa-fw"></i>首页</a></li>
+            <li class="active">团队成员</li>
+        </ol>
     </div>
     <div class="main-body">
-      <form>
         <p class="help-block">管理员可以邀请和移除项目成员，只有被邀请的团队成员才能访问该项目的信息。点击这里查看如何设置成员权限。.</p>
-        <div class="nav-tabs-body">
-          <h5>Ui工程师（<a href="#">添加</a> ）</h5>
 
-          <div class="users">
-            <ul>
-              <li>
-                <div>
-                  <img src="imgs/1.jpg">
-                  <span class="name">李丽华</span>
-                  <span class="mail">lili@qq.com</span>
-                </div>
-              </li>
-              <li>
-                <div>
-                  <img src="imgs/2.jpg">
-                  <span class="name">李丽华</span>
-                  <span class="mail">lili@qq.com</span>
-                </div>
-              </li>
-              <li>
-                <div>
-                  <img src="imgs/4.jpg">
-                  <span class="name">李丽华</span>
-                  <span class="mail">lili@qq.com</span>
-                </div>
-              </li>
-              <li>
-                <div>
-                  <img src="imgs/3.jpg">
-                  <span class="name">李丽华</span>
-                  <span class="mail">lili@qq.com</span>
-                </div>
-              </li>
-              <li>
-                <div>
-                  <img src="imgs/6.jpg">
-                  <span class="name">李丽华</span>
-                  <span class="mail">lili@qq.com</span>
-                </div>
-              </li>
-              <li>
-                <div>
-                  <img src="imgs/1.jpg">
-                  <span class="name">李丽华</span>
-                  <span class="mail">lili@qq.com</span>
-                </div>
-              </li>
-
-            </ul>
-
-          </div>
-          <h5>java工程师（<a href="#">添加</a> ）</h5>
-          <div class="users">
-            <ul>
-              <li>
-                <div>
-                  <img src="imgs/1.jpg">
-                  <span class="name">李丽华</span>
-                  <span class="mail">lili@qq.com</span>
-                </div>
-              </li>
-              <li>
-                <div>
-                  <img src="imgs/2.jpg">
-                  <span class="name">李丽华</span>
-                  <span class="mail">lili@qq.com</span>
-                </div>
-              </li>
-              <li>
-                <div>
-                  <img src="imgs/3.jpg">
-                  <span class="name">李丽华</span>
-                  <span class="mail">lili@qq.com</span>
-                </div>
-              </li>
-              <li>
-                <div>
-                  <img src="imgs/4.jpg">
-                  <span class="name">李丽华</span>
-                  <span class="mail">lili@qq.com</span>
-                </div>
-              </li>
-              <li>
-                <div>
-                  <img src="imgs/6.jpg">
-                  <span class="name">李丽华</span>
-                  <span class="mail">lili@qq.com</span>
-                </div>
-              </li>
-            </ul>
-
-          </div>
+        <div id="users">
+            <#include "users.ftl.html">
         </div>
+        <a href="#" id="group-add">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            添加新的分组
+        </a>
 
-      </form>
+        <div class="form" style="display: none" id="group-form">
+            <div class="form-body">
+                <form class="form-horizontal" id="task-form">
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="groupName" placeholder="分组的名称" required=""
+                                   maxlength="50">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class=" col-sm-6">
+                            <button class="btn btn-success" id="saveBtn" type="button">
+                                <i class="fa fa-floppy-o" aria-hidden="true"></i>保存
+                            </button>
+                            <a href="#" class="btn" id="cancelBtn">取消</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
+
+</div>
+
+
 </@l.layout>

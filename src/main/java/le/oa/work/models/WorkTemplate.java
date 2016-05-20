@@ -30,7 +30,7 @@ public class WorkTemplate extends TeamModel {
     @Type(type = "le.jpa.JsonType", parameters = {
             @Parameter(name = "class", value = "le.oa.work.models.WorkFlow")
     })
-    private WorkFlow workFlow;
+    private WorkFlow workFlow=new WorkFlow();
 
     public Integer getId() {
         return id;

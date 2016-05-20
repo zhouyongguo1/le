@@ -3,6 +3,7 @@ package le.oa.conf;
 import com.google.inject.AbstractModule;
 import le.oa.persist.AuditInitializer;
 import le.oa.persist.JpaInitializer;
+import le.web.binding.FormBinder;
 
 public class Module extends AbstractModule {
 
@@ -14,5 +15,6 @@ public class Module extends AbstractModule {
         bind(AuditInitializer.class);
         bind(FreemarkerConfigurer.class);
         bind(JpaInitializer.class);
+        bind(FormBinder.class);
     }
 }

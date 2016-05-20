@@ -29,7 +29,6 @@ public class WorkInstance extends BaseModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private Integer formId;
-    private String formName;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -67,13 +66,7 @@ public class WorkInstance extends BaseModel {
         this.formId = formId;
     }
 
-    public String getFormName() {
-        return formName;
-    }
 
-    public void setFormName(String formName) {
-        this.formName = formName;
-    }
 
     public User getUser() {
         return user;
