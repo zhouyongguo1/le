@@ -29,6 +29,7 @@ public class WorkInstance extends BaseModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private Integer formId;
+    private String formTemplateName;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -47,9 +48,6 @@ public class WorkInstance extends BaseModel {
     @Enumerated(EnumType.STRING)
     private WorkInstanceStatus status = WorkInstanceStatus.DOING;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "workflowInstance", fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<WorkInstanceItem> workInstanceItems = new ArrayList<>();
-
     public Integer getId() {
         return id;
     }
@@ -65,7 +63,6 @@ public class WorkInstance extends BaseModel {
     public void setFormId(Integer formId) {
         this.formId = formId;
     }
-
 
 
     public User getUser() {
@@ -108,11 +105,11 @@ public class WorkInstance extends BaseModel {
         this.status = status;
     }
 
-    public List<WorkInstanceItem> getWorkInstanceItems() {
-        return workInstanceItems;
+    public String getFormTemplateName() {
+        return formTemplateName;
     }
 
-    public void setWorkInstanceItems(List<WorkInstanceItem> workInstanceItems) {
-        this.workInstanceItems = workInstanceItems;
+    public void setFormTemplateName(String formTemplateName) {
+        this.formTemplateName = formTemplateName;
     }
 }

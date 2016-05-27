@@ -1,0 +1,81 @@
+<#import "/le/oa/core/views/layout.ftl.html" as l>
+<#import "/le/oa/core/views/lib.ftl.html" as lib>
+<#assign header>
+
+</#assign>
+<#assign footer>
+<script src="/assets/js/oa/form-common.js"></script>
+<script>
+        $(function () {
+            var fields=$.parseJSON($("#instanceFields").val());
+            $.each(fields, function (i, data) {
+                $.form.createField(data);
+            });
+        });
+
+</script>
+</#assign>
+<@l.layout header=header footer=footer>
+<div class="main">
+    <div class="main-header">
+        <h4>发起工作审批</h4>
+    </div>
+    <div class="main-body">
+        <div class="work-form">
+            <form class="form-horizontal form-label-left" id="form">
+            </form>
+            <div class="row">
+                <div class="col-md-offset-1">
+                    <ul class="list-unstyled timeline">
+                        <#list items as item>
+                            <li>
+                                <div class="block">
+                                    <div class="tags">
+
+                                        <img src="/assets/img/${(item.user.photo)!}" align="absmiddle">
+                                        <span>${(item.user.name)!} </span>
+                                    </div>
+                                <div class="block_content">
+
+                                    <#if item.status=="WAIT">
+                                        <textarea style="width: 500px" rows="4">
+                                        </textarea>
+                                    <#else>
+
+                                        <div>
+                                            <span class="byline">${(item.updatedAt)!}
+                                            </span>
+                                            <@lib.workInstanceItemStatus status="${item.status}"/>
+                                        </div>
+
+                                        <p class="excerpt"> ${(item.content)!} </p>
+                                    </div>
+                                    </#if>
+                                </div>
+                            </li>
+
+                        </#list>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-2  col-sm-6">
+                <a href="def.html" class="btn btn-success">同意工作请求</a>
+                <a href="def.html" class="btn">取消</a>
+            </div>
+            <input id="instanceFields" type="hidden" value="${instance.fields}">
+        </div>
+    </div>
+</div>
+<#--private String title;-->
+<#--private String workFlow;-->
+<#--private Integer teamTemplateId;-->
+<#--private String teamTemplateName;-->
+<#--private String fields;-->
+<#--private String parameters;-->
+<div style="display: none" id="htmlTemplate"></div>
+    <#include "/le/oa/work/views/_fields.ftl.html">
+    <#include "/le/oa/core/views/dialog.ftl.html">
+</@l.layout>

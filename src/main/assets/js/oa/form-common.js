@@ -28,10 +28,14 @@ $(function () {
             $fieldconfig.find('.field-required').prop("checked", data.required);
             $fieldconfig.find('.field-number').prop("checked", data.isNumber);
         };
+        var value = function ($field) {
+            return $field.find('.field-value').val();
+        };
         return {
             toJson: toJson,
             initField: initField,
-            initFieldConfig: initFieldConfig
+            initFieldConfig: initFieldConfig,
+            value: value
         }
     })();
     $.textAreaField = (function () {
@@ -60,10 +64,14 @@ $(function () {
             $fieldconfig.find('.field-defaultValue').val(data.defaultValue);
             $fieldconfig.find('.field-required').prop("checked", data.required);
         };
+        var value = function ($field) {
+            return $field.find('.field-value').val();
+        };
         return {
             toJson: toJson,
             initField: initField,
-            initFieldConfig: initFieldConfig
+            initFieldConfig: initFieldConfig,
+            value: value
         }
     })();
     $.radioField = (function () {
@@ -93,6 +101,7 @@ $(function () {
                 var $option = $optionTemplate.clone().removeClass("radio-option-template");
                 $field.find('.field-options').append($option);
                 $option.find('.field-option').text(n);
+                $option.find('.field-value').val(n);
                 if (data.defaultValue == n) {
                     $option.find('.field-value').prop("checked", true);
                 }
@@ -128,10 +137,14 @@ $(function () {
                 }
             });
         };
+        var value = function ($field) {
+            return $field.find("input:radio:checked").val();
+        };
         return {
             toJson: toJson,
             initField: initField,
-            initFieldConfig: initFieldConfig
+            initFieldConfig: initFieldConfig,
+            value: value
         }
     })();
     $.checkboxField = (function () {
@@ -166,6 +179,7 @@ $(function () {
                 var $option = $optionTemplate.clone().removeClass("checkbox-option-template");
                 $field.find('.field-options').append($option);
                 $option.find('.field-option').text(n);
+                $option.find('.field-value').val(n);
                 if ($.inArray(n, arr) >= 0) {
                     $option.find('.field-value').prop("checked", true);
                 }
@@ -201,10 +215,14 @@ $(function () {
                 }
             });
         };
+        var value = function ($field) {
+            return $field.find("input:checkbox:checked").val();
+        };
         return {
             toJson: toJson,
             initField: initField,
-            initFieldConfig: initFieldConfig
+            initFieldConfig: initFieldConfig,
+            value: value
         }
     })();
     $.selectField = (function () {
@@ -250,10 +268,14 @@ $(function () {
                 }
             });
         };
+        var value = function ($field) {
+            return $field.find('.field-value').val();
+        };
         return {
             toJson: toJson,
             initField: initField,
-            initFieldConfig: initFieldConfig
+            initFieldConfig: initFieldConfig,
+            value: value
         }
     })();
     $.ratingField = (function () {
@@ -281,10 +303,14 @@ $(function () {
             $fieldconfig.find('.field-name').val(data.name);
             $fieldconfig.find('.field-defaultValue').val(data.defaultValue);
         };
+        var value = function ($field) {
+            return $field.find('.field-options').val();
+        };
         return {
             toJson: toJson,
             initField: initField,
-            initFieldConfig: initFieldConfig
+            initFieldConfig: initFieldConfig,
+            value: value
         }
     })();
     $.dateField = (function () {
@@ -314,10 +340,14 @@ $(function () {
             $fieldconfig.find('.field-required').prop("checked", data.required);
             $.selectDate.init($fieldconfig.find('.field-defaultValue'));
         };
+        var value = function ($field) {
+            return $field.find('.field-value').val();
+        };
         return {
             toJson: toJson,
             initField: initField,
-            initFieldConfig: initFieldConfig
+            initFieldConfig: initFieldConfig,
+            value: value
         }
 
     })();
@@ -346,10 +376,14 @@ $(function () {
             $fieldconfig.find('.default-hour').val(time[0]);
             $fieldconfig.find('.default-minute').val(time[1]);
         };
+        var value = function ($field) {
+            return $field.find('.default-hour').val() + ":" + $field.find('.default-minute').val();
+        };
         return {
             toJson: toJson,
             initField: initField,
-            initFieldConfig: initFieldConfig
+            initFieldConfig: initFieldConfig,
+            value: value
         }
     })();
     $.lineField = (function () {
@@ -368,10 +402,14 @@ $(function () {
             $fieldconfig.attr('data-field-id', data.id);
             $fieldconfig.find('.field-name').val(data.name);
         };
+        var value = function ($field) {
+            return "";
+        };
         return {
             toJson: toJson,
             initField: initField,
-            initFieldConfig: initFieldConfig
+            initFieldConfig: initFieldConfig,
+            value: value
         }
     })();
 
@@ -396,8 +434,16 @@ $(function () {
             obj.initField($field, data);
             $form.append($field);
         };
-        
+
+        var fields = function () {
+            var $fields = [];
+            $form.find(".field-item").each(function () {
+                $fields.push($(this));
+            });
+            return $fields;
+        };
         return {
+            fields: fields,
             fieldTypes: FIELD_TYPES,
             createField: createField
         };

@@ -49,4 +49,13 @@ public class ParameterData {
         parameter.setStringValue(parameterValue);
         return parameter;
     }
+
+    public static ParameterData of(FormParameter formParameter) {
+        ParameterData data = new ParameterData();
+        data.setFieldType(formParameter.getFieldType());
+        data.setUid(formParameter.getUid());
+        data.setName(formParameter.getName());
+        data.setParameterValue(formParameter.getStringValue());
+        return data;
+    }
 }

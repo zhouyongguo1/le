@@ -4,5 +4,6 @@ public enum WorkInstanceItemStatus {
     START,
     FLOW,
     STOP,
-    BACK
+    BACK,
+    WAIT
 }

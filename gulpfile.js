@@ -74,7 +74,8 @@ gulp.task('vendor-js', function () {
         src('js/vendor/bootstrap-datetimepicker.js'),
         src('js/vendor/bootstrap-datetimepicker.zh-CN.js'),
         src('js/vendor/jquery.bootstrap-growl.js'),
-        src('js/vendor/jquery.timers.js')
+        src('js/vendor/jquery.timers.js'),
+        src('js/vendor/jquery.pagination.js')
     ]).pipe(sourcemaps.init())
         .pipe(concat('vendor.js'))
         .pipe(uglify())

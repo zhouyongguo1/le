@@ -1,13 +1,20 @@
 package le.oa.core.repositories;
 
+import le.oa.core.models.search.ResultData;
+import le.oa.core.models.search.Search;
 import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.Session;
 
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.lang.reflect.ParameterizedType;
+import java.math.BigInteger;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public abstract class BaseRepository<T> implements Repository<T> {
@@ -66,30 +73,40 @@ public abstract class BaseRepository<T> implements Repository<T> {
         return CollectionUtils.isEmpty(results) ? Optional.empty() : Optional.of(results.get(0));
     }
 
-//    protected <T> Result<T> paginate(Query countQuery, Query query, Map<String, Object> parameters, Pagination pagination) {
-//
-//        parameters.forEach(countQuery::setParameter);
-//        Long count;
-//        Object countResult = countQuery.getSingleResult();
-//        if (countResult instanceof Integer) {
-//            count = ((Integer) countResult).longValue();
-//        } else if (countResult instanceof BigInteger) {
-//            count = ((BigInteger) countResult).longValue();
-//        } else {
-//            count = (Long) countResult;
-//        }
-//        if (count == 0L) {
-//            return Result.<T>create(0L, Collections.emptyList());
-//        }
-//
-//        parameters.forEach(query::setParameter);
-//
-//        List list = query
-//                .setFirstResult(pagination.getPageOffset())
-//                .setMaxResults(pagination.getPageSize())
-//                .getResultList();
-//
-//        return Result.<T>create(count, list);
-//    }
 
+    protected <T> ResultData<T> paginate(Query countQuery, Query query, Map<String, Object> parameters, Search search) {
+
+        parameters.forEach(countQuery::setParameter);
+        Long count;
+        Object countResult = countQuery.getSingleResult();
+        if (countResult instanceof Integer) {
+            count = ((Integer) countResult).longValue();
+        } else if (countResult instanceof BigInteger) {
+            count = ((BigInteger) countResult).longValue();
+        } else {
+            count = (Long) countResult;
+        }
+        if (count == 0L) {
+            return ResultData.<T>create(0L, Collections.emptyList());
+        }
+
+        parameters.forEach(query::setParameter);
+        int pageCount = (int) Math.ceil(count / (double) search.getPageSize());
+        if (search.getPageIndex() > pageCount) {
+            search.setPageIndex(pageCount);
+        }
+        List list = query
+                .setFirstResult(search.getPageOffset())
+                .setMaxResults(search.getPageSize())
+                .getResultList();
+
+        return ResultData.<T>create(count, list);
+    }
+
+    protected <T> ResultData<T> paginate(QueryBuilder query, Search search, Class<T> resultClass) {
+        EntityManager entityManager = getEntityManager();
+        return paginate(query.toCountQuery(entityManager),
+                query.toQuery(entityManager, resultClass),
+                new HashMap<>(), search);
+    }
 }

@@ -1,13 +1,12 @@
 package le.oa.work.controllers.form;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import le.oa.core.models.User;
 import le.oa.work.models.Form;
 import le.oa.work.models.FormParameter;
 import le.oa.work.models.WorkFlow;
 import le.oa.work.models.WorkInstance;
-import le.oa.work.models.WorkInstanceItem;
-import le.oa.work.models.WorkInstanceItemStatus;
 import le.util.JsonUtils;
 
 import java.io.IOException;
@@ -18,6 +17,7 @@ public class InstanceData {
     private String title;
     private String workFlow;
     private Integer teamTemplateId;
+    private String teamTemplateName;
     private String fields;
     private String parameters;
 
@@ -62,6 +62,14 @@ public class InstanceData {
         this.parameters = parameters;
     }
 
+    public String getTeamTemplateName() {
+        return teamTemplateName;
+    }
+
+    public void setTeamTemplateName(String teamTemplateName) {
+        this.teamTemplateName = teamTemplateName;
+    }
+
     public Form toForm() throws IOException {
         Form form = new Form();
         form.setTeamTemplateId(teamTemplateId);
@@ -82,21 +90,30 @@ public class InstanceData {
         WorkInstance instance = new WorkInstance();
         instance.setFormId(form.getId());
         instance.setTitle(title);
+        instance.setFormTemplateName(teamTemplateName);
         WorkFlow wf = JsonUtils.unMarshal(workFlow, WorkFlow.class);
         instance.setWorkFlow(wf);
         instance.setUser(createUser);
-        List<WorkInstanceItem> items = instance.getWorkInstanceItems();
-
-        WorkInstanceItem item = new WorkInstanceItem();
-        item.setWorkflowInstance(instance);
-        item.setUser(createUser);
-        item.setStatus(WorkInstanceItemStatus.START);
-        if (wf.getTasks().size() > 0) {
-            item.setTaskId(wf.getTasks().get(0).getTaskId());
-        }
-        items.add(item);
         return instance;
     }
 
+    public static InstanceData of(WorkInstance instance, Form form) throws JsonProcessingException {
+        InstanceData data = new InstanceData();
+        data.setTitle(instance.getTitle());
+        data.setTeamTemplateId(form.getTeamTemplateId());
+        data.setTeamTemplateName(instance.getFormTemplateName());
+        data.setFields(form.getFields());
+        data.setParameters(JsonUtils.marshal(convertParameterDatas(form.getParameters())));
+        data.setWorkFlow(JsonUtils.marshal(instance.getWorkFlow()));
+        return data;
+    }
+
+    private static List<ParameterData> convertParameterDatas(List<FormParameter> parameters) {
+        List<ParameterData> list=new ArrayList<>();
+        for(FormParameter parameter:parameters){
+            list.add(ParameterData.of(parameter));
+        }
+        return  list;
+    }
 
 }

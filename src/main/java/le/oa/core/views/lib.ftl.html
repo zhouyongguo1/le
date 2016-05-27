@@ -7,3 +7,53 @@
         </#if>
     </@validationError>
 </#macro>
+
+<#macro paginate searchForm>
+<div id="pagination" data-search-form="${searchForm}" data-total-count="${pagination.count}"
+     data-page-size="${pagination.pageSize}" data-page-index="${pagination.pageIndex}">
+    <span class="situation pull-right">总记录数:${(pagination.count)!}</span>
+
+</div>
+<script>
+    $(function () {
+        var $ele = $('#pagination');
+        var pageIndex = $ele.data('page-index');
+
+        function paginationClick(pageIndex) {
+            var pageSize = $ele.data('page-size');
+            var $form = $('#' + $ele.data('search-form'));
+            $form.append($('<input>').attr('type', 'hidden').attr('name', 'pageSize').val(pageSize));
+            $form.append($('<input>').attr('type', 'hidden').attr('name', 'pageIndex').val(pageIndex + 1));
+            $form.submit();
+        }
+
+        var opt = {
+            items_per_page: $ele.data('page-size'),
+            num_edge_entries: 2,
+            prev_text: '上页',
+            next_text: '下页',
+            load_first_page: false,
+            callback: paginationClick,
+            current_page: pageIndex - 1
+        };
+        $("#pagination").pagination($ele.data('total-count'), opt);
+    });
+</script>
+</#macro>
+<#macro workInstanceItemStatus status>
+    <#if status=="START">
+    <span class="text-success"><i class="fa fa-check fa-fw"></i>发起申请</span>
+    <#elseif status=="FLOW">
+    <span class="text-success"><i class="fa fa-check fa-fw"></i>审批通过</span>
+    
+    <#elseif status=="STOP">
+    <span class="text-danger"><i class="fa fa-stop fa-fw"></i>中止</span>
+
+    <#elseif status=="BACK">
+    <span class="text-danger"><i class="fa fa-arrow-left fa-fw"></i>回退</span>
+
+    <#elseif status=="WAIT">
+    <span class="text-info"><i class="fa fa-pause fa-fw"></i>等待处理</span>
+
+    </#if>
+</#macro>

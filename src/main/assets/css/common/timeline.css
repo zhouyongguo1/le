@@ -30,7 +30,7 @@ ul.timeline li:first-child {
 
 .timeline .tags {
     position: absolute;
-    top: 15px;
+    top: 10px;
     left: 0;
     width: 84px;
 }
@@ -46,16 +46,10 @@ ul.timeline li:first-child {
 .timeline .tags img {
     height: 32px;
     width: 32px;
-    float: left;
-    display: inline-block;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    padding: 2px;
-    background: #f7f7f7;
-    border: 1px solid #e6e6e6;
+    border-radius: 50%;
 }
 .timeline .tags span{
+    line-height: 32px;
     padding: 5px;
 }
 

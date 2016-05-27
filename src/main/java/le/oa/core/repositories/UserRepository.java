@@ -29,7 +29,7 @@ public class UserRepository extends BaseRepository<User> {
 
 
     public Optional<User> findUserByName(String name) {
-        List<User> list = createQuery("from User a where a.email=:name and status=:status")
+        List<User> list = createQuery("from User a where (a.email=:name or a.name=:name) and status=:status")
                 .setParameter("name", name)
                 .setParameter("status", Status.ACTIVE)
                 .getResultList();
