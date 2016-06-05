@@ -1,0 +1,55 @@
+<script>
+    $(function () {
+        var projectUser = (function (user) {
+            var projectId;
+            var $template = $("#userTemplater li");
+            var createUser = function (user) {
+                var $li = $template.clone();
+                var $img = $li.find("img");
+                $img.attr("src", $img.attr("src") + user.photo);
+                $li.find(".name").text(user.name);
+                $li.find(".mail").text(user.email);
+                $li.attr("data-userid", user.id);
+                return $li;
+            };
+            var addUsers = function (users, $users) {
+                var url = "/project/" + projectId + "/users";
+                var userIds = "";
+                $.each(users, function (i, data) {
+                    if (userIds == "") {
+                        userIds += data.id;
+                    } else {
+                        userIds += "," + data.id;
+                    }
+                });
+                $.post(url, {userids: userIds, role: $users.data("role")}, function (data) {
+                    if (data.work) {
+                        $.each(users, function (i, user) {
+                            $("li[data-userid='"+user.id+"']").remove();
+                            $("#" + $users.data("tager")).append(createUser(user));
+                        });
+                        $.msg.success(data.messages);
+                    }
+                });
+            };
+            var init = function (id) {
+                projectId = id;
+                $("body").on("click", ".add-user", function () {
+                    var $users = $(this);
+                    var opts = {
+                        src: "/users/selUserDialog",
+                        title: "选择团队成员",
+                        ok: function (datas) {
+                            addUsers(datas, $users);
+                        }
+                    };
+                    $.dialog.show(opts);
+                });
+            };
+            return {
+                init: init
+            };
+        })();
+        $.projectUser = projectUser;
+    });
+</script>

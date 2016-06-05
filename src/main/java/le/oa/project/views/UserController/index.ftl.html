@@ -3,108 +3,30 @@
 <#assign header>
 </#assign>
 <#assign footer>
+    <#include "js.html"/>
+<script>
+    $(function () {
+        $.projectUser.init(${project.id});
+    });
+</script>
 </#assign>
 <@l.layout header=header footer=footer>
 <div class="main">
     <@lib.projectHeader project=project selected="user"/>
+    <p class="help-block">管理员可以邀请和移除项目成员，只有被邀请的团队成员才能访问该项目的信息。点击这里查看如何设置成员权限。.</p>
 
-        <form>
-            <p class="help-block">管理员可以邀请和移除项目成员，只有被邀请的团队成员才能访问该项目的信息。点击这里查看如何设置成员权限。.</p>
-            <div class="nav-tabs-body">
-                <h5>Ui工程师（<a href="#">添加</a> ）</h5>
-
-                <div class="users">
-                    <ul>
-                        <li>
-                            <div>
-                                <img src="imgs/1.jpg">
-                                <span class="name">李丽华</span>
-                                <span class="mail">lili@qq.com</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <img src="imgs/2.jpg">
-                                <span class="name">李丽华</span>
-                                <span class="mail">lili@qq.com</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <img src="imgs/4.jpg">
-                                <span class="name">李丽华</span>
-                                <span class="mail">lili@qq.com</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <img src="imgs/3.jpg">
-                                <span class="name">李丽华</span>
-                                <span class="mail">lili@qq.com</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <img src="imgs/6.jpg">
-                                <span class="name">李丽华</span>
-                                <span class="mail">lili@qq.com</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <img src="imgs/1.jpg">
-                                <span class="name">李丽华</span>
-                                <span class="mail">lili@qq.com</span>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                </div>
-                <h5>java工程师（<a href="#">添加</a> ）</h5>
-                <div class="users">
-                    <ul>
-                        <li>
-                            <div>
-                                <img src="imgs/1.jpg">
-                                <span class="name">李丽华</span>
-                                <span class="mail">lili@qq.com</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <img src="imgs/2.jpg">
-                                <span class="name">李丽华</span>
-                                <span class="mail">lili@qq.com</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <img src="imgs/3.jpg">
-                                <span class="name">李丽华</span>
-                                <span class="mail">lili@qq.com</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <img src="imgs/4.jpg">
-                                <span class="name">李丽华</span>
-                                <span class="mail">lili@qq.com</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <img src="imgs/6.jpg">
-                                <span class="name">李丽华</span>
-                                <span class="mail">lili@qq.com</span>
-                            </div>
-                        </li>
-                    </ul>
-
-                </div>
-            </div>
-
-        </form>
+    <div id="users">
+        <#include "users.ftl.html">
+    </div>
 </div>
-
+<div class="hidden" id="userTemplater">
+    <li>
+        <div>
+            <img class="photo" src="/assets/img/">
+            <span class="name"></span>
+            <span class="mail"></span>
+        </div>
+    </li>
+</div>
+    <#include "/le/oa/core/views/dialog.ftl.html">
 </@l.layout>

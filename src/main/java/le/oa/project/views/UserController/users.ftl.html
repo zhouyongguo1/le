@@ -1,0 +1,52 @@
+<h5>管理员（<a href="#" class="add-user" data-tager="admins" data-role="ADMIN">添加</a> ）</h5>
+<div class="users">
+    <ul id="admins">
+    <#list users as item>
+        <#if item.role=="ADMIN">
+            <li data-userid="${(item.user.id)!}">
+                <div>
+                    <img class="photo" src="/assets/img/${(item.user.photo)!}">
+                    <span class="name">${(item.user.name)!}</span>
+                    <span class="mail">${(item.user.email)!}</span>
+                </div>
+            </li>
+        </#if>
+    </#list>
+    </ul>
+</div>
+
+<h5>项目成员（<a class="add-user" href="#" data-tager="members"  data-role="MEMBER">添加</a> ）</h5>
+<div class="users">
+    <div class="users">
+        <ul id="members"><#list users as item>
+            <#if item.role=="MEMBER">
+                <li data-userid="${(item.user.id)!}">
+                    <div>
+                        <img class="photo" src="/assets/img/${(item.user.photo)!}">
+                        <span class="name">${(item.user.name)!}</span>
+                        <span class="mail">${(item.user.email)!}</span>
+                    </div>
+                </li>
+            </#if>
+        </#list></ul>
+    </div>
+</div>
+<h5>项目访问者（<a class="add-user" href="#" data-tager="guests"  data-role="GUEST">添加</a> ）</h5>
+
+<div class="users">
+    <div class="users">
+        <ul id="guests">
+        <#list users as item>
+            <#if item.role=="GUEST">
+                <li data-userid="${(item.user.id)!}">
+                    <div>
+                        <img class="photo" src="/assets/img/${(item.user.photo)!}">
+                        <span class="name">${(item.user.name)!}</span>
+                        <span class="mail">${(item.user.email)!}</span>
+                    </div>
+                </li>
+            </#if>
+        </#list>
+        </ul>
+    </div>
+</div>

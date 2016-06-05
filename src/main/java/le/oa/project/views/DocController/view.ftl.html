@@ -1,0 +1,51 @@
+<#import "/le/oa/core/views/layout.ftl.html" as l>
+<#assign header>
+<link href="/assets/css/oa/simditor.css" rel="stylesheet">
+<script src="/assets/js/simditor.js"></script>
+<style>
+    .simditor {
+         border: 0px ;
+    }
+    
+</style>
+</#assign>
+<#assign footer>
+<script>
+    $(function () {
+        $('form').parsley();
+        Simditor.locale = 'zh-CN';
+        var editor = new Simditor({
+            textarea: $('#content'),
+            placeholder: '这里输入文字...',
+            toolbar: [],
+            pasteImage: true,
+            defaultImage: 'assets/images/image.png',
+        });
+    });
+</script>
+</#assign>
+<@l.layout header=header footer=footer>
+<div class="main">
+    <div class="main-header">
+        <h4>新建文档</h4>
+    </div>
+    <div class="main-body">
+        <form class="form-horizontal" method="post" action="/project/${project.id}/docs">
+
+            <div class="form-group">
+                <div class="col-sm-8">
+               <h4>${doc.name}</h4>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group col-md-11">
+                    <textarea id="content" name="content" data-autosave="editor-content" autofocus required>
+                    ${doc.content}
+                    </textarea>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+</@l.layout>

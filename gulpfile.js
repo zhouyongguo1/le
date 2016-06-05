@@ -55,7 +55,17 @@ gulp.task('fonts', function () {
         .pipe(gulp.dest(build('fonts')))
 });
 
-
+gulp.task('simditor-js', function () {
+    return gulp.src([
+        src('js/simditor/module.js'),
+        src('js/simditor/hotkeys.js'),
+        src('js/simditor/simditor.js')])
+        .pipe(sourcemaps.init())
+        .pipe(concat('simditor.js'))
+        .pipe(uglify())
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(build('js')));
+});
 gulp.task('common-js', function () {
     return gulp.src(src('js/common/**/*.js'))
         .pipe(sourcemaps.init())
@@ -89,7 +99,7 @@ gulp.task('oa-js', function () {
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(build('js/oa')));
 });
-gulp.task('js', ['vendor-js', 'common-js', 'oa-js']);
+gulp.task('js', ['vendor-js', 'common-js', 'oa-js','simditor-js']);
 
 gulp.task('auto', function () {
     gulp.watch(src('**'), function () {

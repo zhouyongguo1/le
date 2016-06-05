@@ -20,7 +20,8 @@
             datas.push({
                 id: $(this).data("id"),
                 name: $(this).data("name"),
-                photo: $(this).data("photo")
+                photo: $(this).data("photo"),
+                email: $(this).data("email")
             });
         });
         return datas;
@@ -33,7 +34,8 @@
         <ul>
             <#list users as user>
                 <#if !(user.role??)>
-                    <li data-id="${user.id}" data-name="${(user.name)!}"  data-photo="${user.photo!}">
+                    <li data-id="${user.id}" data-name="${(user.name)!}"  data-photo="${user.photo!}"
+                        data-email="${(user.email)!}">
                         <div>
                             <img src="/assets/img/${user.photo!}">
                             <span class="name">${(user.name)!}</span>
@@ -49,7 +51,8 @@
             <ul>
                 <#list users as user>
                     <#if (role.id)==(user.role.id)!0>
-                        <li data-id="${user.id}" data-name="${user.name}" data-photo="${user.photo!}">
+                        <li data-id="${user.id}" data-name="${user.name}" data-photo="${user.photo!}"
+                            data-email="${(user.email)!}">
                             <div>
                                 <img src="/assets/img/${user.photo!}">
                                 <span class="name">${user.name!}</span>

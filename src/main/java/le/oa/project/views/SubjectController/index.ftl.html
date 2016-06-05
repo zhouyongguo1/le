@@ -9,59 +9,27 @@
     <@lib.projectHeader project=project selected="subject"/>
     <div class="subject">
         <ul>
-            <li>
+            <#list subjects as item>
+                <li>
 
-                <div class="heading">
-                    <span class="label label-danger">置顶</span>
-                    <a href="#">回复了讨论 免费版和功能逆天的企业版</a>
-                </div>
-                <div class="content">
-                    牛奶，顾客才敢放心购买。Tower 团队的成员分散于全球各地，我们正是通过 Tower 软件，实现了远程协同办公。
-                </div>
-                <div class="tools">
-                    <span> 作者: 李四</span>
-                    <span> 发布于 2015-05-30</span>
-                    <span> <a href="#"><i class="fa fa-arrow-circle-up  fa-fw"></i>置顶</a></span>
-                    <span> <a href="#"><i class="fa fa-pencil-square-o  fa-fw"></i>编辑</a></span>
-                    <span> <a href="#"><i class="fa fa-trash-o fa-fw"></i>删除</a></span>
-                </div>
-            </li>
-            <li>
-
-                <div class="heading">
-                    <a href="#">回复了讨论 免费版和功能逆天的企业版</a>
-
-                </div>
-                <div class="content">
-                    牛奶，顾客才敢放心购买。Tower 团队的成员分散于全球各地，我们正是通过 Tower 软件，实现了远程协同办公。
-                    牛奶，顾客才敢放心购买。Tower 团队的成员分散于全球各地，我们正是通过 Tower 软件，实现了远程协同办公。
-                </div>
-                <div class="tools">
-                    <span> 作者: 李四</span>
-                    <span> 发布于 2015-05-30</span>
-                    <span> <a href="#"><i class="fa fa-arrow-circle-up  fa-fw"></i>置顶</a></span>
-                    <span> <a href="#"><i class="fa fa-pencil-square-o  fa-fw"></i>编辑</a></span>
-                    <span> <a href="#"><i class="fa fa-trash-o fa-fw"></i>删除</a></span>
-                </div>
-            </li>
-            <li>
-
-                <div class="heading">
-
-                    回复了讨论 免费版和功能逆天的企业版
-                </div>
-                <div class="content">
-                    牛奶，顾客才敢放心购买。Tower 团队的成员分散于全球各地，我们正是通过 Tower 软件，实现了远程协同办公。
-                    牛奶，顾客才敢放心购买。Tower 团队的成员分散于全球各地，我们正是通过 Tower 软件，实现了远程协同办公。
-                </div>
-                <div class="tools">
-                    <span> 作者: 李四</span>
-                    <span> 发布于 2015-05-30</span>
-                    <span> <a href="#"><i class="fa fa-arrow-circle-up  fa-fw"></i>置顶</a></span>
-                    <span> <a href="#"><i class="fa fa-pencil-square-o  fa-fw"></i>编辑</a></span>
-                    <span> <a href="#"><i class="fa fa-trash-o fa-fw"></i>删除</a></span>
-                </div>
-            </li>
+                    <div class="heading">
+                        <#if item.isTop>
+                            <span class="label label-danger">置顶</span>
+                        </#if>
+                        <a href="#">${item.name}</a>
+                    </div>
+                    <div class="content">
+                    ${item.content}
+                    </div>
+                    <div class="tools">
+                        <span> 作者:  ${(item.createdBy.name)!}</span>
+                        <span> 发布于 2015-05-30</span>
+                        <span> <a href="#"><i class="fa fa-arrow-circle-up  fa-fw"></i>置顶</a></span>
+                        <span> <a href="#"><i class="fa fa-pencil-square-o  fa-fw"></i>编辑</a></span>
+                        <span> <a href="#"><i class="fa fa-trash-o fa-fw"></i>删除</a></span>
+                    </div>
+                </li>
+            </#list>
         </ul>
     </div>
     <#include "subject-form.ftl.html">

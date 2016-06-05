@@ -56,7 +56,12 @@ public class SubjectController extends BaseTeamController {
     public Result saveSubject(@PathParam("id") Integer projectId, FlashScope flashScope, SubjectForm subjectForm) {
         Subject subject = subjectForm.toSubject(null);
         subject.setProjectId(projectId);
-        subjectRepository.save(subject);
+        if (subject.getId() == null){
+            subjectRepository.save(subject);
+        }
+        else {
+            subjectRepository.update(subject);
+        }
         flashScope.success("建立讨论主题成功");
         return this.redirect("/project/" + projectId + "/subjects");
     }
@@ -92,6 +97,6 @@ public class SubjectController extends BaseTeamController {
         return Results.json()
                 .render(new ResponseJson(true, "发表建议成功"));
     }
-    
-    
+
+
 }

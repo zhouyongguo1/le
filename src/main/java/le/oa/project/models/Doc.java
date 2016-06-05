@@ -19,7 +19,7 @@ public class Doc extends BaseModel {
     private String content;
     private int sequence = 0;
     private Boolean isDel = false;
-
+        
     public Integer getId() {
         return id;
     }
