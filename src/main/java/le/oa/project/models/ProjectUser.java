@@ -21,13 +21,17 @@ public class ProjectUser extends TeamModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private Integer projectId;
-    @Enumerated(EnumType.STRING)
-    private ProjectRole role = ProjectRole.MEMBER;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "project_id")
+    private Project project;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
+    
+    @Enumerated(EnumType.STRING)
+    private ProjectRole role = ProjectRole.MEMBER;
 
     private boolean isOwner = false;
     @Enumerated(EnumType.STRING)
@@ -41,12 +45,12 @@ public class ProjectUser extends TeamModel {
         this.id = id;
     }
 
-    public Integer getProjectId() {
-        return projectId;
+    public Project getProject() {
+        return project;
     }
 
-    public void setProjectId(Integer projectId) {
-        this.projectId = projectId;
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     public ProjectRole getRole() {

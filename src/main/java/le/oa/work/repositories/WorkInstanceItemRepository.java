@@ -6,6 +6,8 @@ import le.oa.core.models.search.ResultData;
 import le.oa.core.repositories.BaseRepository;
 import le.oa.core.repositories.QueryBuilder;
 import le.oa.work.models.WorkInstanceItem;
+import le.oa.work.models.WorkInstanceItemStatus;
+import le.oa.work.models.WorkInstanceStatus;
 import le.oa.work.models.search.WorkInstanceSearch;
 
 import javax.inject.Provider;
@@ -51,5 +53,25 @@ public class WorkInstanceItemRepository extends BaseRepository<WorkInstanceItem>
         }
         query.orderBy("a.id");
         return paginate(query, search, WorkInstanceItem.class);
+    }
+
+
+    public List<WorkInstanceItem> findWaitByUserId(Integer userId) {
+        List<WorkInstanceItem> items = emProvider.get().createQuery("select a from WorkInstanceItem a " +
+                "where a.status=:status and a.user.id=:userId ")
+                .setParameter("status", WorkInstanceItemStatus.WAIT)
+                .setParameter("userId", userId)
+                .getResultList();
+        return items;
+    }
+
+    public List<WorkInstanceItem> findStartByUserId(Integer userId) {
+        List<WorkInstanceItem> items = emProvider.get().createQuery("select a from WorkInstanceItem a " +
+                "where a.status=:status and a.user.id=:userId and a.workInstance.status=:instanceStatus")
+                .setParameter("status", WorkInstanceItemStatus.START)
+                .setParameter("instanceStatus", WorkInstanceStatus.DOING)
+                .setParameter("userId", userId)
+                .getResultList();
+        return items;
     }
 }

@@ -5,10 +5,14 @@ import le.oa.core.models.base.BaseModel;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -23,6 +27,9 @@ public class Project extends BaseModel {
     private String icon = "";
     private Boolean isArchived = false;
     private Boolean isDel = false;
+    
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
+    private List<ProjectUser> projectUsers = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -70,5 +77,13 @@ public class Project extends BaseModel {
 
     public void setIsDel(Boolean isDel) {
         this.isDel = isDel;
+    }
+
+    public List<ProjectUser> getProjectUsers() {
+        return projectUsers;
+    }
+
+    public void setProjectUsers(List<ProjectUser> projectUsers) {
+        this.projectUsers = projectUsers;
     }
 }

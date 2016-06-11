@@ -1,0 +1,47 @@
+<table class="table table-hover  work-list">
+
+    <thead>
+    <th class="col-xs-5">工作审批</th>
+    <th class="col-xs-7">流程</th>
+    </thead>
+    <tbody>
+    <#list instanceItems as item>
+
+    <tr>
+        <td><a href="/work/instance/${item.id}">${item.workInstance.title}</a>
+
+            <div class="info-box">
+                <ul>
+
+                    <li>${item.workInstance.formTemplateName}
+                                    ${item.createdAt}</li>
+                </ul>
+            </div>
+        </td>
+        <td>
+          <#assign taskStatus ="text-success">
+          <#list item.workInstance.workFlow.tasks as task>
+            <#if (task_index>0)>
+                <span>-</span>
+            </#if>
+            <#if item.taskId==task.taskId>
+                <span class="text-primary">
+                                <i class="fa fa-pause fa-fw"></i>
+                ${task.userName}
+                                </span>
+              <#assign taskStatus ="text-muted">
+            <#else>
+                <span class="${taskStatus}">
+                                <#if taskStatus ="text-success">
+                                    <i class="fa fa-check fa-fw"></i>
+                                </#if>
+                ${task.userName}
+                                </span>
+            </#if>
+          </#list>
+        </td>
+    </tr>
+    </#list>
+
+    </tbody>
+</table>

@@ -44,10 +44,10 @@ public class ProjectForm {
         return project;
     }
 
-    public List<ProjectUser> toProjectUsers(Integer projectId) {
+    public List<ProjectUser> toProjectUsers(Project project) {
         List<ProjectUser> list = new ArrayList<>();
         for (ProjectUserForm item : users) {
-            list.add(item.toProjectUser(projectId));
+            list.add(item.toProjectUser(project));
         }
         return list;
     }

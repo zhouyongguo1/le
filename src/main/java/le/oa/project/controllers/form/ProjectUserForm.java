@@ -1,6 +1,7 @@
 package le.oa.project.controllers.form;
 
 import le.oa.core.models.User;
+import le.oa.project.models.Project;
 import le.oa.project.models.ProjectRole;
 import le.oa.project.models.ProjectUser;
 
@@ -10,14 +11,14 @@ public class ProjectUserForm {
     private Integer userId;
     private boolean isOwner;
 
-    public ProjectUser toProjectUser(Integer projectId) {
+    public ProjectUser toProjectUser(Project project) {
         ProjectUser projectUser = new ProjectUser();
         projectUser.setOwner(isOwner);
         User user = new User();
         user.setId(userId);
         projectUser.setUser(user);
         projectUser.setRole(role);
-        projectUser.setProjectId(projectId);
+        projectUser.setProject(project);
         return projectUser;
     }
 

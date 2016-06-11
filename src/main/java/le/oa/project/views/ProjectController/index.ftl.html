@@ -1,4 +1,6 @@
 <#import "/le/oa/core/views/layout.ftl.html" as l>
+<#import "/le/oa/core/views/lib.ftl.html" as c>
+
 <#assign header>
 
 </#assign>
@@ -6,309 +8,104 @@
 
 </#assign>
 <@l.layout header=header footer=footer>
-    <div class="main">
-        <div class="main-header">
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-home fa-fw"></i>首页</a></li>
-                <li class="active">项目管理</li>
-            </ol>
-        </div>
-        <div class="main-body">
-            <div class="filter">
-                <ul>
-                    <li class="active"><a href="#">正在执行的项目</a></li>
-                    <li><a href="#">已归档项目</a></li>
-                </ul>
-
-
-            </div>
-
-            <table class="table table-hover  work-list">
-
-                <thead>
-                <th class="col-xs-3">名称</th>
-                <th class="col-xs-2">成员</th>
-                <th class="col-xs-2">进度</th>
-                <th class="col-xs-2">工期</th>
-                <th class="col-xs-3">归档日期</th>
-
-                </thead>
-                <tbody>
-                <tr>
-                    <td>
-                        <a href="#">宏远建筑项目</a>
-
-                        <div class="info-box">
-                            <ul>
-                                <li>李奇 2015-12-17 17:10</li>
-                            </ul>
-                        </div>
-                    </td>
-                    <td>
-                        3人
-                    </td>
-                    <td>
-                        <div class="progress progress_sm">
-                            <div class="progress-bar " style="width: 40%">
-
-                            </div>
-                        </div>
-                        <small>77% Complete</small>
-                    </td>
-                    <td>
-                        1.5月
-                    </td>
-                    <td>
-                        2015-10-1
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">宏远建筑项目</a>
-
-                        <div class="info-box">
-                            <ul>
-                                <li>李奇 2015-12-17 17:10</li>
-                            </ul>
-                        </div>
-                    </td>
-                    <td>
-                        3人
-                    </td>
-                    <td>
-                        <div class="progress progress_sm">
-                            <div class="progress-bar " style="width: 40%">
-
-                            </div>
-                        </div>
-                        <small>77% Complete</small>
-                    </td>
-                    <td>
-                        1.5月
-                    </td>
-                    <td>
-                        2015-10-1
-                    </td>
-                </tr> <tr>
-                    <td>
-                        <a href="#">宏远建筑项目</a>
-
-                        <div class="info-box">
-                            <ul>
-                                <li>李奇 2015-12-17 17:10</li>
-                            </ul>
-                        </div>
-                    </td>
-                    <td>
-                        3人
-                    </td>
-                    <td>
-                        <div class="progress progress_sm">
-                            <div class="progress-bar " style="width: 40%">
-
-                            </div>
-                        </div>
-                        <small>77% Complete</small>
-                    </td>
-                    <td>
-                        1.5月
-                    </td>
-                    <td>
-                        2015-10-1
-                    </td>
-                </tr> <tr>
-                    <td>
-                        <a href="#">宏远建筑项目</a>
-
-                        <div class="info-box">
-                            <ul>
-                                <li>李奇 2015-12-17 17:10</li>
-                            </ul>
-                        </div>
-                    </td>
-                    <td>
-                        3人
-                    </td>
-                    <td>
-                        <div class="progress progress_sm">
-                            <div class="progress-bar " style="width: 40%">
-
-                            </div>
-                        </div>
-                        <small>77% Complete</small>
-                    </td>
-                    <td>
-                        1.5月
-                    </td>
-                    <td>
-                        2015-10-1
-                    </td>
-                </tr> <tr>
-                    <td>
-                        <a href="#">宏远建筑项目</a>
-
-                        <div class="info-box">
-                            <ul>
-                                <li>李奇 2015-12-17 17:10</li>
-                            </ul>
-                        </div>
-                    </td>
-                    <td>
-                        3人
-                    </td>
-                    <td>
-                        <div class="progress progress_sm">
-                            <div class="progress-bar " style="width: 40%">
-
-                            </div>
-                        </div>
-                        <small>77% Complete</small>
-                    </td>
-                    <td>
-                        1.5月
-                    </td>
-                    <td>
-                        2015-10-1
-                    </td>
-                </tr> <tr>
-                    <td>
-                        <a href="#">宏远建筑项目</a>
-
-                        <div class="info-box">
-                            <ul>
-                                <li>李奇 2015-12-17 17:10</li>
-                            </ul>
-                        </div>
-                    </td>
-                    <td>
-                        3人
-                    </td>
-                    <td>
-                        <div class="progress progress_sm">
-                            <div class="progress-bar " style="width: 40%">
-
-                            </div>
-                        </div>
-                        <small>77% Complete</small>
-                    </td>
-                    <td>
-                        1.5月
-                    </td>
-                    <td>
-                        2015-10-1
-                    </td>
-                </tr> <tr>
-                    <td>
-                        <a href="#">宏远建筑项目</a>
-
-                        <div class="info-box">
-                            <ul>
-                                <li>李奇 2015-12-17 17:10</li>
-                            </ul>
-                        </div>
-                    </td>
-                    <td>
-                        3人
-                    </td>
-                    <td>
-                        <div class="progress progress_sm">
-                            <div class="progress-bar " style="width: 40%">
-
-                            </div>
-                        </div>
-                        <small>77% Complete</small>
-                    </td>
-                    <td>
-                        1.5月
-                    </td>
-                    <td>
-                        2015-10-1
-                    </td>
-                </tr> <tr>
-                    <td>
-                        <a href="#">宏远建筑项目</a>
-
-                        <div class="info-box">
-                            <ul>
-                                <li>李奇 2015-12-17 17:10</li>
-                            </ul>
-                        </div>
-                    </td>
-                    <td>
-                        3人
-                    </td>
-                    <td>
-                        <div class="progress progress_sm">
-                            <div class="progress-bar " style="width: 40%">
-
-                            </div>
-                        </div>
-                        <small>77% Complete</small>
-                    </td>
-                    <td>
-                        1.5月
-                    </td>
-                    <td>
-                        2015-10-1
-                    </td>
-                </tr> <tr>
-                    <td>
-                        <a href="#">宏远建筑项目</a>
-
-                        <div class="info-box">
-                            <ul>
-                                <li>李奇 2015-12-17 17:10</li>
-                            </ul>
-                        </div>
-                    </td>
-                    <td>
-                        3人
-                    </td>
-                    <td>
-                        <div class="progress progress_sm">
-                            <div class="progress-bar " style="width: 40%">
-
-                            </div>
-                        </div>
-                        <small>77% Complete</small>
-                    </td>
-                    <td>
-                        1.5月
-                    </td>
-                    <td>
-                        2015-10-1
-                    </td>
-                </tr> <tr>
-                    <td>
-                        <a href="#">宏远建筑项目</a>
-
-                        <div class="info-box">
-                            <ul>
-                                <li>李奇 2015-12-17 17:10</li>
-                            </ul>
-                        </div>
-                    </td>
-                    <td>
-                        3人
-                    </td>
-                    <td>
-                        <div class="progress progress_sm">
-                            <div class="progress-bar " style="width: 40%">
-
-                            </div>
-                        </div>
-                        <small>77% Complete</small>
-                    </td>
-                    <td>
-                        1.5月
-                    </td>
-                    <td>
-                        2015-10-1
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
+<div class="main">
+    <div class="main-header">
+        <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+            <li class="active">项目</li>
+        </ol>
+        <div class="tools">
+            <ul>
+                <li><a href="/project/new">新建项目</a></li>
+                <li class="${(search.isArchived)?string('','active')}" >
+                    <a  href="/projects?isArchived=false">未归档的项目</a>
+                </li>
+                <li class="${(search.isArchived)?string('active','')}" >
+                    <a href="/projects?isArchived=true"><i class="fa fa-book fa-fw"></i>归档的项目</a>
+                </li>
+            </ul>
         </div>
     </div>
+    <div class="main-body">
+        <form id="searchForm" method="get" action="/projects">
+            <div class="filter">
+                <ul>
+                    <li>
+                        <div class="input-group col-lg-6">
+                            <input type="text" name="name" value="${(search.name)!}" class="form-control"
+                                   placeholder="项目名称...">
+                          <span class="input-group-btn">
+                            <button class="btn btn-primary" type="submit">查询</button>
+                          </span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <input type="hidden" name="isArchived" value="${(search.isArchived)?string('true', 'false')}">
+        </form>
+
+        <table class="table table-hover  work-list">
+
+            <thead>
+            <th class="col-xs-3">名称</th>
+            <th class="col-xs-2">管理员</th>
+            <th class="col-xs-1">成员</th>
+            <th class="col-xs-2">状态</th>
+            <th class="col-xs-2">建立日期</th>
+            <th class="col-xs-2">归档日期</th>
+            </thead>
+            <tbody>
+                <#list projects as project>
+
+                <tr>
+                    <td><a href="/project/${project.id}/tasks">${project.name}</a>
+
+                        <div class="info-box">
+                            <ul>
+
+                                <li>${(project.createdBy.name)!}
+                                    ${project.createdAt}</li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td>
+                        <#list project.projectUsers as user>
+                        <#if user.role=="ADMIN">
+                        ${(user.user.name)!}
+                        </#if>
+                      </#list>
+                    </td>
+                    <td>
+
+                    ${(project.projectUsers)?size} 人
+                    </td>
+                    <td>
+                        <#if project.status=="STOP">
+                            <p class="text-danger">停止</p>
+                        <#elseif project.status=="FINISH">
+                            <p class="text-muted">完成</p>
+
+                        <#else>
+                            <p class="text-success">进行中</p>
+
+                        </#if>
+                    </td>
+                    <td>
+                    ${(project.createdAt)}
+                    </td>
+                    <td>
+                        <#if project.isArchived>
+                        ${(project.updatedBy)}
+                        </#if>
+                    </td>
+
+                </tr>
+                </#list>
+
+            </tbody>
+        </table>
+        <@c.paginate searchForm="searchForm" />
+
+    </div>
+</div>
 </@l.layout>

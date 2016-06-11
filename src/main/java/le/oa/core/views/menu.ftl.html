@@ -1,0 +1,17 @@
+<#assign navItems = [
+{"name": "首页","url": "/"},
+{"name": "项目","url": "/projects"},
+{"name": "工作审批","url": "/work"},
+{"name": "团队","url": "/users"},
+{"name": "动态事件","url": "/events"}
+]>
+<ul class="nav navbar-nav">
+<#assign contextPath = '${contextProvider.getContextPath()}/'>
+<#assign currentUri = contextProvider.get().requestUri+'/'>
+<#list navItems as nav>
+    <#assign subNav = nav["url"]?substring(contextPath?length)?split("/")>
+    <li <#if currentUri?starts_with('/'+subNav[0]+'/')> class="active" </#if>>
+        <a href=${nav["url"]}>${nav["name"]}</a>
+    </li>
+</#list>
+</ul>

@@ -32,7 +32,7 @@ public class ProjectBuilder implements Builder<Project> {
         projectRepository.save(project);
 
         ProjectUser projectUser = new ProjectUser();
-        projectUser.setProjectId(project.getId());
+        projectUser.setProject(project);
         projectUser.setUser(user);
         projectUser.setOwner(true);
         projectUser.setRole(ProjectRole.ADMIN);

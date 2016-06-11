@@ -56,6 +56,7 @@ public class UserController extends BaseTeamController {
     public Result save(@PathParam("id") Integer projectId,
                        @Param("userids") String userIds,
                        @Param("role") String role) {
+        Project project = this.checkEntity(projectRepository.findById(projectId));
         String[] ids = userIds.split(",");
         ProjectUser user = null;
         for (String id : ids) {
@@ -71,7 +72,7 @@ public class UserController extends BaseTeamController {
                 projectUserRepository.save(user);
             } else {
                 user = new ProjectUser();
-                user.setProjectId(projectId);
+                user.setProject(project);
                 user.setUser(userRepository.findUserById(userId).get());
                 user.setRole(ProjectRole.valueOf(role));
                 projectUserRepository.save(user);

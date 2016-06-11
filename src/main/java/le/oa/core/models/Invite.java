@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+//邀请
 @Entity
 @Table(name = "core_invite")
 public class Invite extends BaseModel {
