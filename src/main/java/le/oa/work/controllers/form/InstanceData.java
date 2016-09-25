@@ -72,7 +72,7 @@ public class InstanceData {
 
     public Form toForm() throws IOException {
         Form form = new Form();
-        form.setTeamTemplateId(teamTemplateId);
+        form.setTemplateId(teamTemplateId);
         form.setFields(fields);
         List<ParameterData> parameterDatas = JsonUtils.unMarshal(parameters, new TypeReference<List<ParameterData>>() {
         });
@@ -90,7 +90,7 @@ public class InstanceData {
         WorkInstance instance = new WorkInstance();
         instance.setFormId(form.getId());
         instance.setTitle(title);
-        instance.setFormTemplateName(teamTemplateName);
+        instance.setTemplateName(teamTemplateName);
         WorkFlow wf = JsonUtils.unMarshal(workFlow, WorkFlow.class);
         instance.setWorkFlow(wf);
         instance.setUser(createUser);
@@ -100,8 +100,8 @@ public class InstanceData {
     public static InstanceData of(WorkInstance instance, Form form) throws JsonProcessingException {
         InstanceData data = new InstanceData();
         data.setTitle(instance.getTitle());
-        data.setTeamTemplateId(form.getTeamTemplateId());
-        data.setTeamTemplateName(instance.getFormTemplateName());
+        data.setTeamTemplateId(form.getTemplateId());
+        data.setTeamTemplateName(instance.getTemplateName());
         data.setFields(form.getFields());
         data.setParameters(JsonUtils.marshal(convertParameterDatas(form.getParameters())));
         data.setWorkFlow(JsonUtils.marshal(instance.getWorkFlow()));

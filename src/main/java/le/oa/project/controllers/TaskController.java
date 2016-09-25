@@ -98,7 +98,7 @@ public class TaskController extends BaseTeamController {
         } else if (status.equals("FINISH")) {
             task.setIsArchived(true);
         }
-        taskRepository.update(task);
+        taskRepository.save(task);
         return Results.json()
                 .render("task", TaskJson.of(task));
     }

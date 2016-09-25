@@ -99,7 +99,7 @@ public class DocController extends BaseTeamController {
         Doc doc = this.checkEntity(docRepository.findById(docId));
         doc.setName(name);
         doc.setContent(content);
-        docRepository.update(doc);
+        docRepository.save(doc);
         flashScope.success("修改文档成功");
         return this.redirect("/project/" + projectId + "/docs");
     }

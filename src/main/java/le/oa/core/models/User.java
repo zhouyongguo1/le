@@ -29,7 +29,7 @@ public class User extends BaseModel {
     private String email;
     private String photo;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
     private Role role;
     @Enumerated(EnumType.STRING)

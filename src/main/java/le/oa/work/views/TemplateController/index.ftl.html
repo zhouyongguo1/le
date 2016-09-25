@@ -1,0 +1,84 @@
+<#import "/le/oa/core/views/layout.ftl.html" as l>
+<#import "/le/oa/core/views/lib.ftl.html" as lib>
+<#assign header>
+<script>
+    $(function () {
+        var dialog = $('#typeModal');
+        var reload = function () {
+            $(".main-body").load("/work/templates");
+        }
+        var deltype= function (id) {
+            $.post("/work/type/" + id, {"_method": "delete"}, function (data) {
+                if (data.work) {
+                    $.msg.success(data.messages);
+                    reload();
+                }
+                else {
+                    $.msg.error(data.messages);
+                }
+            });
+        }
+
+        $("#createFormType").on("click", function () {
+            dialog.find(".modal-title").text("编辑表单分类");
+            dialog.find("#fromTypeName").val("");
+            dialog.find("#fromTypeId").val("");
+            dialog.modal('show');
+        });
+        $("#saveFormType").on("click", function () {
+            if ($('#saveTypeForm').parsley().validate()) {
+                var param = {id: $("#fromTypeId").val(), name: $("#fromTypeName").val()};
+                $.post("/work/type", param, function (data) {
+                    $.msg.success(data.messages);
+                    reload();
+                    dialog.modal('hide');
+                });
+            }
+        });
+        $("body").on("click", ".type-edit", function () {
+            dialog.find(".modal-title").text("新建表单分类");
+            dialog.find("#fromTypeName").val("");
+            dialog.find("#fromTypeId").val("");
+            dialog.find("#fromTypeName").val($(this).data("name"));
+            dialog.find("#fromTypeId").val($(this).data("id"));
+            dialog.modal('show');
+        });
+        $("body").on("click", ".type-del", function () {
+            var id = $(this).data("id");
+            $.alertMsg.show({
+                message: "确定要删除表单分类吗？",
+                ok: function () {
+                    deltype(id);
+                }
+            });
+        });
+        reload();
+    });
+</script>
+</#assign>
+<#assign footer>
+
+</#assign>
+<@l.layout header=header footer=footer>
+<div class="main">
+    <div class="main-header">
+
+        <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+            <li class="active">工作审批</li>
+        </ol>
+        <div class="tools">
+            <ul>
+                <li><a href="/work/templates/new">新建表单</a></li>
+                <li><a href="#" id="createFormType">新建表单分类</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-body">
+
+    </div>
+
+</div>
+    <#include "formType.ftl.html">
+    <@lib.alertMsg/>
+</@l.layout>

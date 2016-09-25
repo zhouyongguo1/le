@@ -6,7 +6,6 @@ import le.oa.core.models.base.BaseModel;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -17,10 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "wf_Instance")
@@ -29,7 +25,7 @@ public class WorkInstance extends BaseModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private Integer formId;
-    private String formTemplateName;
+    private String templateName;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -105,11 +101,11 @@ public class WorkInstance extends BaseModel {
         this.status = status;
     }
 
-    public String getFormTemplateName() {
-        return formTemplateName;
+    public String getTemplateName() {
+        return templateName;
     }
 
-    public void setFormTemplateName(String formTemplateName) {
-        this.formTemplateName = formTemplateName;
+    public void setTemplateName(String templateName) {
+        this.templateName = templateName;
     }
 }

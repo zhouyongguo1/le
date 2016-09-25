@@ -1,38 +1,56 @@
 <#import "/le/oa/core/views/layout.ftl.html" as l>
-<#import "/le/oa/project/views/lib.ftl.html" as lib>
+<#import "/le/oa/core/views/lib.ftl.html" as lib>
+<#import "/le/oa/project/views/lib.ftl.html" as pro>
 <#assign header>
 </#assign>
 <#assign footer>
+<script>
+    ;
+    $(function () {
+        var subject = (function () {
+            var loadSubjects = function () {
+                $("#subjects").load("/project/${project.id}/subjects/items");
+            };
+
+            var delSubject = function (subjectId) {
+                $.alertMsg.show({
+                    message: "确定要删除这个讨论主题以及它相关的全部讨论吗？",
+                    ok: function () {
+                        $.post("/project/${project.id}/subjects/" + subjectId, {"_method": "delete"}, function (data) {
+                            loadSubjects();
+                            $.msg.success(data.messages);
+                        });
+                    }
+                });
+            };
+            var init = function () {
+                $("body").on("click", ".subject-del", function () {
+                    var groupId = $(this).data("id");
+                    delSubject(groupId);
+                });
+            };
+            return {
+                loadSubjects: loadSubjects,
+                init: init
+            };
+
+        })();
+        $.subject = subject;
+    });
+
+    $(function () {
+        $.subject.loadSubjects();
+        $.subject.init();
+    });
+
+</script>
 </#assign>
 <@l.layout header=header footer=footer>
 <div class="main">
-    <@lib.projectHeader project=project selected="subject"/>
-    <div class="subject">
-        <ul>
-            <#list subjects as item>
-                <li>
-
-                    <div class="heading">
-                        <#if item.isTop>
-                            <span class="label label-danger">置顶</span>
-                        </#if>
-                        <a href="#">${item.name}</a>
-                    </div>
-                    <div class="content">
-                    ${item.content}
-                    </div>
-                    <div class="tools">
-                        <span> 作者:  ${(item.createdBy.name)!}</span>
-                        <span> 发布于 2015-05-30</span>
-                        <span> <a href="#"><i class="fa fa-arrow-circle-up  fa-fw"></i>置顶</a></span>
-                        <span> <a href="#"><i class="fa fa-pencil-square-o  fa-fw"></i>编辑</a></span>
-                        <span> <a href="#"><i class="fa fa-trash-o fa-fw"></i>删除</a></span>
-                    </div>
-                </li>
-            </#list>
-        </ul>
+    <@pro.projectHeader project=project selected="subject"/>
+    <div class="subject" id="subjects">
     </div>
     <#include "subject-form.ftl.html">
 </div>
-
+    <@lib.alertMsg/>
 </@l.layout>

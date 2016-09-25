@@ -20,9 +20,9 @@ public class Form extends BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private Integer teamTemplateId;
+    private Integer templateId;
     private String fields;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "form", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "form", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<FormParameter> parameters = new ArrayList<>();
 
     public Integer getId() {
@@ -33,12 +33,12 @@ public class Form extends BaseModel {
         this.id = id;
     }
 
-    public Integer getTeamTemplateId() {
-        return teamTemplateId;
+    public Integer getTemplateId() {
+        return templateId;
     }
 
-    public void setTeamTemplateId(Integer teamTemplateId) {
-        this.teamTemplateId = teamTemplateId;
+    public void setTemplateId(Integer templateId) {
+        this.templateId = templateId;
     }
 
     public String getFields() {

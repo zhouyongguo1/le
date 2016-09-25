@@ -4,12 +4,12 @@ import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 import le.oa.core.BaseTeamController;
 import le.oa.core.ResponseJson;
-import le.oa.work.models.FormTeamTemplate;
+import le.oa.work.models.FormTemplate;
 import le.oa.work.models.WorkFlow;
 import le.oa.work.models.WorkFlowTask;
-import le.oa.work.models.WorkTemplate;
+import le.oa.work.models.UserTemplate;
 import le.oa.work.models.dto.WorkTemplateDto;
-import le.oa.work.repositories.FormTeamTemplateRepository;
+import le.oa.work.repositories.FormTemplateRepository;
 import le.oa.work.repositories.WorkTemplateRepository;
 import le.web.annotation.Controller;
 import le.web.annotation.Route;
@@ -27,26 +27,26 @@ import java.util.Optional;
 @Controller
 public class WorkTemplateController extends BaseTeamController {
     private WorkTemplateRepository workTemplateRepository;
-    private FormTeamTemplateRepository formTeamTemplateRepository;
+    private FormTemplateRepository formTemplateRepository;
 
     @Inject
     public WorkTemplateController(WorkTemplateRepository workTemplateRepository,
-                                  FormTeamTemplateRepository formTeamTemplateRepository) {
+                                  FormTemplateRepository formTemplateRepository) {
         this.workTemplateRepository = workTemplateRepository;
-        this.formTeamTemplateRepository = formTeamTemplateRepository;
+        this.formTemplateRepository = formTemplateRepository;
     }
 
     @Get
-    @Route("/work/templates")
+    @Route("/work/user-templates")
     public Result templates() {
-        List<WorkTemplate> datas = workTemplateRepository.findByUser(currentUserProvider.get().getId());
+        List<UserTemplate> datas = workTemplateRepository.findByUser(currentUserProvider.get().getId());
         return Results.html().render("datas", datas);
     }
 
     @Get
-    @Route("/work/templates/{id}/json")
+    @Route("/work/user-templates/{id}/json")
     public Result template(@PathParam("id") Integer id) {
-        WorkTemplate template = checkEntity(workTemplateRepository.findById(id));
+        UserTemplate template = checkEntity(workTemplateRepository.findById(id));
         WorkFlowTask task;
         if (template.getWorkFlow().getTasks().size() == 0) {
             task = new WorkFlowTask();
@@ -60,14 +60,14 @@ public class WorkTemplateController extends BaseTeamController {
         task.setUserName(currentUserProvider.get().getName());
 
         return Results.json()
-                .render("templateId", template.getFormTeamTemplate().getId())
-                .render("templateName", template.getFormTeamTemplate().getName())
-                .render("fields", template.getFormTeamTemplate().getFields())
+                .render("templateId", template.getFormTemplate().getId())
+                .render("templateName", template.getFormTemplate().getName())
+                .render("fields", template.getFormTemplate().getFields())
                 .render("tasks", template.getWorkFlow().getTasks());
     }
 
     @Get
-    @Route("/work/templates/dialog")
+    @Route("/work/user-templates/dialog")
     public Result selDialog() {
         List<WorkTemplateDto> datas = workTemplateRepository
                 .findDtoAll(currentUserProvider.get().getId(), currentTeamProvider.get().getId());
@@ -79,10 +79,10 @@ public class WorkTemplateController extends BaseTeamController {
     @Route("/work/flow-templater/new")
     @Transactional
     public Result addTemplates(@Param("templateid") Integer templateId) {
-        FormTeamTemplate formTeamTemplate = checkEntity(formTeamTemplateRepository.findById(templateId));
-        WorkTemplate workTemplate = new WorkTemplate();
+        FormTemplate formTemplate = checkEntity(formTemplateRepository.findById(templateId));
+        UserTemplate workTemplate = new UserTemplate();
         workTemplate.setUserId(currentUserProvider.get().getId());
-        workTemplate.setFormTeamTemplate(formTeamTemplate);
+        workTemplate.setFormTemplate(formTemplate);
         workTemplate.setWorkFlow(new WorkFlow());
         workTemplateRepository.save(workTemplate);
         return Results.json().render(new ResponseJson());
@@ -92,7 +92,7 @@ public class WorkTemplateController extends BaseTeamController {
     @Route("/work/flow-templater/{templateid}")
     @Transactional
     public Result delUserTemplates(@PathParam("templateid") Integer templateid) {
-        Optional<WorkTemplate> optional = workTemplateRepository.findByFormTeamTemplate(templateid);
+        Optional<UserTemplate> optional = workTemplateRepository.findByFormTeamTemplate(templateid);
         if (optional.isPresent()) {
             workTemplateRepository.delete(optional.get());
         }
@@ -102,7 +102,7 @@ public class WorkTemplateController extends BaseTeamController {
     @Get
     @Route("/work/flow-templater/{templateid}/flows")
     public Result selUser(@PathParam("templateid") Integer templateid) {
-        Optional<WorkTemplate> optional = workTemplateRepository.findByFormTeamTemplate(templateid);
+        Optional<UserTemplate> optional = workTemplateRepository.findByFormTeamTemplate(templateid);
         if (optional.isPresent()) {
             workTemplateRepository.delete(optional.get());
         }

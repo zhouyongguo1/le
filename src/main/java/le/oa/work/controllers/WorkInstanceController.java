@@ -13,7 +13,7 @@ import le.oa.work.models.WorkInstance;
 import le.oa.work.models.WorkInstanceItem;
 import le.oa.work.models.search.WorkInstanceSearch;
 import le.oa.work.repositories.FormRepository;
-import le.oa.work.repositories.FormTeamTemplateRepository;
+import le.oa.work.repositories.FormTemplateRepository;
 import le.oa.work.repositories.WorkInstanceItemRepository;
 import le.oa.work.repositories.WorkInstanceRepository;
 import le.oa.work.repositories.WorkTemplateRepository;
@@ -35,7 +35,7 @@ import java.util.List;
 public class WorkInstanceController extends BaseTeamController {
 
     private WorkTemplateRepository workTemplateRepository;
-    private FormTeamTemplateRepository formTeamTemplateRepository;
+    private FormTemplateRepository formTemplateRepository;
     private FormRepository formRepository;
     private WorkInstanceRepository workInstanceRepository;
     private WorkInstanceItemRepository instanceItemRepository;
@@ -44,14 +44,14 @@ public class WorkInstanceController extends BaseTeamController {
 
     @Inject
     public WorkInstanceController(WorkTemplateRepository workTemplateRepository,
-                                  FormTeamTemplateRepository formTeamTemplateRepository,
+                                  FormTemplateRepository formTemplateRepository,
                                   FormRepository formRepository,
                                   WorkInstanceRepository workInstanceRepository,
                                   WorkInstanceItemRepository instanceItemRepository,
                                   WorkInstanceService workInstanceService) {
 
         this.workTemplateRepository = workTemplateRepository;
-        this.formTeamTemplateRepository = formTeamTemplateRepository;
+        this.formTemplateRepository = formTemplateRepository;
         this.formRepository = formRepository;
         this.workInstanceRepository = workInstanceRepository;
         this.instanceItemRepository = instanceItemRepository;

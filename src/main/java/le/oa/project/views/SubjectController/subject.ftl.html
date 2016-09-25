@@ -1,10 +1,86 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-  <meta charset="UTF-8">
-  <title></title>
-</head>
-<body>
+<#import "/le/oa/core/views/layout.ftl.html" as l>
+<#import "/le/oa/core/views/lib.ftl.html" as lib>
+<#import "/le/oa/project/views/lib.ftl.html" as pro>
+<#assign header>
+</#assign>
+<#assign footer>
+<script>
+    ;
+    $(function () {
+        var subject = (function () {
+            var loadSubjectItems = function () {
+                $("#subjectItems").load("/project/{id}/subject/{subjectId}/items");
+            };
 
-</body>
-</html>
+            var delSubject = function (subjectId) {
+                $.alertMsg.show({
+                    message: "确定要删除这个讨论主题以及它相关的全部讨论吗？",
+                    ok: function () {
+                        $.post("/project/${project.id}/subjects/" + subjectId, {"_method": "delete"}, function (data) {
+                            loadSubjects();
+                            $.msg.success(data.messages);
+                        });
+                    }
+                });
+            };
+            var init = function () {
+                $("body").on("click", ".subject-del", function () {
+                    var groupId = $(this).data("id");
+                    delSubject(groupId);
+                });
+            };
+            return {
+                loadSubjectItems: loadSubjectItems,
+                init: init
+            };
+
+        })();
+        $.subject = subject;
+    });
+
+    $(function () {
+        $.subject.loadSubjectItems();
+        $.subject.init();
+    });
+
+</script>
+</#assign>
+<@l.layout header=header footer=footer>
+<div class="main">
+    <div class="main-header">
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-home fa-fw"></i>首页</a></li>
+            <li><a href="#">项目管理</a></li>
+            <li class="active">${project.name}</li>
+        </ol>
+    </div>
+    <div class="main-body">
+        <div class="row">
+            <div class="col-xs-9">
+                <div>
+                    <h4>${subject.name}</h4>
+                    <div class="content">
+                    ${subject.content}
+                    </div>
+                </div>
+                <hr>
+                <div class="subject" id="subjectItems">
+                </div>
+                <#include "subjectitem-form.ftl.html">
+            </div>
+            <div class="col-xs-3">
+                <ul>
+                    <li><a href="#">返回讨论主题</a></li>
+                    <li><a href="#">编辑</a></li>
+                    <li><a href="#">删除</a></li>
+                </ul>
+
+            </div>
+        </div>
+       
+    </div>
+
+
+</div>
+
+</@l.layout>

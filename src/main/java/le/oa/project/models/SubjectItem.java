@@ -1,11 +1,8 @@
 package le.oa.project.models;
 
-import le.oa.core.models.Status;
 import le.oa.core.models.base.BaseModel;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,12 +15,9 @@ public class SubjectItem extends BaseModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private Integer projectId;
-    private Integer ownerId;
+    private Integer subjectId;
     private String name;
     private String content;
-    @Enumerated(EnumType.STRING)
-    private Status status = Status.ACTIVE;
-    private Boolean isElite = false;//精华
 
     public Integer getId() {
         return id;
@@ -41,6 +35,14 @@ public class SubjectItem extends BaseModel {
         this.projectId = projectId;
     }
 
+    public Integer getSubjectId() {
+        return subjectId;
+    }
+
+    public void setSubjectId(Integer subjectId) {
+        this.subjectId = subjectId;
+    }
+
     public String getName() {
         return name;
     }
@@ -55,29 +57,5 @@ public class SubjectItem extends BaseModel {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public Boolean getIsElite() {
-        return isElite;
-    }
-
-    public void setIsElite(Boolean isElite) {
-        this.isElite = isElite;
-    }
-
-    public Integer getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(Integer ownerId) {
-        this.ownerId = ownerId;
     }
 }

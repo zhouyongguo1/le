@@ -1,35 +1,49 @@
 <div class="users">
     <ul>
     <#list users as user>
-      <#if !(user.role??)>
-          <li>
-              <div>
-                  <img src="/assets/img/${user.photo!}">
-                  <span class="name">${user.name!}</span>
-                  <span class="mail">${user.email!}</span>
-              </div>
-          </li>
-      </#if>
+        <#if !(user.role??)>
+            <li>
+                <div>
+                    <img src="/assets/img/${user.photo!}">
+                    <span class="name">
+                     <a href="/users/${user.id}">${user.name!}</a>
+                        <#if user.permission="ADMIN">
+                            -管理员
+                        </#if>
+                    </span>
+                    <span class="mail">${user.email!}</span>
+                </div>
+            </li>
+        </#if>
     </#list>
     </ul>
 
 </div>
 <#list roles as role>
-<h5>${role.name}（<a href="/users/new?roleId=${role.id}">添加</a> ）</h5>
+<h5>${role.name}（<a href="/users/new?roleId=${role.id}">添加</a> &nbsp;|&nbsp;
+    <a href="#" data-id="${(role.id)!}" class="group-del">删除</a> ）
+</h5>
 
 <div class="users">
     <ul>
-      <#list users as user>
-        <#if (role.id)==(user.role.id)!0>
-            <li>
-                <div>
-                    <img src="/assets/img/${user.photo!}">
-                    <span class="name">${user.name!}</span>
-                    <span class="mail">${user.email!}</span>
-                </div>
-            </li>
-        </#if>
-      </#list>
+        <#list users as user>
+            <#if (role.id)==(user.role.id)!0>
+                <li>
+
+                    <div>
+                        <img src="/assets/img/${user.photo!}">
+                    <span class="name">
+                       <a href="/users/${user.id}">${user.name!}</a>
+                        <#if user.permission="ADMIN">
+                            -管理员
+                        </#if>
+                    </span>
+                        <span class="mail">${user.email!}</span>
+                    </div>
+
+                </li>
+            </#if>
+        </#list>
 
     </ul>
 

@@ -36,24 +36,13 @@ public abstract class BaseRepository<T> implements Repository<T> {
         getEntityManager().persist(entity);
     }
 
-    @Override
-    public void update(T entity) {
-        getEntityManager().merge(entity);
-    }
 
     @Override
     public void delete(T entity) {
         getEntityManager().remove(entity);
     }
 
-    @Override
-    public T find(Object primaryKey) {
-        return getEntityManager().find(entityClass, primaryKey);
-    }
 
-    public List<T> findAll() {
-        return createQuery(String.format("from %s", entityClass.getName())).getResultList();
-    }
 
     @Override
     public TypedQuery<T> createQuery(String qlString) {

@@ -1,0 +1,16 @@
+<#list types as type>
+<h5>${type.name}（<a href="#" data-id="${type.id}" data-name="${type.name}" class="type-edit">编辑</a> &nbsp;|&nbsp;
+    <a href="#" data-id="${(type.id)!}" class="type-del">删除</a> ）</h5>
+<div class="pieces">
+    <ul>
+        <#list list as template>
+            <#if template.formType.id=type.id>
+                <li>
+                    <a href="/project/1/tasks">
+                    ${template.name} </a>
+                </li>
+            </#if>
+        </#list>
+    </ul>
+</div>
+</#list>

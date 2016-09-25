@@ -1,0 +1,26 @@
+<div class="modal fade" id="typeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document"  style="margin: 200px auto;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">表单分类</h4>
+            </div>
+            <form data-parsley-validate="" id="saveTypeForm">
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <div class="col-sm-7">
+                            <input  type="hidden" id="fromTypeId">
+                            <input type="text" class="form-control col-sm-4" id="fromTypeName"
+                                   placeholder="表单分类名称" required="" maxlength="50">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-success" id="saveFormType">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

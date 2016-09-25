@@ -9,13 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "fm_team_template")
-public class FormTeamTemplate extends BaseModel {
+@Table(name = "fm_type")
+public class FormType extends BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
-    private String fields;
 
     public Integer getId() {
         return id;
@@ -31,13 +30,5 @@ public class FormTeamTemplate extends BaseModel {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getFields() {
-        return fields;
-    }
-
-    public void setFields(String fields) {
-        this.fields = fields;
     }
 }

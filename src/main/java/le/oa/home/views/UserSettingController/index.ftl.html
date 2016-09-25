@@ -1,0 +1,157 @@
+<#import "/le/oa/core/views/layout.ftl.html" as l>
+<#import "/le/oa/core/views/lib.ftl.html" as lib>
+<#assign header>
+<style>
+    .photos {
+        padding: 8px 10px 8px 0px;
+        list-style: none outside none;
+        margin-bottom: 0px;
+    }
+
+    .photos > li {
+        display: inline-block;
+        padding: 3px;
+        line-height: 1.4;
+        background-color: #F9F9F9;
+        border: 1px solid #FFF;
+        margin-bottom: 2px;
+        cursor: pointer;
+    }
+
+    .photos > li.active, .photos > li:hover {
+
+        background-color: #1d9d74;
+        border-color: #1d9d74;
+        color: #1d9d74;
+    }
+
+    .photos li > img {
+        border-radius: 1%;
+        width: 50px;
+        float: left;
+
+    }
+
+</style>
+</#assign>
+<#assign footer>
+<script>
+    $(function () {
+        if ($(".photos li.active").length == 0) {
+            var $li = $(".photos li:first");
+            $li.addClass("active");
+            $("#photo").val($li.data("id"));
+        }
+        $(".photos li").click(function () {
+            $(this).siblings().removeClass("active");
+            $(this).addClass("active");
+            $("#photo").val($(this).data("id"));
+        });
+        
+        $("#butSave").click(function(){
+            var instance = $('form').parsley();
+            if(instance.validate()){
+                $.post("/setting",$("form").serialize(),function(data){
+                    if(data.work){
+                        $.msg.success(data.messages);
+                    }
+                    else{
+                        $.msg.error(data.messages);
+                    }
+                });
+            }
+        });
+        $("#editPass").click(function(){
+            $(".edit-pass").show();
+            $("#pass1").attr("required","required");
+            $("#pass").attr("required","required");
+            $("#editPassDiv").hide();
+        });
+    });
+</script>
+</#assign>
+<@l.layout header=header footer=footer>
+<div class="main">
+    <div class="main-header">
+
+        <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+            <li class="active">个人设置</li>
+        </ol>
+    </div>
+    <div class="main-body">
+        <p class="help-block">用户可以设置自己的登陆名称和邮箱，邮箱不能和已有的用户邮箱重复</p>
+
+        <form class="form-horizontal form-label-left" method="post" action="/users/save" >
+
+            <div class="form-group">
+                <label class="control-label col-md-2 col-sm-2">选择头像
+                </label>
+
+                <div class="col-sm-6 ">
+                    <ul class="photos">
+                        <#list (1..9) as index>
+                            <li data-id="photo${index}.jpg"
+                                class="${(((user.photo)!)=="photo"+index+".jpg")?string("active","")}">
+                                <img src="/assets/img/photo${index}.jpg">
+                            </li>
+                        </#list>
+                    </ul>
+                </div>
+                <input type="hidden" name="photo" id="photo" value="${(user.photo)!}">
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="last-name">
+                    <span class="required">*</span>姓名
+                </label>
+
+                <div class="col-md-6 col-sm-6">
+                    <input type="text" id="name" name="name" required maxlength="50"
+                           class="form-control col-md-7" value="${(user.name)!}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="middle-name" class="control-label col-sm-2"><span class="required">*</span>邮箱</label>
+
+                <div class="col-sm-6">
+                    <input class="form-control col-md-7" type="email" value="${(user.email)!}" name="email" required>
+                </div>
+            </div>
+            <div class="form-group" id="editPassDiv">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-6">
+                <a href="#" id="editPass">修改密码</a>
+                </div>
+            </div>
+            <div class="form-group edit-pass" style="display: none">
+                <label for="middle-name" class="control-label col-sm-2">
+                    <span class="required">*</span>密码</label>
+
+                <div class="col-sm-6">
+                    <input id="pass"  class="form-control col-md-7"  type="password" name="pass">
+                </div>
+            </div>
+            
+            <div class="form-group edit-pass"  style="display: none">
+                <label for="middle-name" class="control-label col-sm-2">
+                    <span class="required">*</span>重复密码</label>
+
+                <div class="col-sm-6">
+                    <input id="pass1" class="form-control col-md-7"  type="password" name="pass2"
+                           data-parsley-equalto="#pass">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="col-md-offset-2  col-sm-6">
+                    <button id="butSave" type="button" class="btn btn-success">
+                        <i class="fa fa-floppy-o" aria-hidden="true"></i> 保存
+                    </button>
+                    <a href="/" class="btn">取消</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</@l.layout>

@@ -45,7 +45,7 @@
     <span class="text-success"><i class="fa fa-check fa-fw"></i>发起申请</span>
     <#elseif status=="FLOW">
     <span class="text-success"><i class="fa fa-check fa-fw"></i>审批通过</span>
-    
+
     <#elseif status=="STOP">
     <span class="text-danger"><i class="fa fa-stop fa-fw"></i>中止</span>
 
@@ -60,4 +60,49 @@
 <#assign weekDayOptions={ "1":"星期一", "2":"星期二", "3":"星期三", "4":"星期四","5":"星期五", "6":"星期六","7":"星期日"}/>
 <#macro weekDays weekDay>
 ${weekDayOptions[weekDay]}
+</#macro>
+
+<#macro alertMsg>
+<div id="alertMsg" class="modal fade">
+    <div class="modal-dialog" style="margin: 200px auto;">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p style="padding-top: 10px;" class="modal-message"></p>
+            </div>
+            <div style="padding: 0px 15px 15px 0px; text-align: right;">
+                <button type="button" class="btn btn-default dialog-close" data-dismiss="modal">
+                    取消
+                </button>
+                <button type="button" class="btn btn-success dialog-ok">
+                    <i class="fa fa-check"></i>
+                    <span>确定</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        var alertMsg = (function () {
+            var show = function (opts) {
+                opts = $.extend({
+                    message: "",
+                    ok: function () {
+                    }
+                }, opts);
+                var dialog = $('#alertMsg');
+                dialog.find(".modal-message").text(opts.message);
+                dialog.modal('show');
+                dialog.find('.dialog-ok').one('click', function (e) {
+                    opts.ok();
+                    dialog.modal('hide');
+                });
+            };
+            return {
+                show: show
+            };
+        })();
+        $.alertMsg = alertMsg;
+    });
+</script>
 </#macro>

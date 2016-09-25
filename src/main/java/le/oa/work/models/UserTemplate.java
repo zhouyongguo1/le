@@ -15,16 +15,16 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "wf_template")
-public class WorkTemplate extends TeamModel {
+@Table(name = "wf_user_template")
+public class UserTemplate extends TeamModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private Integer userId;
 
     @ManyToOne
-    @JoinColumn(name = "team_template_id")
-    private FormTeamTemplate formTeamTemplate;
+    @JoinColumn(name = "template_id")
+    private FormTemplate formTemplate;
 
     @Column(name = "data")
     @Type(type = "le.jpa.JsonType", parameters = {
@@ -48,12 +48,12 @@ public class WorkTemplate extends TeamModel {
         this.userId = userId;
     }
 
-    public FormTeamTemplate getFormTeamTemplate() {
-        return formTeamTemplate;
+    public FormTemplate getFormTemplate() {
+        return formTemplate;
     }
 
-    public void setFormTeamTemplate(FormTeamTemplate formTeamTemplate) {
-        this.formTeamTemplate = formTeamTemplate;
+    public void setFormTemplate(FormTemplate formTemplate) {
+        this.formTemplate = formTemplate;
     }
 
     public WorkFlow getWorkFlow() {

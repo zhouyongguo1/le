@@ -1,0 +1,16 @@
+<ul>
+<#list subjects as item>
+    <li>
+
+        <div class="content">
+        ${item.content}
+        </div>
+        <div class="tools">
+            <span> 作者:  ${(item.createdBy.name)!}</span>
+            <span> 发布于 2015-05-30</span>
+            <span> <a href="#"><i class="fa fa-arrow-circle-up  fa-fw"></i>置顶</a></span>
+            <span> <a href="#" class="subject-del" data-id="${item.id}"><i class="fa fa-trash-o fa-fw"></i>删除</a></span>
+        </div>
+    </li>
+</#list>
+</ul>
