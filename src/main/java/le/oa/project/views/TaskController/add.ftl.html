@@ -1,0 +1,114 @@
+<#import "/le/oa/core/views/layout.ftl.html" as l>
+<#import "/le/oa/core/views/lib.ftl.html" as lib>
+<#assign header>
+</#assign>
+<#assign footer>
+<script>
+    $(function () {
+        $.selectDate.init($("#planEndDate"));
+    });
+</script>
+</#assign>
+<@l.layout header=header footer=footer>
+<div class="main">
+    <div class="main-header">
+
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-home fa-fw"></i>首页</a></li>
+            <li><a href="/project/${project.id}/tasks">${project.name}</a></li>
+            <li class="active">新建项目任务</li>
+        </ol>
+    </div>
+    <div class="main-body">
+        <p class="help-block">新创建的项目任务是 <strong><u>未执行状态</u></strong> ,
+            用户可以在列表显示界面点击 <strong><u>立即执行</u></strong> ,来启动任务。如果任务没有填写负责人,
+            启动时会要求填写。</p>
+
+        <form class="form-horizontal form-label-left" method="post" action="/project/${project.id}/tasks"
+              data-parsley-validate="">
+            <div class="form-group">
+                <label class="control-label col-md-2" for="last-name">
+                    <span class="required">*</span>名称
+                </label>
+
+                <div class="col-md-6">
+                    <input type="text" id="name" name="name" required maxlength="50"
+                           class="form-control" value="${(task.name)!}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="middle-name" class="control-label col-sm-2">
+                    工作量</label>
+
+                <div class="col-sm-3">
+                    <select class="form-control" name="points">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>5</option>
+                        <option>8</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    负责人
+                </label>
+                <div class="col-sm-3">
+                    <select class="form-control" name="ownerId">
+                        <option></option>
+                        <#list users as user>
+                            <option value="${(user.id)!}">${(user.name)!}</option>
+                        </#list>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">计划完成日期
+                </label>
+                <div class="input-group col-md-3">
+                    <input id="planEndDate" name="planEndDate" class="form-control" size="16" type="text" value=""
+                           readonly>
+                    <a class="input-group-addon date-clear" href="#"><i class="fa fa-times"></i></a>
+                    <a class="input-group-addon date-select" href="#"><i class="fa fa-calendar"></i></a>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">优先级</label>
+
+                <div class="col-md-6 col-sm-6">
+                    <label class="radio-inline">
+                        <input type="radio" name="priority" value="HIGH"> 高
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="priority" value="MEDIUM" checked="checked"> 中
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="priority" value="LOW"> 低
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="last-name">
+                    描述
+                </label>
+
+                <div class="col-md-6 col-sm-6">
+                    <textarea rows="5" name="content" class="form-control">${(task.content)!}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2  col-sm-6">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-floppy-o"></i>
+                        保存
+                    </button>
+                    <a href="/project/${project.id}/tasks" class="btn">取消</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</@l.layout>

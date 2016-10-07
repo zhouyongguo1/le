@@ -3,20 +3,19 @@ package le.oa.project.controllers.form;
 import com.google.common.base.Strings;
 import le.oa.core.models.User;
 import le.oa.project.models.Priority;
-import le.oa.project.models.Project;
 import le.oa.project.models.Task;
+import le.oa.project.models.TaskStatus;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class TaskForm {
+public class AssignTaskForm {
     private Integer id;
-    private String name;
-    private String content;
-    private int points = 1;//任务点数
-    private Priority priority = Priority.MEDIUM;
     private Integer ownerId;
     private String planEndDate;
+    private int points = 1;//任务点数
+    private Priority priority = Priority.MEDIUM;
+    private TaskStatus status = TaskStatus.NONE;
 
     public Integer getId() {
         return id;
@@ -24,38 +23,6 @@ public class TaskForm {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    public Priority getPriority() {
-        return priority;
-    }
-
-    public void setPriority(Priority priority) {
-        this.priority = priority;
     }
 
     public Integer getOwnerId() {
@@ -74,10 +41,31 @@ public class TaskForm {
         this.planEndDate = planEndDate;
     }
 
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    public TaskStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TaskStatus status) {
+        this.status = status;
+    }
+
     public Task valOf(Task task) {
-        task.setName(name);
-        task.setContent(content);
-        task.setPriority(priority);
         task.setPoints(points);
         if (ownerId != null) {
             User user = new User();
@@ -88,12 +76,9 @@ public class TaskForm {
             LocalDate dateTime = LocalDate.parse(planEndDate, DateTimeFormatter.ISO_LOCAL_DATE);
             task.setPlanEndDate(dateTime);
         }
+        task.setStatus(status);
+        task.setPriority(priority);
         return task;
     }
 
-    public Task toTask(Project project) {
-        Task task = new Task();
-        task.setProject(project);
-        return valOf(task);
-    }
 }

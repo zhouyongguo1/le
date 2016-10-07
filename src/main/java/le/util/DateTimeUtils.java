@@ -25,5 +25,7 @@ public abstract class DateTimeUtils {
         return date.format(df);
     }
 
-
+    public static LocalDateTime utcNow() {
+        return LocalDateTime.now(ZoneOffset.UTC);
+    }
 }

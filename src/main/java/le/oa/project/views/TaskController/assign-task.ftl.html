@@ -1,0 +1,86 @@
+<div class="modal fade" id="assignTaskModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="margin: 200px auto;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">更改项目任务</h4>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-horizontal" id="taskForm" data-parsley-validate="">
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">
+                            负责人
+                        </label>
+                        <div class="col-sm-5">
+                            <select class="form-control" name="ownerId" id="ownerId" class="col-sm-5" required="">
+                                <option></option>
+                            <#list projectUsers as item>
+                                <option value="${(item.user.id)!}">${(item.user.name)!}</option>
+                            </#list>
+                            </select>
+                            <input type="hidden" name="id">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">
+                            计划完成日期
+                        </label>
+                        <div class="input-group col-md-5">
+                            <input id="planEndDate" name="planEndDate" class="form-control" size="16" type="text"
+                                   value="" readonly>
+                            <a class="input-group-addon date-clear" href="#"><i class="fa fa-times"></i></a>
+                            <a class="input-group-addon date-select" href="#"><i class="fa fa-calendar"></i></a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="middle-name" class="control-label col-md-3">
+                            工作量</label>
+
+                        <div class="col-md-5">
+                            <select class="form-control" name="points" id="points">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>5</option>
+                                <option>8</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">优先级</label>
+                        <div class="col-md-6">
+                            <label class="radio-inline">
+                                <input type="radio" name="priority" value="HIGH"> 高
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="priority" value="MEDIUM" checked="checked"> 中
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="priority" value="LOW"> 低
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">
+                            状态
+                        </label>
+                        <div class="col-md-5">
+                            <select class="form-control" id="status" name="status">
+                                <option value="NONE">未开始</option>
+                                <option value="START">开始进行</option>
+                                <option value="FINISH">完成</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-success" id="assignTaskBtn">保存</button>
+            </div>
+
+        </div>
+    </div>
+</div>

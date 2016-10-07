@@ -22,19 +22,15 @@ public class Task extends BaseModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
     private Project project;
-
     private String content;
     @Enumerated(EnumType.STRING)
     private TaskStatus status = TaskStatus.NONE;
     private int points = 1;//任务点数
-    private Boolean isArchived = false;
     private Boolean isDel = false;
-    private int pri = 0;
-
+    private Priority priority = Priority.MEDIUM;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "owner_id")
     private User owner;
@@ -90,28 +86,20 @@ public class Task extends BaseModel {
         this.points = points;
     }
 
-    public Boolean getIsArchived() {
-        return isArchived;
-    }
-
-    public void setIsArchived(Boolean isArchived) {
-        this.isArchived = isArchived;
-    }
-
-    public Boolean getIsDel() {
+    public Boolean getDel() {
         return isDel;
     }
 
-    public void setIsDel(Boolean isDel) {
-        this.isDel = isDel;
+    public void setDel(Boolean del) {
+        isDel = del;
     }
 
-    public int getPri() {
-        return pri;
+    public Priority getPriority() {
+        return priority;
     }
 
-    public void setPri(int pri) {
-        this.pri = pri;
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 
     public User getOwner() {

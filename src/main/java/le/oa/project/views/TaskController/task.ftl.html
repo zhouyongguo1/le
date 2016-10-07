@@ -1,0 +1,284 @@
+<#import "/le/oa/core/views/layout.ftl.html" as l>
+<#import "/le/oa/core/views/lib.ftl.html" as lib>
+<#assign header>
+<style>
+    .task-status {
+        font-size: 18px;
+        padding: 10px 40px;
+        text-align: center;
+        display: table-cell;
+    }
+
+    .task-status.none {
+        border: 3px solid #ddd;
+        color: #ddd;
+    }
+
+    .task-status.start {
+        border: 3px dashed #4586bd;
+        color: #4586bd;
+    }
+
+    .task-status.finish {
+        border: 3px solid #229f77;
+        color: #229f77;
+    }
+
+    .task-status.end {
+        border: 3px double #229f77;
+        color: #229f77;
+    }
+
+    .task-toolbar {
+        margin-top: 20px;
+    }
+
+    .task-toolbar li > a {
+        display: block;
+        padding: 3px 20px;
+        clear: both;
+        font-weight: 400;
+        line-height: 1.42857143;
+        white-space: nowrap;
+    }
+
+    .task-toolbar ul {
+        float: left;
+        padding: 5px 0;
+        margin: 2px 0 0;
+        font-size: 14px;
+        text-align: left;
+        list-style: none;
+    }
+
+    .task-toolbar .divider {
+        height: 1px;
+        margin: 9px 0;
+        overflow: hidden;
+        background-color: #e5e5e5;
+    }
+
+    .task {
+        border-bottom: 1px solid #f1f1f1;
+        margin-bottom: 1px;
+    }
+
+    .task .task-title {
+        font-size: 18px;
+        padding: 10px 0px;
+        margin-bottom: 5px;
+    }
+
+    .task .task-info {
+        line-height: 20px;
+        color: #808080;
+        font-size: 14px;
+    }
+
+    .task .task-info > ul {
+        padding-left: 0;
+        margin-left: -5px;
+        list-style: none;
+        margin-bottom: 0px;
+
+    }
+
+    .task .task-info > ul > li {
+        display: inline-block;
+        padding-right: 5px;
+        line-height: 16px;
+        min-width: 80px;
+    }
+
+    .task .task-info > ul > li > span {
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+
+    .task .task-content {
+        font-size: 16px;
+        padding: 10px 0px;
+        margin-bottom: 5px;
+        line-height: 30px;
+        color: #555;
+    }
+
+    .task-checks {
+        border-bottom: 1px solid #f1f1f1;
+    }
+
+    .task-checks ul {
+        list-style: none;
+        padding: 5px 20px;
+    }
+
+    .task-checks ul .check-status {
+        cursor: pointer;
+    }
+
+    .task-checks ul li.failed {
+        color: red;
+    }
+
+    .task-checks ul li.success {
+        color: green;
+    }
+</style>
+</#assign>
+<#assign footer>
+<script>
+    (function ($) {
+        $.taskCheck = (function () {
+            var _projectId, _taskId;
+            var load = function () {
+                $("#taskChecks").load("/project/" + _projectId + "/tasks/" + _taskId + "/check");
+            };
+            var save = function () {
+                var url = "/project/" + _projectId + "/tasks/" + _taskId + "/check";
+                $.post(url, {"content": $("#taskCheckContent").val()}, function (data) {
+                    load();
+                    $.msg.success(data.messages);
+                    $("#taskCheckContent").val("");
+                });
+            };
+            var del = function (id) {
+                $.alertMsg.show({
+                    message: "确定要删除任务检查项吗？",
+                    ok: function () {
+                        var url = "/project/" + _projectId + "/tasks/" + _taskId + "/check/" + id;
+                        $.post(url, {"_method": "delete"}, function (data) {
+                            $.msg.success(data.messages);
+                            load();
+                        });
+                    }
+                });
+            };
+            var upStatus = function (id, status) {
+                var url = "/project/" + _projectId + "/tasks/" + _taskId + "/check/" + id;
+                $.post(url, {"_method": "put", status: status}, function (data) {
+                    $.msg.success(data.messages);
+                    load();
+                });
+            };
+            var init = function (projectId, taskId) {
+                _projectId = projectId;
+                _taskId = taskId;
+
+                $("#saveCheckBtn").click(function () {
+                    if ($("#taskCheckForm").parsley().validate()) {
+                        save();
+                    }
+                });
+                $("#cancelCheckBtn").click(function () {
+                    $("#checkAddBtn").show();
+                    $("#taskCheckForm").hide();
+                });
+                $("#checkAddBtn").click(function () {
+                    $(this).hide();
+                    $("#taskCheckForm").show();
+                });
+                $("body").on("click", ".check-del", function () {
+                    del($(this).data("id"));
+                });
+                $("body").on("click", ".check-status", function () {
+                    upStatus($(this).data("id"), $(this).data("status"));
+                });
+                load();
+            }
+            return {
+                init: init
+            }
+        })();
+    })(jQuery);
+    $(function () {
+//        $.selectDate.init($("#planEndDate"));
+        $.taskCheck.init(${project.id},${task.id});
+
+    });
+</script>
+</#assign>
+<@l.layout header=header footer=footer>
+<div class="main">
+    <div class="main-header">
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-home fa-fw"></i>首页</a></li>
+            <li><a href="#">项目</a></li>
+            <li><a href="/project/${project.id}/tasks">${project.name}</a></li>
+            <li class="active">任务</li>
+        </ol>
+    </div>
+    <div class="main-body">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="task">
+                    <div class="task-title">${task.name}</div>
+                    <div class="task-info">
+                        <ul>
+                            <li>
+                                <span>优先级:</span>
+                                <#if task.priority=="HIGH">
+                                    紧急
+                                <#elseif task.priority=="MEDIUM">
+                                    一般
+                                <#else>
+                                    低
+                                </#if>
+                            </li>
+                            <li><span>负责人:</span>
+                                <#if task.owner??>
+                                ${task.owner.name}
+                                <#else>
+                                    未指定
+                                </#if>
+                            </li>
+                            <li><span>工作量:</span>${task.points}</li>
+                        </ul>
+                    </div>
+                    <div class="task-content">
+                        <@lib.nl2br content=task.content></@lib.nl2br>
+                    </div>
+                </div>
+
+                <div id="taskChecks">
+                </div>
+                <#include "../TaskCheckController/taskCheckForm.ftl.html">
+            </div>
+            <div class="col-md-3">
+                <div class="task-status  ${task.status?lower_case}">
+                    <#if task.status=="NONE">
+                        未开始
+                    <#elseif task.status=="START">
+                        进行中……
+                    <#elseif task.status=="FINISH">
+                        完成,待验证
+                    <#elseif task.status=="END">
+                        结束
+                    <#else>
+                        中止
+                    </#if>
+                </div>
+                <div class="task-toolbar">
+                    <ul>
+
+                        <li>
+                            <a href="#">编辑内容</a>
+                        </li>
+                        <li>
+                            <a href="#">删除</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">指派</a>
+                        </li>
+                        <li>
+                            <a href="#">任务结束</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+    <@lib.alertMsg/>
+</@l.layout>

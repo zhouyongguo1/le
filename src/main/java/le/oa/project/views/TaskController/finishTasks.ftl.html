@@ -1,0 +1,15 @@
+<#list users as user>
+<div class="task-list-user">
+
+    <img class="photo" src="/assets/img/${user.photo}">
+    <span class="name">${user.name}</span>
+</div>
+<div class="user-tasks">
+    <#list tasks as task>
+        <#if task.owner.id==user.id>
+            <div class="user-task  ${(task.status="END")?string("end","finish")}"><a
+                    href="/project/${task.project.id}/tasks/${task.id}"> ${task.name}</a></div>
+        </#if>
+    </#list>
+</div>
+</#list>

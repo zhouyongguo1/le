@@ -2,320 +2,303 @@
 <#import "/le/oa/project/views/lib.ftl.html" as lib>
 <#assign header>
 <style>
-    .input-group-addon {
-        border: 1px solid #ccc;
-        border-left: 0px solid #ccc;
-        border-radius: 0px;
+    .task-list {
     }
 
-    select {
-        border-radius: 0px;
-        -webkit-appearance: none;
-        -webkit-border-radius: 0px;
-
+    .task-list .task-list-title {
+        margin-bottom: 1px;
+        position: relative;
+        cursor: pointer;
     }
 
-    .form {
-        border: 0px solid #ccc;
-        background-color: #FAFAFA;
-        padding: 10px;
+    .task-list .task-list-body {
+        margin-bottom: 1px;
     }
 
-    label {
+    .task-list .task-list-title span {
+
+        padding: 2px 10px;
+        color: #fff;
         display: inline-block;
-        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .task-list .task-list-title > .tools {
+        position: absolute;
+        right: 10px;
+        z-index: 2;
+        top: 2px;
+        line-height: 25px;
+    }
+
+    .unstart .task-list-title {
+        background: #FFF7EB;
+    }
+
+    .unstart .task-list-title span {
+        background: #FABB3D;
+    }
+
+    .unstart .task {
+        border-left: 2px solid #FABB3D;
+    }
+
+    .unstart .task-list-title > .tools {
+        color: #FABB3D;
+    }
+
+    .start .task-list-title {
+        background: #bcd6ec;
+    }
+
+    .start .task-list-title span {
+        background: #4586bd;
+    }
+
+    .start .task {
+        border-left: 2px solid #4586bd;
+    }
+
+    .start .task-list-title > .tools {
+        color: #4586bd;
+    }
+
+    .finish .task-list-title {
+        background: #F1F9ED;
+    }
+
+    .finish .task-list-title span {
+        background: #229f77;
+    }
+
+    .finish .task {
+        border-left: 2px solid #229f77;
+    }
+
+    .task {
+        border-bottom: 1px solid #f1f1f1;
+        margin-bottom: 1px;
+    }
+
+    .task .desc {
+        display: inline-block;
+        width: 75%;
+        padding: 7px 10px;
+        font-size: 12px;
+        color: #555;
+    }
+
+    .task .desc .title {
+        font-size: 16px;
         margin-bottom: 5px;
-        font-weight: 300;
     }
 
-    .required {
-        color: red;
-
+    .task .time {
+        display: inline-block;
+        float: right;
+        width: 15%;
+        padding: 5px 5px 5px 0px;
+        font-size: 12px;
+        text-align: right;
     }
 
-    .form-header {
-
+    .task .time .date {
+        font-size: 16px;
     }
 
-    .form-header h4 {
-        font-size: 17px;
-        border-bottom: 1px solid #eee;
-        padding: 10px 10px;
-        margin: 0px;
+    .task .task-info {
+        line-height: 20px;
+        color: #808080;
+        font-size: 12px;
     }
 
-    .form-body {
-        padding: 10px;
-    }
-
-    ul.parsley-errors-list {
-        color: #B94A48;
-        padding: 3px 3px;
-        list-style-type: none;
-        font-size: 0.9em;
-        margin: 0px;
-        padding: 0px;
-    }
-
-    ul.parsley-errors-list > li {
+    .task .task-info > ul {
+        padding-left: 0;
+        margin-left: -5px;
         list-style: none;
-        padding: 0px;
-        border: none;
+        margin-bottom: 0px;
+
     }
 
+    .task .task-info > ul > li {
+        display: inline-block;
+        padding-right: 5px;
+        line-height: 16px;
+        min-width: 80px;
+    }
 
+    .task .task-info > ul > li > span {
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+
+    .task-list-user {
+        padding: 5px 0px 0px 5px;
+    }
+
+    .task-list-user .photo {
+        border-radius: 50%;
+        width: 30px;
+        margin-left: 5px;
+    }
+
+    .task-list-user .name {
+        margin-left: 5px;
+    }
+
+    .task-list-user .name {
+
+    }
+
+    .user-tasks {
+        padding-left: 19px;
+    }
+
+    .user-task {
+        border-top: 1px solid #f1f1f1;
+        margin-bottom: 1px;
+        border-left: 2px solid #229f77;
+        padding: 5px 10px;
+    }
+
+    .user-task.end a {
+        color: #229f77;
+    }
 </style>
 </#assign>
+
 <#assign footer>
 <script>
-
-
-    var task = (function () {
-
-        /*变量声明*/
-        var addStatus = function () {
-                }
-                ;
-        var init = function () {
-
-            $("#saveBtn").click(function () {
-                $("#task-form").isValid();
-
-            });
-
-            $('.btn').on('click', btnClick);
-            $('a.add').on('click', addClick);
-        };
-        return {
-            init: init
-        };
-
-    })();
-
-    function addtask(task) {
-        var $li = $(".task-item li").clone();
-        var $points = $li.find(".task-points");
-        var $pointInfo = $(".task-item .info");
-        var $pointDefault = $(".task-item .default");
-        var pri = "";
-        for (var i = 0; i < task.pri; i++) {
-            pri += "!";
-        }
-        $li.find(".task-pri").text(pri);
-        $li.find(".task-name").text(task.name);
-
-        for (var i = 0; i < task.points; i++) {
-            $points.append($pointInfo.clone());
-            $points.append(" ");
-        }
-        for (var i = task.points; i < 5; i++) {
-            $points.append($pointDefault.clone());
-            $points.append(" ");
-        }
-        var inaction = false;
-        if (task.owner != "" && task.owner != null) {
-            $li.append($(".task-item .task-owner").clone().text(task.owner));
-            inaction = true;
-        }
-        if (task.planEndDate != "" && task.planEndDate != null) {
-            $li.append($(".task-item .task-plan").clone().text(task.planEndDate));
-            inaction = true;
-        }
-        if (inaction == false) {
-            $li.append($(".task-item .label-inaction").clone());
-        }
-        $(".tasks-draft").append($li);
-        $("#tasks-draft-count").text($(".tasks-draft li").length + "" + "个");
-    }
-    $(function () {
-        $.selectDate.init($('#planEndDate'));
-        $("#saveBtn").click(function () {
-            if ($('form').parsley().validate()) {
-                var taskForm = {
-                    name: $('#taskName').val(),
-                    ownerId: $('#ownerId').val(),
-                    owner: $('#ownerId').find("option:selected").text(),
-                    planEndDate: $("#planEndDate").val()
-                };
-                $.post("/project/${project.id}/task", taskForm, function (data) {
-                    addtask(data.task);
-                });
-            }
-
-        });
-        $("#cancelBtn").click(function () {
-            $("#task-add").show();
-            $("#task-form").hide();
-        });
-        $("#task-add").click(function () {
-            $(this).hide();
-            $("#task-form").show();
-
-        });
-        $('body').on("click", '.tasks-body .state', function () {
-            var $task = $(this).closest('li');
-            var $li = $task.clone();
-            var status = $(this).data("status");
-            $(this).removeClass('fa-square-o').addClass('fa-check-square');
-            var url = "/project/${project.id}/task/" + $(this).data('id') + "/update-status";
-            var data = {"status": $(this).data('status')};
-            $('body').oneTime('1s', function () {
-                $.post(url, data, function () {
-                    $task.remove();
-                    if (status == 'NONE') {
-                        $.msg.success("任务进行中……");
-                        $li.find(".state").data("status","START");
-                        $(".tasks-run").append($li);
-                    }
-                    else if (status == 'START') {
-                        $.msg.success("任务已经完成");
-                        $li.find(".state").data("status","FINISH")
-                        $(".tasks-over").append($li);
+    (function ($) {
+        $.tasks = (function () {
+            var projectId;
+            var $noneTasks = $("#noneTasks");
+            var $finishTasks = $("#finishTasks");
+            var loadNoneTasks = function () {
+                $noneTasks.load("/project/" + projectId + "/none-tasks");
+            };
+            var loadFinishTasks = function () {
+                $finishTasks.load("/project/" + projectId + "/finish-tasks?interval=" + $("#queryInterval").val());
+            };
+            var init = function (id) {
+                projectId = id;
+                loadNoneTasks();
+                loadFinishTasks();
+                $("body").on("click", "#noneTasks .task-list-title", function () {
+                    var $title = $(this);
+                    if ($title.data("view") == "hide") {
+                        $(this).siblings(".task-list-body").show();
+                        $(this).find("i").removeClass("fa-chevron-down").addClass("fa-chevron-up");
+                        $title.data("view", "show");
                     }
                     else {
-                        $.msg.success("任务已经归档");
+                        $(this).siblings(".task-list-body").hide();
+                        $(this).find("i").removeClass("fa-chevron-up ").addClass("fa-chevron-down");
+                        $title.data("view", "hide");
                     }
                 });
-            });
-        });
+                $("#queryInterval").change(function () {
+                    loadFinishTasks();
+                });
 
+            };
+            return {
+                init: init,
+                loadNoneTasks: loadNoneTasks,
+                loadFinishTasks: loadFinishTasks
+            }
+        })();
+        $.taskDialog = (function () {
+            var projectId;
+            var dialog = $('#assignTaskModal');
+            var callBack = function (data) {
+                if (data.work) {
+                    $.msg.success(data.messages);
+                    $.tasks.loadNoneTasks();
+                    $.tasks.loadFinishTasks();
+                }
+                else {
+                    $.msg.error(data.messages);
+                }
+                dialog.modal('hide');
+            }
+            var init = function (id) {
+                projectId = id;
+                $.selectDate.init($("#planEndDate"));
+                $("body").on("click", ".finish-task,.run-task", function () {
+                    $('#taskForm').parsley().reset();
+                    dialog.find("input[name='id']").val($(this).data("id"));
+                    dialog.find("select[name='ownerId']").val($(this).data("owner-id"));
+                    dialog.find("input[name='planEndDate']").val($(this).data("plan-end-date"));
+                    dialog.find("select[name='points']").val($(this).data("points"));
+                    dialog.find("input[value='" + $(this).data("priority") + "']").prop("checked", true);
+                    dialog.find("select[name='status']").val($(this).data("status"));
+                    dialog.modal('show');
+                });
+                $("#assignTaskBtn").on("click", function () {
+                    if ($('#taskForm').parsley().validate()) {
+                        var url = "/project/" + projectId + "/tasks/" + dialog.find("input[name='id']").val() + "/assign";
+                        $.ajax({type: 'put', url: url, data: $('#taskForm').serialize(), success: callBack});
+                    }
+                });
+            };
+            return {
+                init: init
+            }
+        })();
+    })
+    (jQuery);
 
+    $(function () {
+        $.tasks.init(${project.id});
+        $.taskDialog.init(${project.id});
     });
-
 </script>
 </#assign>
 <@l.layout header=header footer=footer>
 <div class="main">
     <@lib.projectHeader project=project/>
+    <div class="main-body">
 
-    <div class="tasks">
+        <div class="tools">
+            <ul>
+                <li>
+                    <a href="/project/${project.id}/tasks/new">
+                        <i class="fa fa-file-o  fa-fw"></i>新建项目任务
+                    </a>
+                </li>
+            <#--<li>-->
+            <#--<a href="/project/archived">-->
+            <#--全部项目任务-->
+            <#--</a>-->
+            <#--</li>-->
+            </ul>
+        </div>
+        <div class="row">
+            <div id="noneTasks" class="col-md-8">
 
-        <div class="tasks-body">
-            <div class="task-type">
-                <div class="task-type-header">
-                    <h4>
-                        <a href="#"><i class="fa fa-minus-square-o fa-fw"></i></a>
-                        未开始任务（<span id="tasks-draft-count">${noneTasks?size}个</span>）
-                    </h4>
-
-                </div>
-                <div>
-                    <ul class="tasks-draft">
-                        <#list noneTasks as task>
-                            <li>
-                                <i class="fa fa-square-o fa-fw state" data-id="${task.id}"
-                                   data-status="${task.status}"></i>
-                                <span class="priority">
-                                    <#list 0..task.pri as t>
-                                        <#if (t>0)>!</#if>
-                                    </#list>
-                                </span>
-                                <a href="/project/${project.id}/task/${task.id}">${task.name}</a>
-
-                                <#list 0..4 as t>
-                                    <#if t<task.points>
-                                        <i class="fa fa-tint info"></i>
-                                    <#else>
-                                        <i class="fa fa-tint default"></i>
-                                    </#if>
-                                </#list>
-                                &nbsp; &nbsp;
-                                <span class="label label-action">${(task.owner.name)!}</span><span class="label 
-                                label-action">${task.planEndDate!}</span>
-                            </li>
-                        </#list>
-                    </ul>
-                    <a href="#" id="task-add" class="task-add">添加新任务</a>
-                </div>
-                <#include "task-form.ftl.html">
             </div>
-            <div class="task-type" id="tasks-start-list">
-                <div class="task-type-header">
-                    <h4><a href="#"><i class="fa fa-minus-square-o fa-fw"></i></a>进行中……（${startTasks?size}个）</h4>
-                </div>
-                <div>
-                    <ul class="tasks-run">
-                        <#list startTasks as task>
-                            <li>
-                                <i class="fa fa-square-o fa-fw state" data-id="${task.id}" 
-                                   data-status="${task.status}"></i>
-                                <span class="priority">
-                                <#list 0..task.pri as t>
-                                    <#if (t>0)>!</#if>
-                                </#list>
-                                </span>
-                                <a href="/project/${project.id}/task/${task.id}">${task.name}</a>
+            <div class="col-md-4">
+                <div class="task-list finish">
 
-                                <#list 0..4 as t>
-                                    <#if t<task.points>
-                                        <i class="fa fa-tint info"></i>
-                                    <#else>
-                                        <i class="fa fa-tint default"></i>
-                                    </#if>
-                                </#list>
-                                &nbsp; &nbsp;
-                                <span class="label label-action">${(task.owner.name)!}</span><span class="label
-                                label-action">${task.planEndDate!}</span>
-                            </li>
-                        </#list>
+                    <div class="task-list-title ">
+                        <span>已完成</span>
+                        <div class="tools">
+                            <select id="queryInterval">
+                                <option value="week">当前星期</option>
+                                <option value="month">当月</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="finishTasks" class="task-list-body">
 
-                    </ul>
-                </div>
-            </div>
-            <div class="task-type" id="tasks-finish-list">
-                <div class="task-type-header">
-                    <h4><a href="#"><i class="fa fa-minus-square-o fa-fw"></i></a>已完成（${finishTasks?size}个）</h4>
-
-                </div>
-                <div>
-                    <ul class="tasks-over">
-                        <#list finishTasks as task>
-                            <li>
-                                <i class="fa fa-square-o fa-fw state" data-id="${task.id}"
-                                   data-status="${task.status}"></i>
-                                <span class="priority">
-                                <#list 0..task.pri as t>
-                                    <#if (t>0)>!</#if>
-                                </#list>
-                                </span>
-                                <a href="/project/${project.id}/task/${task.id}">${task.name}</a>
-
-                                <#list 0..4 as t>
-                                    <#if t<task.points>
-                                        <i class="fa fa-tint info"></i>
-                                    <#else>
-                                        <i class="fa fa-tint default"></i>
-                                    </#if>
-                                </#list>
-                                &nbsp; &nbsp;
-                                <span class="label label-action">${(task.owner.name)!}</span><span class="label
-                                label-action">${task.planEndDate!}</span>
-                            </li>
-                        </#list>
-
-                    </ul>
-
-                    <div class="task-add"><a class="#"> 已归档任务清单</a>
-                        &nbsp;&nbsp;&nbsp;<a class="#"> 任务日志清单</a></div>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
-
 </div>
-<div class="hide task-item">
-    <li>
-        <i class="fa fa-square-o fa-fw state"></i>
-        <span class="priority task-pri"></span>
-        <a href="/project/${project.id}/task/" class="task-name"></a>
-        <span class="task-points"></span>
-        &nbsp; &nbsp;
-
-    </li>
-    <span class="label label-action task-owner"></span>
-    <span class="label label-action task-plan"></span>
-    <span class="label label-inaction">未指派</span>
-    <i class="fa fa-tint info"></i>
-    <i class="fa fa-tint default"></i>
-</div>
+    <#include "assign-task.ftl.html"/>
 </@l.layout>
+

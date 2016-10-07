@@ -1,0 +1,42 @@
+<#if checks?has_content>
+<h5>任务检查项</h5>
+<div class="task-checks">
+    <ul>
+        <#list checks as item>
+
+            <#if item.status=="SUCCESS">
+                <li class="${item.status?lower_case}">
+                    <span data-toggle="tooltip" title="验证通过">
+                    <i class="check-status fa fa-check-square-o" data-id="${(item.id)!}"
+                       data-status="FAILED"></i> ${item.content}
+                    </span>
+                </li>
+            <#elseif item.status=="FAILED">
+
+                <li class="${item.status?lower_case}">
+                     <span data-toggle="tooltip" title="验证不通过">
+                    <i class="check-status fa fa-square" data-id="${(item.id)!}" data-status="NONE"></i>
+                     ${item.content}
+                      </span>
+                </li>
+            <#else>
+                <li class="${item.status?lower_case}">
+                    <i class="check-status fa fa-square-o" data-id="${(item.id)!}" data-status="SUCCESS"></i>
+                ${item.content}
+                    <small>
+                        <em>
+                            <a href="#" data-id="${(item.id)!}" class="check-del">删除</a>
+                        </em>
+                    </small>
+                </li>
+            </#if>
+        </#list>
+    </ul>
+</div>
+</#if>
+
+<script>
+    $(function () {
+        $('.task-checks span').tooltip();
+    });
+</script>

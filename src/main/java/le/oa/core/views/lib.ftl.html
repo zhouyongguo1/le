@@ -106,3 +106,14 @@ ${weekDayOptions[weekDay]}
     });
 </script>
 </#macro>
+
+<#macro nl2br content="" maxCount=0>
+    <#noescape>
+        <#if maxCount gt 0 && content?length gt maxCount>
+        ${((content?substring(0,maxCount))?replace("\n", "<br/>"))?replace(" ", "&nbsp;")}
+        ……
+        <#else>
+        ${(content?replace("\n", "<br/>"))?replace(" ", "&nbsp;")}
+        </#if>
+    </#noescape>
+</#macro>

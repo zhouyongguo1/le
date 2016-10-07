@@ -1,5 +1,6 @@
 package le.oa.project.controllers.form;
 
+import le.oa.project.models.Priority;
 import le.oa.project.models.Task;
 
 import java.time.format.DateTimeFormatter;
@@ -11,7 +12,7 @@ public class TaskJson {
     private String content;
     private String status;
     private int points = 1;//任务点数
-    private int pri = 0;
+    private Priority priority = Priority.MEDIUM;
     private Integer ownerId;
     private String owner;
     private String planEndDate;
@@ -56,12 +57,12 @@ public class TaskJson {
         this.points = points;
     }
 
-    public int getPri() {
-        return pri;
+    public Priority getPriority() {
+        return priority;
     }
 
-    public void setPri(int pri) {
-        this.pri = pri;
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 
     public Integer getOwnerId() {
@@ -95,7 +96,7 @@ public class TaskJson {
         json.setContent(task.getContent());
         json.setStatus(task.getStatus().toString());
         json.setPoints(task.getPoints());
-        json.setPri(task.getPri());
+        json.setPriority(task.getPriority());
 
         if (task.getOwner() != null) {
             json.setOwnerId(task.getOwner().getId());
